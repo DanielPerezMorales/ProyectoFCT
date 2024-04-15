@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.view.Activity.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20sp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/hack"
+            android:layout_width="wrap_content"
+            android:layout_height="58dp"
+            android:layout_marginTop="30sp"
+            android:src="@drawable/ic_logo_iberdrola_cli" />
+
+        <EditText
+            android:id="@+id/etUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="140sp"
+            android:textSize="15sp"
+            android:hint="@string/usuario" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="40sp"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:inputType="textPassword"
+                android:hint="@string/contrase_a" />
+
+            <ImageButton
+                android:id="@+id/ojo_informacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:backgroundTint="@color/transparente"
+                android:src="@drawable/ojo" />
+        </FrameLayout>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/color_consumo"
+            android:text="@string/recordar_contrase_a" />
+
+        <TextView
+            android:id="@+id/TV_recuperarDatos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/he_olvidado_mis_datos"
+            android:textStyle="bold"
+            />
+
+        <Button
+            android:id="@+id/btnEntrar"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="130sp"
+            android:backgroundTint="@color/color_consumo"
+            android:text="@string/entrar" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="300sp"
+                android:layout_height="1dp"
+                app:dividerColor="@color/gris"
+                android:layout_gravity="center"
+                android:layout_marginVertical="22dp" />
+
+            <TextView
+                android:layout_width="120sp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/gris"
+                android:background="@color/white"
+                android:text="@string/tambi_n_puedes" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btnRegistrar"
+            android:layout_width="250dp"
+            android:layout_height="41dp"
+            android:layout_gravity="center"
+            android:background="@drawable/boton_disenio"
+            android:textColor="@color/color_consumo"
+            android:text="@string/registrarte" />
+    </LinearLayout>
+</LinearLayout>

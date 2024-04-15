@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.view.Fragment.Detalles_fragment"
+    android:layout_margin="15sp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cau"
+        android:textColor="@color/gris"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="CAU (Código Autoconsumo)"
+        android:layout_marginBottom="15sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/estado_solicitud"
+        android:textColor="@color/gris"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="CAU (Código Autoconsumo)"
+            android:layout_marginBottom="15sp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/informacion"
+            android:layout_gravity="right"
+            />
+    </FrameLayout>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tipo_autoconsumo"
+        android:textColor="@color/gris"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="CAU (Código Autoconsumo)"
+        android:layout_marginBottom="15sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/comprobacion_de_excedentes"
+        android:textColor="@color/gris"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="CAU (Código Autoconsumo)"
+        android:layout_marginBottom="15sp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/potencia_de_instalacion"
+        android:textColor="@color/gris"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="CAU (Código Autoconsumo)"
+        android:layout_marginBottom="15sp"
+        />
+
+</LinearLayout>

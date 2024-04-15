@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "365186897429",
+    "project_id": "proyecto-fct-19b31",
+    "storage_bucket": "proyecto-fct-19b31.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:365186897429:android:da1c95bc56e9b8a9e4a01c",
+        "android_client_info": {
+          "package_name": "com.example.proyectofct"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBndWxprQoJV_8zz2JMbUFck9szhPjd2kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

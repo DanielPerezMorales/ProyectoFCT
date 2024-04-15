@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name">ProyectoFCT</string>
+
+    <!-- Pantalla Principal -->
+    <string name="tvpractica1">Práctica 1</string>
+    <string name="tvpractica2">Práctica 2</string>
+    <string name="practicas_android">Prácticas Android</string>
+
+    <!-- Pantalla Facturas -->
+    <string name="facturas">Facturas</string>
+    <string name="consumo">Consumo</string>
+
+    <!-- Pantalla Filtrar Facturas -->
+    <string name="filtrar_facturas">Filtrar facturas</string>
+    <string name="fecha_emision">Con fecha de emisión</string>
+    <string name="filtrado_facturas_desde">Desde:</string>
+    <string name="filtrado_facturas_hasta">Hasta:</string>
+    <string name="por_un_importe">Por un importe</string>
+    <string name="por_estado">Por estado</string>
+    <string name="pagadas_check">Pagadas</string>
+    <string name="anuladas_check">Anuladas</string>
+    <string name="cuota_fija_check">Cuota Fija</string>
+    <string name="pendientes_de_pago_check">Pendientes de pago</string>
+    <string name="plan_de_pago_check">Plan de pago</string>
+    <string name="btn_filtrar">Aplicar</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="dia_mes_anio">dia/mes/año</string>
+
+    <!-- Pantalla Smart Solar -->
+    <string name="atras">Atras</string>
+    <string name="smart_solar">Smart Solar</string>
+    <string name="mi_instalacion_tab">Mi instalación</string>
+    <string name="Energia_tab">Energía</string>
+    <string name="detalles_tab">Detalles</string>
+
+    <!-- Pantalla Fragment Mi instalacion -->
+    <string name="TV_mi_instalación">Aquí tienes los datos de tu instalación fotovoltaica en tiempo real</string>
+    <string name="autoconsumo">Autoconsumo:</string>
+    <string name="porcentaje_autoconsumo">92%</string>
+
+    <!-- Pantalla Fragment Energia -->
+    <string name="TV_Energia">Estamos trabajando en mejorar la App. Tus paneles solares siguen produciendo, en breve podrás seguir viendo tu producción solar. Sentimos las molestias</string>
+
+    <!-- Pantalla Fragment Detalles -->
+    <string name="cau">CAU (Código Autoconsumo)</string>
+    <string name="estado_solicitud">Estado solicitud alta autoconsumidor</string>
+    <string name="tipo_autoconsumo">Tipo autoconsumo</string>
+    <string name="comprobacion_de_excedentes">Comprobación de excedentes</string>
+    <string name="potencia_de_instalacion">Potencia de instalación</string>
+
+    <!-- Pantalla Login -->
+    <string name="he_olvidado_mis_datos"><u>He olvidado mis datos</u></string>
+    <string name="registrarte">Registrarte</string>
+    <string name="tambi_n_puedes">También puedes</string>
+    <string name="recordar_contrase_a">Recordar contraseña</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="usuario">Usuario</string>
+    <string name="entrar">Entrar</string>
+
+    <!-- Pantalla SignUp -->
+    <string name="introduzca_un_email">Introduzca un email</string>
+    <string name="introduzca_una_contrasena">Introduzca una contraseña</string>
+    <string name="ir_al_inicio_de_sesi_n">Ir al inicio de sesión</string>
+    <string name="si_ya_tienes_una_cuenta_creada">Si ya tienes una cuenta creada</string>
+
+    <!-- Pantalla ForgotPassword -->
+    <string name="hint_ForgotPassword">Escribe el email al cuál quieres reestablecer su contraseña</string>
+    <string name="enviar">Enviar</string>
+    <string name="si_ya_te_has_acordado">Si ya te has acordado</string>
+</resources>

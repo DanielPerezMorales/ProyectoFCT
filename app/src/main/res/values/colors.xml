@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="color_consumo">#8ABB2F</color>
+    <color name="color_consumo_2.0">#5C439F</color>
+    <color name="color_estado_factura">#FA4A4A</color>
+    <color name="gris">#838181</color>
+    <color name="gris_boton">#C8C4C4</color>
+    <color name="transparente">#00F44336</color>
+</resources>
