@@ -16,6 +16,10 @@ class FacturaAdapter_RV (
         notifyDataSetChanged()
     }
 
+    fun getList(): List<facturaItem> {
+        return FacturaList
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacturaViewHolder {
         val layout = LayoutInflater.from(parent.context)
         return FacturaViewHolder(layout.inflate(R.layout.item, parent, false))
