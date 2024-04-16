@@ -13,6 +13,7 @@ import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
 import com.example.proyectofct.databinding.ActivityFiltrarFacturasBinding
+import com.example.proyectofct.di.RoomModule
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.CoroutineScope
@@ -21,7 +22,7 @@ import kotlinx.coroutines.launch
 
 class Filtrar_Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFiltrarFacturasBinding
-    private var alert=Alert()
+    private var alert = Alert()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +53,7 @@ class Filtrar_Facturas : AppCompatActivity() {
 
         selectDate()
         delete()
+        apply()
     }
 
     private fun selectDate() {
@@ -85,9 +87,9 @@ class Filtrar_Facturas : AppCompatActivity() {
 
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
         if (boton.equals("Desde")) {
-            binding.btnCalendarDesde.setText("$year/$month/$day")
+            binding.btnCalendarDesde.setText("$year/${month+1}/$day")
         } else {
-            binding.btnCalendarHasta.setText("$year/$month/$day")
+            binding.btnCalendarHasta.setText("$year/${month+1}/$day")
         }
     }
 
@@ -106,7 +108,27 @@ class Filtrar_Facturas : AppCompatActivity() {
 
     private fun apply() {
         binding.btnAplicar.setOnClickListener {
-
+            val fechaInicio = binding.btnCalendarDesde.text.toString()
+            val fechaFinal = binding.btnCalendarHasta.text.toString()
+            var precio: Float = 0.0F
+            binding.volumeRange.addOnChangeListener { _, value, _ ->
+                Log.i("Dani", "el valor es $value")
+                CoroutineScope(Dispatchers.IO).launch {
+                    precio=value
+                }
+            }
+            var check_Pendiente: String? = null
+            if (binding.ChckPendientesDePago.isChecked) {
+                check_Pendiente = binding.ChckPendientesDePago.text.toString()
+            }
+            if (check_Pendiente != null) {
+                val intent = Intent(this, Facturas::class.java)
+                intent.putExtra("fechaInicio", fechaInicio)
+                intent.putExtra("fechaFinal", fechaFinal)
+                intent.putExtra("precio", precio)
+                intent.putExtra("check_Pendiente", check_Pendiente)
+                startActivity(intent)
+            }
         }
     }
 }

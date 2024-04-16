@@ -17,10 +17,10 @@
     <string name="filtrado_facturas_hasta">Hasta:</string>
     <string name="por_un_importe">Por un importe</string>
     <string name="por_estado">Por estado</string>
-    <string name="pagadas_check">Pagadas</string>
+    <string name="pagadas_check">Pagada</string>
     <string name="anuladas_check">Anuladas</string>
     <string name="cuota_fija_check">Cuota Fija</string>
-    <string name="pendientes_de_pago_check">Pendientes de pago</string>
+    <string name="pendientes_de_pago_check">Pendiente de pago</string>
     <string name="plan_de_pago_check">Plan de pago</string>
     <string name="btn_filtrar">Aplicar</string>
     <string name="eliminar">Eliminar</string>
