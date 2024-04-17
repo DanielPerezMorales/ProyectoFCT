@@ -4,6 +4,7 @@ package com.example.proyectofct.data.model
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
+import java.util.Date
 
 data class modelo_Factura(
     @SerializedName("numFacturas") val numFacturas: String,
@@ -13,7 +14,7 @@ data class modelo_Factura(
 data class facturaItem(
     @SerializedName("descEstado") val descEstado: String,
     @SerializedName("importeOrdenacion") val importeOrdenacion: Float,
-    @SerializedName("fecha") val fecha: String
+    @SerializedName("fecha") val fecha: Date
 )
 
 fun facturaItem.toFacturaEntity(): FacturaEntity {

@@ -16,8 +16,8 @@ interface Factura_dao {
     @Query("SELECT * FROM factura_tabla WHERE strftime('%d-%m-%Y', fecha) BETWEEN :fechaDesde AND :fechaHasta AND estado = :estado AND precio >= :precio")
     suspend fun getFacturasFiltradas(fechaDesde: String, fechaHasta: String, estado: String, precio: Float):List<FacturaEntity>
 
-    @Query("SELECT * FROM factura_tabla WHERE strftime('%d/%m/%Y', fecha) BETWEEN :fechaDesde AND :fechaHasta")
-    suspend fun getFacturasFiltradasPorFecha(fechaDesde: String, fechaHasta: String): List<FacturaEntity>
+    @Query("SELECT * FROM factura_tabla WHERE fecha BETWEEN :fechaDesde AND :fechaHasta")
+    suspend fun getFacturasFiltradasPorFecha(fechaDesde: Date, fechaHasta: Date): List<FacturaEntity>
 
 
     @Query("SELECT * FROM factura_tabla WHERE estado = :estado")

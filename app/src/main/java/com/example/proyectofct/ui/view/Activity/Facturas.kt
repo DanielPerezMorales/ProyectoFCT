@@ -26,6 +26,7 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.Date
 
 class Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFacturasBinding
@@ -144,7 +145,7 @@ class Facturas : AppCompatActivity() {
         return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorEstado(estado)
     }
 
-    private suspend fun filtredFecha(fechaInicial:String,fechaFinal: String):List<FacturaEntity>{
+    private suspend fun filtredFecha(fechaInicial:Date,fechaFinal: Date):List<FacturaEntity>{
         return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorFecha(fechaInicial,fechaFinal)
     }
 

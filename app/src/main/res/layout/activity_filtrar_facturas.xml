@@ -143,10 +143,8 @@
             android:backgroundTint="@color/color_consumo"
             android:stepSize="1"
             android:valueFrom="0"
-            android:valueTo="100"
-            app:haloColor="@color/color_consumo"
-            app:thumbColor="@color/color_consumo"
-            app:thumbStrokeColor="@color/color_consumo" />
+            style="@style/CustomRangeSlider"
+            android:valueTo="100" />
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"

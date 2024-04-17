@@ -10,7 +10,7 @@ import java.util.Date
 data class FacturaEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name="id") val id:Int=0,
-    @ColumnInfo(name = "fecha") val fecha: String,
+    @ColumnInfo(name = "fecha") val fecha: Date,
     @ColumnInfo(name = "estado") val estado: String,
     @ColumnInfo(name = "precio") val precio: Float
 )
