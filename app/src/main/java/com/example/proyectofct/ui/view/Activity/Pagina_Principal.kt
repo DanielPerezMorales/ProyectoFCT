@@ -38,6 +38,11 @@ class Pagina_Principal : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.ibNavegacion.setOnClickListener{
+            val intent=Intent(this, Activity_Navegacion::class.java)
+            startActivity(intent)
+        }
+
         val configSettings:FirebaseRemoteConfigSettings= remoteConfigSettings {
             minimumFetchIntervalInSeconds=0
         }

@@ -67,4 +67,8 @@
     <string name="hint_ForgotPassword">Escribe el email al cuál quieres reestablecer su contraseña</string>
     <string name="enviar">Enviar</string>
     <string name="si_ya_te_has_acordado">Si ya te has acordado</string>
+    <string name="navegacion">Navegación</string>
+    <string name="abrir_navegador_externo">Abrir Navegador externo</string>
+    <string name="abrir_webview">Abrir Webview</string>
+    <string name="TV_Navegacion">Desde una aplicación Android, se puede acceder a páginas webs, mediante el navegador externo o mediante Webviews</string>
 </resources>
