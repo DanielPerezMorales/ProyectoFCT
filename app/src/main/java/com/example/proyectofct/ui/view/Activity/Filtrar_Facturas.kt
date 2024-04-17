@@ -50,10 +50,13 @@ class Filtrar_Facturas : AppCompatActivity() {
             }
         }
 
+        binding.volumeRange.addOnChangeListener{_,value,_ ->
+            Log.i("TAG","$value")
+            apply(value)
+        }
 
         selectDate()
         delete()
-        apply()
     }
 
     private fun selectDate() {
@@ -87,9 +90,33 @@ class Filtrar_Facturas : AppCompatActivity() {
 
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
         if (boton.equals("Desde")) {
-            binding.btnCalendarDesde.setText("$year/${month+1}/$day")
+            if (month < 10) {
+                if (day < 10) {
+                    binding.btnCalendarDesde.setText("0$day/0${month + 1}/$year")
+                } else {
+                    binding.btnCalendarDesde.setText("$day/0${month + 1}/$year")
+                }
+            } else {
+                if (day < 10) {
+                    binding.btnCalendarDesde.setText("0$day/${month + 1}/$year")
+                } else {
+                    binding.btnCalendarDesde.setText("$day/${month + 1}/$year")
+                }
+            }
         } else {
-            binding.btnCalendarHasta.setText("$year/${month+1}/$day")
+            if (month < 10) {
+                if (day < 10) {
+                    binding.btnCalendarHasta.setText("0$day/0${month + 1}/$year")
+                } else {
+                    binding.btnCalendarHasta.setText("$day/0${month + 1}/$year")
+                }
+            } else {
+                if (day < 10) {
+                    binding.btnCalendarHasta.setText("0$day/${month + 1}/$year")
+                } else {
+                    binding.btnCalendarHasta.setText("$day/${month + 1}/$year")
+                }
+            }
         }
     }
 
@@ -106,29 +133,23 @@ class Filtrar_Facturas : AppCompatActivity() {
         }
     }
 
-    private fun apply() {
+    private fun apply(value:Float) {
         binding.btnAplicar.setOnClickListener {
             val fechaInicio = binding.btnCalendarDesde.text.toString()
             val fechaFinal = binding.btnCalendarHasta.text.toString()
-            var precio: Float = 0.0F
-            binding.volumeRange.addOnChangeListener { _, value, _ ->
-                Log.i("Dani", "el valor es $value")
-                CoroutineScope(Dispatchers.IO).launch {
-                    precio=value
-                }
-            }
+            var precio: Float = value
             var check_Pendiente: String? = null
             if (binding.ChckPendientesDePago.isChecked) {
                 check_Pendiente = binding.ChckPendientesDePago.text.toString()
             }
-            if (check_Pendiente != null) {
-                val intent = Intent(this, Facturas::class.java)
-                intent.putExtra("fechaInicio", fechaInicio)
-                intent.putExtra("fechaFinal", fechaFinal)
-                intent.putExtra("precio", precio)
-                intent.putExtra("check_Pendiente", check_Pendiente)
-                startActivity(intent)
-            }
+
+            val intent = Intent(this, Facturas::class.java)
+            intent.putExtra("fechaInicio", fechaInicio)
+            intent.putExtra("fechaFinal", fechaFinal)
+            intent.putExtra("precio", precio)
+            intent.putExtra("check_Pendiente", check_Pendiente)
+            startActivity(intent)
+
         }
     }
 }

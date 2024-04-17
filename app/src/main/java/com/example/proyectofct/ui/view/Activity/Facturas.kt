@@ -103,7 +103,6 @@ class Facturas : AppCompatActivity() {
                 if (response != null) {
                     deleteRoom()
                     insertAllOnRoom(response.facturas)
-                    showRoom()
                 }
             }
         } else {
@@ -114,9 +113,7 @@ class Facturas : AppCompatActivity() {
             var lista: List<FacturaEntity> = listOf()
             CoroutineScope(Dispatchers.IO).launch {
                 if (fechaInicio != null && fechaFinal != null && check_Pendiente != null && precio != null) {
-                    //lista = showListFiltred(fechaInicio, fechaFinal, check_Pendiente, precio)
-                    lista = djwd(check_Pendiente)
-
+                    lista = filtrePrecio(precio)
                 }
                 runOnUiThread {
                     adapter.updateList(lista.map { it.toFacturaItem() })
@@ -129,14 +126,6 @@ class Facturas : AppCompatActivity() {
     private suspend fun insertAllOnRoom(lista: List<facturaItem>) {
         val lista_entity: List<FacturaEntity> = lista.map { it.toFacturaEntity() }
         facturaModule.provideRoom(this).getFactureDao().insertAll(lista_entity)
-    }
-
-    private suspend fun showRoom() {
-        val lista_entity: List<FacturaEntity> =
-            facturaModule.provideRoom(this).getFactureDao().getAllFacturas()
-        for (i in lista_entity) {
-            Log.i("TAG LISTA", "$i]")
-        }
     }
 
     private suspend fun deleteRoom() {
@@ -153,6 +142,14 @@ class Facturas : AppCompatActivity() {
 
     private suspend fun djwd(estado:String): List<FacturaEntity> {
         return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorEstado(estado)
+    }
+
+    private suspend fun filtredFecha(fechaInicial:String,fechaFinal: String):List<FacturaEntity>{
+        return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorFecha(fechaInicial,fechaFinal)
+    }
+
+    private suspend fun filtrePrecio(precio:Float):List<FacturaEntity>{
+        return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorPrecio(precio)
     }
 
     /*private fun setup(){
