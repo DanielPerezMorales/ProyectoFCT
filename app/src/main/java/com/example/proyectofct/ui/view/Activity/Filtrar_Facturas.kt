@@ -10,8 +10,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofct.R
-import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
+import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.ActivityFiltrarFacturasBinding
 import com.example.proyectofct.di.RoomModule
 import com.google.firebase.ktx.Firebase
@@ -19,10 +19,14 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.ArrayList
+import java.util.Date
 
 class Filtrar_Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFiltrarFacturasBinding
-    private var alert = Alert()
+    private var precio: Float = 0.0f
+    private val facturaModule = RoomModule
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +54,18 @@ class Filtrar_Facturas : AppCompatActivity() {
             }
         }
 
-        binding.volumeRange.addOnChangeListener{_,value,_ ->
-            Log.i("TAG","$value")
-            apply(value)
+        binding.volumeRange.addOnChangeListener { _, value, _ ->
+            saveVolume(value)
         }
 
+        binding.btnAplicar.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val listaFiltrada: List<FacturaEntity> =apply(precio)
+                val intent=Intent(this@Filtrar_Facturas,Facturas::class.java)
+                intent.putExtra("ListaFiltrada", ArrayList(listaFiltrada))
+                startActivity(intent)
+            }
+        }
         selectDate()
         delete()
     }
@@ -86,6 +97,10 @@ class Filtrar_Facturas : AppCompatActivity() {
             }
             fecha_Hasta!!.show(supportFragmentManager, "DATE_PICKER")
         }
+    }
+
+    private fun saveVolume(value: Float) {
+        precio = value
     }
 
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
@@ -133,23 +148,47 @@ class Filtrar_Facturas : AppCompatActivity() {
         }
     }
 
-    private fun apply(value:Float) {
-        binding.btnAplicar.setOnClickListener {
-            val fechaInicio = binding.btnCalendarDesde.text.toString()
-            val fechaFinal = binding.btnCalendarHasta.text.toString()
-            var precio: Float = value
-            var check_Pendiente: String? = null
-            if (binding.ChckPendientesDePago.isChecked) {
-                check_Pendiente = binding.ChckPendientesDePago.text.toString()
+    private suspend fun apply(value: Float): List<FacturaEntity> {
+        val lista = facturaModule.provideRoom(this).getFactureDao().getAllFacturas()
+        val listaReturn: MutableList<FacturaEntity> = mutableListOf()
+        val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+            val DateFechaInicio: Date? =
+                formatoFecha.parse(binding.btnCalendarDesde.text.toString())
+            val DateFechaFinal: Date? = formatoFecha.parse(binding.btnCalendarHasta.text.toString())
+            val listaCheck: MutableList<String> = checkBox()
+            for (i in lista) {
+                if (DateFechaInicio?.compareTo(i.fecha)!! < 0) {
+                    if (DateFechaFinal?.compareTo(i.fecha)!! > 0) {
+                        if (value <= i.precio) {
+                            if (listaCheck == null) {
+                                listaReturn.add(i)
+                            } else {
+                                for (j in listaCheck) {
+                                    if (j == i.estado) {
+                                        listaReturn.add(i)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
+        return listaReturn.toList()
+    }
 
-            val intent = Intent(this, Facturas::class.java)
-            intent.putExtra("fechaInicio", fechaInicio)
-            intent.putExtra("fechaFinal", fechaFinal)
-            intent.putExtra("precio", precio)
-            intent.putExtra("check_Pendiente", check_Pendiente)
-            startActivity(intent)
-
+    private fun checkBox(): MutableList<String> {
+        val entrees: MutableList<String> = mutableListOf()
+        if (binding.ChckPagadas.isChecked) {
+            entrees.add(binding.ChckPagadas.text.toString())
+        } else if (binding.ChckAnuladas.isChecked) {
+            entrees.add(binding.ChckAnuladas.text.toString())
+        } else if (binding.ChckCuotaFija.isChecked) {
+            entrees.add(binding.ChckCuotaFija.text.toString())
+        } else if (binding.ChckPendientesDePago.isChecked) {
+            entrees.add(binding.ChckPendientesDePago.text.toString())
+        } else if (binding.ChckPlanDePago.isChecked) {
+            entrees.add(binding.ChckPlanDePago.text.toString())
         }
+        return entrees
     }
 }

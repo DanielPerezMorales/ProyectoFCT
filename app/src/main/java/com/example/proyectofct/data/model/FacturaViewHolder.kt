@@ -8,7 +8,7 @@ class FacturaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = ItemBinding.bind(view)
 
     fun bind(superHeroItemResponse: facturaItem, onItemSelected: (String) -> Unit) {
-        binding.TVfechaFactura.text = superHeroItemResponse.fecha.toString()
+        binding.TVfechaFactura.text = superHeroItemResponse.fecha
         if(superHeroItemResponse.descEstado != "Pagada") {
             binding.TVestadoFactura.text = superHeroItemResponse.descEstado
         } else {
@@ -17,7 +17,7 @@ class FacturaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var dinero = superHeroItemResponse.importeOrdenacion
         binding.TVDinero.text = "$dinero€"
         binding.root.setOnClickListener{
-            onItemSelected(superHeroItemResponse.fecha.toString())
+            onItemSelected(superHeroItemResponse.fecha)
         }
     }
 }

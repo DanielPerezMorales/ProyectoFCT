@@ -70,5 +70,10 @@ dependencies {
     //Room
     implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+    //Mock
+    testImplementation("org.mockito:mockito-core:3.12.4")
+    testImplementation("org.mockito:mockito-inline:3.12.4")
+    implementation ("co.infinum:retromock:1.1.0")
+
 
 }

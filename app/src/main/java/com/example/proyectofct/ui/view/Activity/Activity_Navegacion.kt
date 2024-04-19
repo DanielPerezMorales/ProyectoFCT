@@ -27,7 +27,6 @@ class Activity_Navegacion : AppCompatActivity() {
 
         binding.botonWeb.setOnClickListener {
             val link=Uri.parse(LINK_IBERDROLA)
-            binding.WB.clearHistory()
             binding.WB.loadUrl("")
             val intent= Intent(Intent.ACTION_VIEW, link)
             startActivity(intent)

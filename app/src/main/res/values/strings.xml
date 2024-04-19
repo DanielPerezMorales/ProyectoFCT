@@ -71,4 +71,5 @@
     <string name="abrir_navegador_externo">Abrir Navegador externo</string>
     <string name="abrir_webview">Abrir Webview</string>
     <string name="TV_Navegacion">Desde una aplicación Android, se puede acceder a páginas webs, mediante el navegador externo o mediante Webviews</string>
+    <string name="activar_mock">Activar Mock</string>
 </resources>

@@ -14,11 +14,13 @@ data class modelo_Factura(
 data class facturaItem(
     @SerializedName("descEstado") val descEstado: String,
     @SerializedName("importeOrdenacion") val importeOrdenacion: Float,
-    @SerializedName("fecha") val fecha: Date
+    @SerializedName("fecha") val fecha: String
 )
 
 fun facturaItem.toFacturaEntity(): FacturaEntity {
-    val entity = FacturaEntity(fecha = fecha, estado = descEstado, precio = importeOrdenacion)
+    val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+    val dateFecha=formatoFecha.parse(fecha)
+    val entity = FacturaEntity(fecha = dateFecha!!, estado = descEstado, precio = importeOrdenacion)
     return entity
 }
 

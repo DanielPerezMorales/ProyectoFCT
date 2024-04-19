@@ -26,7 +26,6 @@ import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Date
 
 class Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFacturasBinding
@@ -34,7 +33,7 @@ class Facturas : AppCompatActivity() {
     private val facturaService = FacturaService()
     private val alert = Alert()
     private val facturaModule = RoomModule
-    private var bundle: Bundle? = null
+    private var bundleFiltrar: Bundle? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,13 +45,13 @@ class Facturas : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        bundle = intent.extras
+        bundleFiltrar = intent.extras
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
                 val visualizarListado =
                     Firebase.remoteConfig.getBoolean("Visualizacion_ListadoFacturas")
                 if (visualizarListado) {
-                    if (bundle == null) {
+                    if (bundleFiltrar == null) {
                         initUI(true)
                     } else {
                         initUI(false)
@@ -81,48 +80,80 @@ class Facturas : AppCompatActivity() {
         }
     }
 
-    private fun initUI(bool: Boolean) {
+    private fun initUI(room:Boolean) {
         adapter = FacturaAdapter_RV { showInformation() }
         binding.RVFacturas.layoutManager = LinearLayoutManager(this)
         binding.RVFacturas.adapter = adapter
         binding.RVFacturas.setHasFixedSize(true)
-        putFacturasOnRecycler(bool)
+        putFacturasOnRecycler(room)
     }
 
-    private fun putFacturasOnRecycler(room: Boolean) {
+    private fun putFacturasOnRecycler(room:Boolean) {
         binding.PB.isVisible = true
         if (room) {
             CoroutineScope(Dispatchers.IO).launch {
                 val response = facturaService.getFacturas()
-                runOnUiThread {
-                    if (response != null) {
+                if (response != null) {
+                    runOnUiThread {
                         //Log.i("PRUEBA", "FUNCIONAAAA")
                         adapter.updateList(response.facturas)
                         binding.PB.isVisible = false
                     }
-                }
-                if (response != null) {
+                    Log.i("FACTURAS_LIST","DATOS INTRODUCIDOS POR API")
                     deleteRoom()
                     insertAllOnRoom(response.facturas)
+                } else {
+                    val lista=showRoom()
+                    runOnUiThread{
+                        adapter.updateList(lista.map{it.toFacturaItem()})
+                        binding.PB.isVisible = false
+                    }
+                    Log.i("FACTURAS_LIST","DATOS INTRODUCIDOS POR ROOM")
                 }
             }
         } else {
-            val fechaInicio = bundle?.getString("fechaInicio")
-            val fechaFinal = bundle?.getString("fechaFinal")
-            val precio = bundle?.getFloat("precio")
-            val check_Pendiente = bundle?.getString("check_Pendiente")
-            var lista: List<FacturaEntity> = listOf()
+            val lista: ArrayList<FacturaEntity>? = intent.getSerializableExtra("ListaFiltrada") as? ArrayList<FacturaEntity>
+            Log.i("TAG FILTRADO YA","$lista")
             CoroutineScope(Dispatchers.IO).launch {
-                if (fechaInicio != null && fechaFinal != null && check_Pendiente != null && precio != null) {
-                    lista = filtrePrecio(precio)
-                }
                 runOnUiThread {
-                    adapter.updateList(lista.map { it.toFacturaItem() })
+                    if (lista != null) {
+                        adapter.updateList(lista.map { it.toFacturaItem() })
+                    }
                     binding.PB.isVisible = false
                 }
             }
         }
     }
+
+    private fun checkBoxBundle(): MutableList<String> {
+        val lista:MutableList<String> = mutableListOf()
+        val check_pagadas=bundleFiltrar?.getString("Pagada")
+        if (check_pagadas!=null){
+            lista.add(check_pagadas)
+        }
+        val check_Anuladas=bundleFiltrar?.getString("Anuladas")
+        if (check_Anuladas!=null){
+            lista.add(check_Anuladas)
+        }
+        val check_cuota=bundleFiltrar?.getString("Cuota Fija")
+        if (check_cuota!=null){
+            lista.add(check_cuota)
+        }
+        val check_Pendiente=bundleFiltrar?.getString("Pendientes de pago")
+        if (check_Pendiente!=null){
+            lista.add(check_Pendiente)
+        }
+        val check_Plan=bundleFiltrar?.getString("Plan de pago")
+        if (check_Plan!=null){
+            lista.add(check_Plan)
+        }
+        return lista
+    }
+
+    private suspend fun showRoom(): List<FacturaEntity> {
+        return facturaModule.provideRoom(this).getFactureDao().getAllFacturas()
+    }
+
 
     private suspend fun insertAllOnRoom(lista: List<facturaItem>) {
         val lista_entity: List<FacturaEntity> = lista.map { it.toFacturaEntity() }
@@ -136,28 +167,4 @@ class Facturas : AppCompatActivity() {
     private fun showInformation() {
         alert.showAlertInformation("Información", "Esta funcionalidad aún no está disponible", this)
     }
-
-    private suspend fun showListFiltred(fechaInicio: String, fechaFinal: String, check_Pendiente: String, precio: Float): List<FacturaEntity> {
-        return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradas(fechaInicio, fechaFinal, check_Pendiente, precio)
-    }
-
-    private suspend fun djwd(estado:String): List<FacturaEntity> {
-        return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorEstado(estado)
-    }
-
-    private suspend fun filtredFecha(fechaInicial:Date,fechaFinal: Date):List<FacturaEntity>{
-        return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorFecha(fechaInicial,fechaFinal)
-    }
-
-    private suspend fun filtrePrecio(precio:Float):List<FacturaEntity>{
-        return facturaModule.provideRoom(this).getFactureDao().getFacturasFiltradasPorPrecio(precio)
-    }
-
-    /*private fun setup(){
-        val bundle = intent.extras
-        val dinero = bundle?.getInt("dinero")
-        val isPaid = bundle?.getBoolean("check_pagadas")
-        val isPendiente=bundle?.getBoolean("check_pendientes")
-        Log.i("DANI","$dinero ,,,,,,, $isPaid,,,,,,,,,,,,,$isPendiente")
-    }*/
 }

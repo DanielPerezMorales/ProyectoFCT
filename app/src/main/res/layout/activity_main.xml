@@ -6,18 +6,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.view.Activity.Pagina_Principal" >
+    tools:context=".ui.view.Activity.Pagina_Principal">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/practicas_android"
         android:layout_marginHorizontal="15sp"
-        android:layout_marginBottom="30sp"
         android:layout_marginTop="75sp"
-        android:textSize="25sp"
+        android:layout_marginBottom="30sp"
+        android:text="@string/practicas_android"
         android:textColor="@color/black"
-        />
+        android:textSize="25sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,34 +26,35 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:padding="10sp"
                 android:text="@string/tvpractica1"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:padding="10sp"
-                android:layout_marginStart="10sp"
-                />
+                android:textSize="20sp" />
         </LinearLayout>
+
         <ImageButton
             android:id="@+id/ibPractica1"
-            android:background="@color/white"
-            android:layout_margin="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:background="@color/white"
             app:srcCompat="@drawable/baseline_arrow_forward_ios_24" />
 
 
     </LinearLayout>
+
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="8dp"/>
+        android:layout_marginVertical="8dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -64,28 +64,27 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:padding="10sp"
                 android:text="@string/tvpractica2"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:padding="10sp"
-                android:layout_marginStart="10sp"
-                />
+                android:textSize="20sp" />
 
         </LinearLayout>
 
         <ImageButton
             android:id="@+id/ibPractica2"
-            android:background="@color/white"
-            android:layout_margin="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:background="@color/white"
             app:srcCompat="@drawable/baseline_arrow_forward_ios_24" />
 
     </LinearLayout>
@@ -93,7 +92,8 @@
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="8dp"/>
+        android:layout_marginVertical="8dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,31 +102,68 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:padding="10sp"
                 android:text="@string/navegacion"
                 android:textColor="@color/black"
-                android:textSize="20sp"
-                android:padding="10sp"
-                android:layout_marginStart="10sp"
-                />
+                android:textSize="20sp" />
         </LinearLayout>
+
         <ImageButton
             android:id="@+id/ibNavegacion"
-            android:background="@color/white"
-            android:layout_margin="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16sp"
+            android:background="@color/white"
             app:srcCompat="@drawable/baseline_arrow_forward_ios_24" />
     </LinearLayout>
+
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginVertical="8dp"/>
+        android:layout_marginVertical="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10sp"
+                android:padding="10sp"
+                android:text="@string/activar_mock"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/SW_Mock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16sp"/>
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="8dp" />
+
+
 </LinearLayout>
 

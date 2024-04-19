@@ -5,7 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.proyectofct.R
+import com.example.proyectofct.data.model.Modelo_Detalles
+import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,35 +19,27 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class Detalles_fragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var binding: FragmentDetallesFragmentBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detalles_fragment, container, false)
+    ): View {
+        binding = FragmentDetallesFragmentBinding.inflate(layoutInflater)
+        val response =obtenerDatos()
+        binding.etCAU.setText(response.CAU)
+        binding.etPotencia.setText(response.Potencia)
+        binding.etAutoConsumo.setText(response.Tipo)
+        binding.etExcedentes.setText(response.Excedentes)
+        binding.etEstado.setText(response.solicitud)
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Detalles_fragment.
-         */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
@@ -56,5 +49,9 @@ class Detalles_fragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    private fun obtenerDatos():Modelo_Detalles{
+        return Modelo_Detalles("ES0021000000001994LJ1FA000", "No hemos recibido ninguna solicitud de autoconsumo", "Con excendentes y compensacion individual Consumo", "Precio PVPC", "5kWp")
     }
 }

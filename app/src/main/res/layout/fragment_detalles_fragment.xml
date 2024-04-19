@@ -15,6 +15,7 @@
         />
 
     <EditText
+        android:id="@+id/etCAU"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="CAU (Código Autoconsumo)"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/etEstado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="CAU (Código Autoconsumo)"
@@ -57,6 +59,7 @@
         />
 
     <EditText
+        android:id="@+id/etAutoConsumo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="CAU (Código Autoconsumo)"
@@ -71,6 +74,7 @@
         />
 
     <EditText
+        android:id="@+id/etExcedentes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="CAU (Código Autoconsumo)"
@@ -85,6 +89,7 @@
         />
 
     <EditText
+        android:id="@+id/etPotencia"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="CAU (Código Autoconsumo)"
