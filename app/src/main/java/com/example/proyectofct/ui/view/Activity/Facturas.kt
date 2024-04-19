@@ -125,31 +125,6 @@ class Facturas : AppCompatActivity() {
         }
     }
 
-    private fun checkBoxBundle(): MutableList<String> {
-        val lista:MutableList<String> = mutableListOf()
-        val check_pagadas=bundleFiltrar?.getString("Pagada")
-        if (check_pagadas!=null){
-            lista.add(check_pagadas)
-        }
-        val check_Anuladas=bundleFiltrar?.getString("Anuladas")
-        if (check_Anuladas!=null){
-            lista.add(check_Anuladas)
-        }
-        val check_cuota=bundleFiltrar?.getString("Cuota Fija")
-        if (check_cuota!=null){
-            lista.add(check_cuota)
-        }
-        val check_Pendiente=bundleFiltrar?.getString("Pendientes de pago")
-        if (check_Pendiente!=null){
-            lista.add(check_Pendiente)
-        }
-        val check_Plan=bundleFiltrar?.getString("Plan de pago")
-        if (check_Plan!=null){
-            lista.add(check_Plan)
-        }
-        return lista
-    }
-
     private suspend fun showRoom(): List<FacturaEntity> {
         return facturaModule.provideRoom(this).getFactureDao().getAllFacturas()
     }

@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofct.R
+import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.ActivityFiltrarFacturasBinding
@@ -27,6 +28,7 @@ class Filtrar_Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFiltrarFacturasBinding
     private var precio: Float = 0.0f
     private val facturaModule = RoomModule
+    private val alert = Alert()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,10 +62,18 @@ class Filtrar_Facturas : AppCompatActivity() {
 
         binding.btnAplicar.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val listaFiltrada: List<FacturaEntity> =apply(precio)
-                val intent=Intent(this@Filtrar_Facturas,Facturas::class.java)
-                intent.putExtra("ListaFiltrada", ArrayList(listaFiltrada))
-                startActivity(intent)
+                val listaFiltrada: List<FacturaEntity> = apply(precio)
+                if (listaFiltrada == null) {
+                    alert.showAlert(
+                        "ERROR",
+                        "No se ha encontrado ninguna factura con estas características",
+                        this@Filtrar_Facturas
+                    )
+                } else {
+                    val intent = Intent(this@Filtrar_Facturas, Facturas::class.java)
+                    intent.putExtra("ListaFiltrada", ArrayList(listaFiltrada))
+                    startActivity(intent)
+                }
             }
         }
         selectDate()
@@ -105,7 +115,7 @@ class Filtrar_Facturas : AppCompatActivity() {
 
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
         if (boton.equals("Desde")) {
-            if (month < 10) {
+            if (month + 1 < 10) {
                 if (day < 10) {
                     binding.btnCalendarDesde.setText("0$day/0${month + 1}/$year")
                 } else {
@@ -152,43 +162,44 @@ class Filtrar_Facturas : AppCompatActivity() {
         val lista = facturaModule.provideRoom(this).getFactureDao().getAllFacturas()
         val listaReturn: MutableList<FacturaEntity> = mutableListOf()
         val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
-            val DateFechaInicio: Date? =
-                formatoFecha.parse(binding.btnCalendarDesde.text.toString())
-            val DateFechaFinal: Date? = formatoFecha.parse(binding.btnCalendarHasta.text.toString())
-            val listaCheck: MutableList<String> = checkBox()
-            for (i in lista) {
-                if (DateFechaInicio?.compareTo(i.fecha)!! < 0) {
-                    if (DateFechaFinal?.compareTo(i.fecha)!! > 0) {
-                        if (value <= i.precio) {
-                            if (listaCheck == null) {
-                                listaReturn.add(i)
-                            } else {
-                                for (j in listaCheck) {
-                                    if (j == i.estado) {
-                                        listaReturn.add(i)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+        val fechaInicioText = binding.btnCalendarDesde.text.toString()
+        val fechaFinText = binding.btnCalendarHasta.text.toString()
+        val listaCheck: MutableList<String> = checkBox()
+
+        val fechaInicio = if (fechaInicioText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaInicioText) else null
+        val fechaFin = if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
+
+        for (i in lista) {
+            
+            val fechaDentroRango = (fechaInicio == null || fechaInicio <= i.fecha) && (fechaFin == null || i.fecha <= fechaFin)
+
+            if (fechaDentroRango && value <= i.precio && (listaCheck.isEmpty() || listaCheck.contains(i.estado))) {
+                listaReturn.add(i)
             }
+        }
+
         return listaReturn.toList()
     }
+
 
     private fun checkBox(): MutableList<String> {
         val entrees: MutableList<String> = mutableListOf()
         if (binding.ChckPagadas.isChecked) {
             entrees.add(binding.ChckPagadas.text.toString())
-        } else if (binding.ChckAnuladas.isChecked) {
+        }
+        if (binding.ChckAnuladas.isChecked) {
             entrees.add(binding.ChckAnuladas.text.toString())
-        } else if (binding.ChckCuotaFija.isChecked) {
+        }
+        if (binding.ChckCuotaFija.isChecked) {
             entrees.add(binding.ChckCuotaFija.text.toString())
-        } else if (binding.ChckPendientesDePago.isChecked) {
+        }
+        if (binding.ChckPendientesDePago.isChecked) {
             entrees.add(binding.ChckPendientesDePago.text.toString())
-        } else if (binding.ChckPlanDePago.isChecked) {
+        }
+        if (binding.ChckPlanDePago.isChecked) {
             entrees.add(binding.ChckPlanDePago.text.toString())
         }
+        Log.i("TAG", "$entrees")
         return entrees
     }
 }
