@@ -2,7 +2,7 @@ package com.example.proyectofct.ui.view.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,7 +13,6 @@ import com.example.proyectofct.databinding.ActivityMainBinding
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
 
 class Pagina_Principal : AppCompatActivity() {
@@ -31,6 +30,7 @@ class Pagina_Principal : AppCompatActivity() {
 
         binding.ibPractica1.setOnClickListener{
             val intent=Intent(this, Facturas::class.java)
+            intent.putExtra("Mock",binding.SWMock.isChecked)
             startActivity(intent)
         }
 
@@ -42,6 +42,14 @@ class Pagina_Principal : AppCompatActivity() {
         binding.ibNavegacion.setOnClickListener{
             val intent=Intent(this, Activity_Navegacion::class.java)
             startActivity(intent)
+        }
+
+        binding.SWMock.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                Toast.makeText(this, "Mock activado", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Mock desactivado", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val configSettings:FirebaseRemoteConfigSettings= remoteConfigSettings {

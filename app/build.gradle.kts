@@ -74,6 +74,5 @@ dependencies {
     testImplementation("org.mockito:mockito-core:3.12.4")
     testImplementation("org.mockito:mockito-inline:3.12.4")
     implementation ("co.infinum:retromock:1.1.0")
-
-
+    implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
 }

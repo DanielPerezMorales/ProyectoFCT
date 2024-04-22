@@ -2,7 +2,6 @@ package com.example.proyectofct.ui.view.Activity
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -29,13 +28,13 @@ class Facturas : AppCompatActivity() {
     private lateinit var adapter: FacturaAdapter_RV
     private val alert = Alert()
     private val facturaModule = RoomModule
-    private val bundleMock:Bundle? = null
     private val facturaViewModel: FacturasViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityFacturasBinding.inflate(layoutInflater)
+        val bundle: Bundle? =intent.extras
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.facturas_layout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -47,7 +46,11 @@ class Facturas : AppCompatActivity() {
                 val visualizarListado =
                     Firebase.remoteConfig.getBoolean("Visualizacion_ListadoFacturas")
                 if (visualizarListado) {
-                    initUI()
+                    if(bundle?.getBoolean("Mock") == true){
+                        initUI(true)
+                    } else {
+                        initUI(false)
+                    }
                 } else {
                     alert.showAlert("ERROR", "AHORA MISMO NO SE PUEDE VER", this)
                 }
@@ -75,12 +78,27 @@ class Facturas : AppCompatActivity() {
         }
     }
 
-    private fun initUI() {
+    private fun mock() {
+        binding.PB.isVisible = true
+        facturaViewModel.putRetroMock()
+        facturaViewModel.facturas.observe(this, Observer { facturas ->
+            facturas?.let {
+                adapter.updateList(it)
+                binding.PB.isVisible = false
+            }
+        })
+    }
+
+    private fun initUI(mock:Boolean) {
         adapter = FacturaAdapter_RV { showInformation() }
         binding.RVFacturas.layoutManager = LinearLayoutManager(this)
         binding.RVFacturas.adapter = adapter
         binding.RVFacturas.setHasFixedSize(true)
-        putFacturasOnRecycler()
+        if(mock){
+            mock()
+        } else {
+            putFacturasOnRecycler()
+        }
     }
 
     private fun putFacturasOnRecycler() {

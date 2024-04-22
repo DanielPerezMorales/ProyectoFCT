@@ -1,7 +1,6 @@
 package com.example.proyectofct.ui.view.Fragment
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.viewpager.widget.ViewPager
 import com.example.proyectofct.R
-import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
 import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.databinding.ActivityFiltrarFacturasBinding
+import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
 import com.example.proyectofct.di.RoomModule
-import com.example.proyectofct.ui.view.Activity.Facturas
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -23,12 +22,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.ArrayList
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
-import com.example.proyectofct.data.model.facturaItem
-import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
 
 class Filtrar_Facturas_Fragment : Fragment() {
     private var precio: Float = 0.0f
