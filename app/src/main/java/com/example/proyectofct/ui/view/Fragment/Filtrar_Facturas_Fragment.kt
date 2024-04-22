@@ -1,20 +1,22 @@
-package com.example.proyectofct.ui.view.Activity
+package com.example.proyectofct.ui.view.Fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.ActivityFiltrarFacturasBinding
 import com.example.proyectofct.di.RoomModule
+import com.example.proyectofct.ui.view.Activity.Facturas
+import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import kotlinx.coroutines.CoroutineScope
@@ -22,33 +24,40 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.ArrayList
-import java.util.Date
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
+import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
 
-class Filtrar_Facturas : AppCompatActivity() {
-    private lateinit var binding: ActivityFiltrarFacturasBinding
+class Filtrar_Facturas_Fragment : Fragment() {
     private var precio: Float = 0.0f
     private val facturaModule = RoomModule
-    private val alert = Alert()
+    private val facturaViewModel: FacturasViewModel by activityViewModels()
+    private lateinit var binding: FragmentFiltrarFacturasBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        binding = ActivityFiltrarFacturasBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.filtrado_facturas_layout)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        binding = FragmentFiltrarFacturasBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         binding.ibCloseWindow.setOnClickListener {
-            onBackPressed()
+            activity?.onBackPressed()
         }
 
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
                 val cambioColor = Firebase.remoteConfig.getBoolean("CambioDeValores")
                 if (cambioColor) {
-                    val colorConsumo = ContextCompat.getColor(this, R.color.color_consumo_2_0)
+                    val colorConsumo =
+                        ContextCompat.getColor(requireContext(), R.color.color_consumo_2_0)
                     binding.ibCloseWindow.setColorFilter(colorConsumo)
                     binding.TVconFecha.setTypeface(null, Typeface.ITALIC)
                     binding.TVFacturas.setTypeface(null, Typeface.ITALIC)
@@ -62,19 +71,11 @@ class Filtrar_Facturas : AppCompatActivity() {
 
         binding.btnAplicar.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
-                val listaFiltrada: List<FacturaEntity> = apply(precio)
-                if (listaFiltrada == null) {
-                    alert.showAlert(
-                        "ERROR",
-                        "No se ha encontrado ninguna factura con estas características",
-                        this@Filtrar_Facturas
-                    )
-                } else {
-                    val intent = Intent(this@Filtrar_Facturas, Facturas::class.java)
-                    intent.putExtra("ListaFiltrada", ArrayList(listaFiltrada))
-                    startActivity(intent)
-                }
+                apply(value = precio)
             }
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            val vp=requireActivity().findViewById<ViewPager>(R.id.VP)
+            vp.visibility=View.GONE
         }
         selectDate()
         delete()
@@ -93,7 +94,7 @@ class Filtrar_Facturas : AppCompatActivity() {
                     "Desde"
                 )
             }
-            fecha_Desde!!.show(supportFragmentManager, "DATE_PICKER")
+            fecha_Desde!!.show(childFragmentManager, "DATE_PICKER")
         }
 
         binding.btnCalendarHasta.setOnClickListener {
@@ -105,7 +106,7 @@ class Filtrar_Facturas : AppCompatActivity() {
                     "Hasta"
                 )
             }
-            fecha_Hasta!!.show(supportFragmentManager, "DATE_PICKER")
+            fecha_Hasta!!.show(childFragmentManager, "DATE_PICKER")
         }
     }
 
@@ -158,29 +159,30 @@ class Filtrar_Facturas : AppCompatActivity() {
         }
     }
 
-    private suspend fun apply(value: Float): List<FacturaEntity> {
-        val lista = facturaModule.provideRoom(this).getFactureDao().getAllFacturas()
-        val listaReturn: MutableList<FacturaEntity> = mutableListOf()
+    @SuppressLint("SimpleDateFormat")
+    private suspend fun apply(value: Float) {
+        val lista: List<FacturaEntity> =
+            facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
         val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
         val fechaInicioText = binding.btnCalendarDesde.text.toString()
         val fechaFinText = binding.btnCalendarHasta.text.toString()
         val listaCheck: MutableList<String> = checkBox()
+        val fechaInicio =
+            if (fechaInicioText != getString(R.string.dia_mes_anio)) formatoFecha.parse(
+                fechaInicioText
+            ) else null
+        val fechaFin =
+            if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
 
-        val fechaInicio = if (fechaInicioText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaInicioText) else null
-        val fechaFin = if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
-
-        for (i in lista) {
-            
-            val fechaDentroRango = (fechaInicio == null || fechaInicio <= i.fecha) && (fechaFin == null || i.fecha <= fechaFin)
-
-            if (fechaDentroRango && value <= i.precio && (listaCheck.isEmpty() || listaCheck.contains(i.estado))) {
-                listaReturn.add(i)
-            }
-        }
-
-        return listaReturn.toList()
+        facturaViewModel.filtrado(
+            precio = value,
+            fechaInicio = fechaInicio,
+            fechaFin = fechaFin,
+            listaCheck = listaCheck,
+            lista,
+            listadoFiltrado()
+        )
     }
-
 
     private fun checkBox(): MutableList<String> {
         val entrees: MutableList<String> = mutableListOf()
@@ -199,7 +201,17 @@ class Filtrar_Facturas : AppCompatActivity() {
         if (binding.ChckPlanDePago.isChecked) {
             entrees.add(binding.ChckPlanDePago.text.toString())
         }
-        Log.i("TAG", "$entrees")
+        return entrees
+    }
+
+    private fun listadoFiltrado(): MutableList<String> {
+        val entrees: MutableList<String> = mutableListOf()
+        if(checkBox().isNotEmpty()){
+            entrees.add("CheckBox")
+        }
+        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio)){
+            entrees.add("Fechas")
+        }
         return entrees
     }
 }

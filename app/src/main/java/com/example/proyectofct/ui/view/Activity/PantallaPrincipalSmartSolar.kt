@@ -2,7 +2,6 @@ package com.example.proyectofct.ui.view.Activity
 
 import android.graphics.Typeface
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -49,9 +48,9 @@ class PantallaPrincipalSmartSolar : AppCompatActivity() {
 
     private fun createTab() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(Mi_instalacion_fragment(), "Mi instalación")
-        adapter.addFragment(Energia_fragment(),"Energía")
-        adapter.addFragment(Detalles_fragment(), "Detalles")
+        adapter.addFragmentWithTab(Mi_instalacion_fragment(), "Mi instalación")
+        adapter.addFragmentWithTab(Energia_fragment(),"Energía")
+        adapter.addFragmentWithTab(Detalles_fragment(), "Detalles")
 
         binding.VP.adapter = adapter
         binding.tablayout.setupWithViewPager(binding.VP)

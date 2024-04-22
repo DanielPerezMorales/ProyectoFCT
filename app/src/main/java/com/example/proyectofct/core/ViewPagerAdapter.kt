@@ -21,8 +21,12 @@ class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager,
         return titleList[position]
     }
 
-    fun addFragment(fragment: Fragment, title: String) {
+    fun addFragmentWithTab(fragment: Fragment, title: String) {
         fragmentList.add(fragment)
         titleList.add(title)
+    }
+
+    fun addFragment(fragment: Fragment){
+        fragmentList.add(fragment)
     }
 }
