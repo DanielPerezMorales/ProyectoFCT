@@ -202,9 +202,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
         if (checkBox().isNotEmpty()) {
             entrees.add("CheckBox")
         }
-        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(
-                R.string.dia_mes_anio
-            )
+        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio)
         ) {
             entrees.add("Fechas")
         }

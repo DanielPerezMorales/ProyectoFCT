@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 class FiltradoUseCase {
-    private val alert= Alert()
+    private val alert = Alert()
     fun filtrado(
         precio: Float,
         fechaInicio: Date?,
@@ -27,7 +27,13 @@ class FiltradoUseCase {
                     1 -> {
                         if (listaFiltrados[0] == "Fechas") {
                             val fechaDentroRango =
-                                fechaInicio == null || fechaFin == null || (i.fecha >= fechaInicio && i.fecha <= fechaFin)
+                                if ((i.fecha >= fechaInicio && i.fecha <= fechaFin)) {
+                                    true
+                                } else if (fechaInicio == null || fechaFin == null) {
+                                    false
+                                } else {
+                                    false
+                                }
                             if (precio <= i.precio && fechaDentroRango) {
                                 listaReturn.add(i)
                             }
