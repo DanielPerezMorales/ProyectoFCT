@@ -74,4 +74,7 @@
     <string name="activar_mock">Activar Mock</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="estado_solicitud_autoconsumo">Estado solicitud autoconsumo</string>
+    <string name="el_tiempo_estimado_de_activaci_n_de_tu_autoconsumo_es_de_1_a_2_meses_ste_variar_en_funci_n_de_tu_comunidad_aut_noma_y_distribuidora">El tiempo estimado de activación de tu autoconsumo es de 1 a 2 meses, éste variará en función de tu comunidad autónoma y distribuidora</string>
+    <string name="aceptar">Aceptar</string>
 </resources>

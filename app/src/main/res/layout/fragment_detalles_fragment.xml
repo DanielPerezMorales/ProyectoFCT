@@ -42,11 +42,11 @@
             />
 
         <ImageView
+            android:id="@+id/btnInformation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/informacion"
+            android:layout_height="40dp"
             android:layout_gravity="right"
-            />
+            android:src="@drawable/informacion" />
     </FrameLayout>
 
 

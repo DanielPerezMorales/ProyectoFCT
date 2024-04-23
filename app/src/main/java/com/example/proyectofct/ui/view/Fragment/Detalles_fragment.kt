@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.proyectofct.core.Alert
 import com.example.proyectofct.data.model.Modelo_Detalles
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 
@@ -20,6 +21,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class Detalles_fragment : Fragment() {
     private lateinit var binding: FragmentDetallesFragmentBinding
+    private val alert= Alert()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,9 @@ class Detalles_fragment : Fragment() {
     ): View {
         binding = FragmentDetallesFragmentBinding.inflate(layoutInflater)
         val response =obtenerDatos()
+        binding.btnInformation.setOnClickListener{
+            alert.showPopNative(this)
+        }
         binding.etCAU.setText(response.CAU)
         binding.etPotencia.setText(response.Potencia)
         binding.etAutoConsumo.setText(response.Tipo)

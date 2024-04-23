@@ -11,6 +11,8 @@ import com.example.proyectofct.data.database.entities.toFacturaItem
 import com.example.proyectofct.data.model.facturaItem
 import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.data.network.FacturaService
+import com.example.proyectofct.domain.FacturasUseCase
+import com.example.proyectofct.domain.FiltradoUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,26 +20,13 @@ import java.util.Date
 
 class FacturasViewModel : ViewModel() {
     private val facturaService = FacturaService()
+    private val facturasUseCase = FacturasUseCase(facturaService)
+    private val filtradoUseCase=FiltradoUseCase()
     private lateinit var factureServiceMock: Mock
     private val _facturas = MutableLiveData<List<facturaItem>?>()
     val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
-    fun fetchFacturas(appDatabase: FacturaDatabase) {
-        CoroutineScope(Dispatchers.IO).launch {
-            var facturasList: List<facturaItem> = listOf()
-            val response = facturaService.getFacturas()
-            if (response != null) {
-                facturasList = response.facturas
-                Log.i("TAG", "DATOS INTRODUCIDOS POR API")
-                deleteAllFacturasFromRoom(appDatabase)
-                insertFacturasToRoom(
-                    facturasList.map { it.toFacturaEntity() },
-                    appDatabase
-                )
-            } else {
-                facturasList =
-                    appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
-            }
-
+    fun fetchFacturas(appDatabase:FacturaDatabase) {
+        facturasUseCase.fetchFacturas(appDatabase) { facturasList ->
             _facturas.postValue(facturasList)
         }
     }
@@ -50,58 +39,13 @@ class FacturasViewModel : ViewModel() {
         lista: List<FacturaEntity>,
         listaFiltrados: List<String>
     ) {
-        CoroutineScope(Dispatchers.IO).launch {
-            val listaReturn: MutableList<FacturaEntity> = mutableListOf()
-            for (i in lista) {
-                when (listaFiltrados.size) {
-                    1 -> {
-                        if (listaFiltrados[0] == "Fechas") {
-                            val fechaDentroRango =
-                                fechaInicio == null || fechaFin == null || (i.fecha >= fechaInicio && i.fecha <= fechaFin)
-                            if (precio <= i.precio && fechaDentroRango) {
-                                listaReturn.add(i)
-                            }
-                        } else {
-                            if (precio <= i.precio && listaCheck.contains(i.estado)) {
-                                listaReturn.add(i)
-                            }
-                        }
-                    }
-
-                    2 -> {
-                        val fechaDentroRango =
-                            fechaInicio == null || fechaFin == null || (i.fecha >= fechaInicio && i.fecha <= fechaFin)
-                        if (precio <= i.precio && fechaDentroRango && listaCheck.contains(i.estado)) {
-                            listaReturn.add(i)
-                        }
-                    }
-
-                    else -> {
-                        if (precio <= i.precio) {
-                            listaReturn.add(i)
-                        }
-                    }
-                }
-            }
-            _facturas.postValue(listaReturn.toList().map { it.toFacturaItem() })
-        }
-    }
-
-
-    fun insertFacturasToRoom(facturas: List<FacturaEntity>, appDatabase: FacturaDatabase) {
-        CoroutineScope(Dispatchers.IO).launch {
-            appDatabase.getFactureDao().insertAll(facturas)
-        }
-    }
-
-    fun deleteAllFacturasFromRoom(appDatabase: FacturaDatabase) {
-        CoroutineScope(Dispatchers.IO).launch {
-            appDatabase.getFactureDao().deleteAllFacturas()
+        filtradoUseCase.filtrado(precio,fechaInicio,fechaFin,listaCheck,lista,listaFiltrados){filtradoList ->
+            _facturas.postValue(filtradoList)
         }
     }
 
     fun putRetroMock(context: Context) {
-        factureServiceMock= Mock(context)
+        factureServiceMock = Mock(context)
         CoroutineScope(Dispatchers.IO).launch {
             var facturasList: List<facturaItem> = listOf()
             val facturasMock = factureServiceMock.getFacturasMOCK()

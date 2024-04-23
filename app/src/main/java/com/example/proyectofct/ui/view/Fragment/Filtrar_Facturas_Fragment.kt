@@ -67,8 +67,8 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 apply(value = precio)
             }
             requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            val vp=requireActivity().findViewById<ViewPager>(R.id.VP)
-            vp.visibility=View.GONE
+            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
+            vp.visibility = View.GONE
         }
         selectDate()
         delete()
@@ -123,7 +123,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 }
             }
         } else {
-            if (month < 10) {
+            if (month + 1 < 10) {
                 if (day < 10) {
                     binding.btnCalendarHasta.setText("0$day/0${month + 1}/$year")
                 } else {
@@ -199,10 +199,13 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
     private fun listadoFiltrado(): MutableList<String> {
         val entrees: MutableList<String> = mutableListOf()
-        if(checkBox().isNotEmpty()){
+        if (checkBox().isNotEmpty()) {
             entrees.add("CheckBox")
         }
-        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio)){
+        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(
+                R.string.dia_mes_anio
+            )
+        ) {
             entrees.add("Fechas")
         }
         return entrees

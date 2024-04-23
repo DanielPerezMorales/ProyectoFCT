@@ -15,4 +15,12 @@
         <item name="tickColor">@color/color_consumo</item>
     </style>
 
+    <style name="TextColor_ColorConsumo" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/color_consumo</item>
+    </style>
+
+    <style name="TextColor_ColorConsumo2_0" parent="Theme.AppCompat.Light">
+        <item name="android:textColor">@color/color_consumo_2.0</item>
+    </style>
+
 </resources>

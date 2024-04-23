@@ -1,8 +1,10 @@
 package com.example.proyectofct.core
 
 import android.content.Context
+import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
-import okhttp3.internal.http2.Http2Connection.Listener
+import com.example.proyectofct.R
+import com.example.proyectofct.ui.view.Fragment.Detalles_fragment
 
 class Alert {
     fun showAlert(titulo: String,mensaje: String, cont: Context) {
@@ -20,6 +22,17 @@ class Alert {
         builder.setMessage(mensaje)
         builder.setPositiveButton("Cerrar", null)
         val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
+    fun showPopNative(cont: Detalles_fragment) {
+        val inflater = LayoutInflater.from(cont.requireContext())
+        val dialogView = inflater.inflate(R.layout.pop_nativo_informacion, null)
+        val builder = AlertDialog.Builder(cont.requireContext())
+        builder.setView(dialogView)
+
+        val dialog = builder.create()
+
         dialog.show()
     }
 }
