@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.proyectofct.Mock
+import com.example.proyectofct.data.Mock
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.data.database.entities.toFacturaItem
@@ -18,7 +18,7 @@ import java.util.Date
 
 class FacturasViewModel : ViewModel() {
     private val facturaService = FacturaService()
-    private lateinit var factureServiceMock:Mock
+    private lateinit var factureServiceMock: Mock
     private val _facturas = MutableLiveData<List<facturaItem>?>()
     val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
     fun fetchFacturas(appDatabase: FacturaDatabase) {
@@ -101,7 +101,7 @@ class FacturasViewModel : ViewModel() {
     }
 
     fun putRetroMock(context: Context) {
-        factureServiceMock=Mock(context)
+        factureServiceMock= Mock(context)
         CoroutineScope(Dispatchers.IO).launch {
             var facturasList: List<facturaItem> = listOf()
             val facturasMock = factureServiceMock.getFacturasMOCK()

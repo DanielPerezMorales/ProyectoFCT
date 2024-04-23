@@ -1,0 +1,30 @@
+{
+  "numFacturas": 5,
+  "facturas": [
+    {
+      "descEstado": "Pagada",
+      "importeOrdenacion": 20.00,
+      "fecha": "07/12/2017"
+    },
+    {
+      "descEstado": "Anulada",
+      "importeOrdenacion": 32.05,
+      "fecha": "29/07/2021"
+    },
+    {
+      "descEstado": "Pendiente de pago",
+      "importeOrdenacion": 40.66,
+      "fecha": "24/01/2021"
+    },
+    {
+      "descEstado": "Pagada",
+      "importeOrdenacion": 77.77,
+      "fecha": "07/07/2017"
+    },
+    {
+      "descEstado": "Pagada",
+      "importeOrdenacion": 35.16,
+      "fecha": "31/12/2018"
+    }
+  ]
+}

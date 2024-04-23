@@ -1,4 +1,4 @@
-package com.example.proyectofct
+package com.example.proyectofct.data
 
 import android.content.Context
 import android.util.Log
