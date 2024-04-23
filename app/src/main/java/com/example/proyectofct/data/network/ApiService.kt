@@ -11,6 +11,8 @@ interface ApiService {
     @GET("facturas")
     suspend fun getAllFacturas(): Response<modelo_Factura>
 
-    @GET("/")
-    fun getData(): Call<modelo_Factura>
+    @Mock
+    @MockResponse(body = "facturas.json")
+    @GET("facturas")
+    fun getFacturasMock(): Call<modelo_Factura?>
 }

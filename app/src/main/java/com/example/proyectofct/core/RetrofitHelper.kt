@@ -1,11 +1,9 @@
 package com.example.proyectofct.core
 
-import okhttp3.OkHttpClient
+import android.content.Context
+import co.infinum.retromock.Retromock
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.mock.MockRetrofit
-import retrofit2.mock.NetworkBehavior
-import java.util.concurrent.TimeUnit
 
 object RetrofitHelper {
     fun getRetrofit(): Retrofit {
@@ -14,20 +12,12 @@ object RetrofitHelper {
             .build()
     }
 
-    private fun createMockRetrofit(): Retrofit {
-        val behavior = Networke
-        val mockRetrofit = MockRetrofit.Builder(createOkHttpClient())
-            .networkBehavior(behavior)
-            .build()
-
-        return mockRetrofit.retrofit()
-    }
-
-    private fun createOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(30, TimeUnit.SECONDS)
+    fun getRetromock(context: Context): Retromock {
+        val retrofit = getRetrofit()
+        return Retromock.Builder()
+            .retrofit(retrofit)
+            // Aquí puedes agregar configuraciones adicionales para Retromock, como la ruta base para las respuestas simuladas
+            .defaultBodyFactory(ResourceBodyFactory(context))
             .build()
     }
 }

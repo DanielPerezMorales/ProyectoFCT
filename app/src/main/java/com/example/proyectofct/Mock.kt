@@ -1,25 +1,26 @@
 package com.example.proyectofct
 
+import android.content.Context
 import android.util.Log
 import com.example.proyectofct.core.RetrofitHelper
 import com.example.proyectofct.data.model.modelo_Factura
 import com.example.proyectofct.data.network.ApiService
+import retrofit2.Response
 
 
-class Mock {
-    var retromock = RetrofitHelper.getRetrofitMock()
+class Mock (private val context: Context){
+
+    var retromock = RetrofitHelper.getRetromock(context)
 
     fun getFacturasMOCK(): modelo_Factura? {
-        val response = retromock.create(ApiService::class.java).getFacturasMOCK()
-        if (response != null) {
-            if (response.isSuccessful) {
-                val MyResponse: modelo_Factura? = response.body()
-                if (MyResponse != null) {
-                    return MyResponse
-                }
-            } else {
-                Log.i("PRUEBA", "NO FUNCNIONA")
+        val response = retromock.create(ApiService::class.java).getFacturasMock()
+        if (!response.isCanceled) {
+            val myresponseMock: Response<modelo_Factura?> =response.execute()
+            if (myresponseMock != null) {
+                return myresponseMock.body()
             }
+        } else {
+            Log.i("PRUEBA", "NO FUNCNIONA")
         }
         return null
     }

@@ -1,15 +1,15 @@
 package com.example.proyectofct.core
 
-import android.R
+import android.content.Context
+import android.util.Log
 import co.infinum.retromock.BodyFactory
-import java.io.FileInputStream
-import java.io.FileNotFoundException
+import java.io.IOException
 import java.io.InputStream
 
+class ResourceBodyFactory (private val context: Context): BodyFactory {
 
-class ResourceBodyFactory : BodyFactory {
     override fun create(input: String): InputStream {
-        return ResourceBodyFactory::class.java.getResourceAsStream("/raw/$input")
-            ?: throw FileNotFoundException("Resource $input not found in raw folder")
+        return context.assets.open(input)
     }
 }
+

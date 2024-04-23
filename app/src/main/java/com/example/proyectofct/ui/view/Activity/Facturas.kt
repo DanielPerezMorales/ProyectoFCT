@@ -80,7 +80,7 @@ class Facturas : AppCompatActivity() {
 
     private fun mock() {
         binding.PB.isVisible = true
-        facturaViewModel.putRetroMock()
+        facturaViewModel.putRetroMock(this)
         facturaViewModel.facturas.observe(this, Observer { facturas ->
             facturas?.let {
                 adapter.updateList(it)
