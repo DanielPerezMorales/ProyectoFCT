@@ -1,13 +1,21 @@
 package com.example.proyectofct.ui.view.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.proyectofct.core.Alert
+import com.example.proyectofct.data.Mock
 import com.example.proyectofct.data.model.Modelo_Detalles
+import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.data.model.modelo_Factura
+import com.example.proyectofct.data.network.FacturaService
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +29,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class Detalles_fragment : Fragment() {
     private lateinit var binding: FragmentDetallesFragmentBinding
+    private lateinit var facturaserviceMock:Mock
     private val alert= Alert()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,20 +41,15 @@ class Detalles_fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetallesFragmentBinding.inflate(layoutInflater)
-        val response =obtenerDatos()
+        facturaserviceMock=Mock(requireContext())
+        obtenerDatos(facturaserviceMock)
         binding.btnInformation.setOnClickListener{
             alert.showPopNative(this)
         }
-        binding.etCAU.setText(response.CAU)
-        binding.etPotencia.setText(response.Potencia)
-        binding.etAutoConsumo.setText(response.Tipo)
-        binding.etExcedentes.setText(response.Excedentes)
-        binding.etEstado.setText(response.solicitud)
         return binding.root
     }
 
     companion object {
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             Detalles_fragment().apply {
@@ -56,7 +60,25 @@ class Detalles_fragment : Fragment() {
             }
     }
 
-    private fun obtenerDatos():Modelo_Detalles{
-        return Modelo_Detalles("ES0021000000001994LJ1FA000", "No hemos recibido ninguna solicitud de autoconsumo", "Con excendentes y compensacion individual Consumo", "Precio PVPC", "5kWp")
+    private fun obtenerDatos(service: Mock){
+        var modelo_detalles_mock:Modelo_Detalles?=null
+        CoroutineScope(Dispatchers.IO).launch {
+            val facturasMock = service.getDetallesMOCK()
+            if (facturasMock != null) {
+                modelo_detalles_mock=Modelo_Detalles(CAU = facturasMock.CAU, solicitud= facturasMock.solicitud, Tipo= facturasMock.Tipo, Excedentes = facturasMock.Excedentes, Potencia = facturasMock.Potencia)
+                binding.etCAU.setText(modelo_detalles_mock!!.CAU)
+                binding.etPotencia.setText(modelo_detalles_mock!!.Potencia)
+                binding.etAutoConsumo.setText(modelo_detalles_mock!!.Tipo)
+                binding.etExcedentes.setText(modelo_detalles_mock!!.Excedentes)
+                binding.etEstado.setText(modelo_detalles_mock!!.solicitud)
+
+                binding.etCAU.isEnabled=false
+                binding.etPotencia.isEnabled=false
+                binding.etAutoConsumo.isEnabled=false
+                binding.etExcedentes.isEnabled=false
+                binding.etEstado.isEnabled=false
+                Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK")
+            }
+        }
     }
 }

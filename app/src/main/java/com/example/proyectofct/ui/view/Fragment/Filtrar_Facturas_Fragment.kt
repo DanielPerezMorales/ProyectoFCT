@@ -3,6 +3,7 @@ package com.example.proyectofct.ui.view.Fragment
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -166,7 +167,6 @@ class Filtrar_Facturas_Fragment : Fragment() {
             ) else null
         val fechaFin =
             if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
-
         facturaViewModel.filtrado(
             precio = value,
             fechaInicio = fechaInicio,

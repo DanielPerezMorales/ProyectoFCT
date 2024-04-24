@@ -2,6 +2,7 @@ package com.example.proyectofct.core
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import com.example.proyectofct.R
 import com.example.proyectofct.ui.view.Fragment.Detalles_fragment
@@ -32,6 +33,12 @@ class Alert {
         builder.setView(dialogView)
 
         val dialog = builder.create()
+
+        val dismissButton = dialogView.findViewById<Button>(R.id.btn_Aceptar)
+
+        dismissButton.setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialog.show()
     }
