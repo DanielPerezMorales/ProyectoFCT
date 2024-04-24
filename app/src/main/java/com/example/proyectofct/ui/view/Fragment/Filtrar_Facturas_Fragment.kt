@@ -13,6 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.DatePickerFragment
+import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
 import com.example.proyectofct.di.RoomModule
@@ -59,20 +60,56 @@ class Filtrar_Facturas_Fragment : Fragment() {
             }
         }
 
+        CoroutineScope(Dispatchers.IO).launch {
+            putMax()
+        }
+
         binding.volumeRange.addOnChangeListener { _, value, _ ->
             saveVolume(value)
         }
 
+        selectDate()
+        delete()
+
         binding.btnAplicar.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
             CoroutineScope(Dispatchers.IO).launch {
                 apply(value = precio)
             }
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
             vp.visibility = View.GONE
         }
-        selectDate()
-        delete()
+
+    }
+
+
+    private suspend fun putMax() {
+        val Max: Float? = putMaxValue(facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas())
+        if (Max != null) {
+            binding.TVMaxPrecio.text = Max.toString()
+        } else {
+            binding.TVMaxPrecio.text = "100"
+        }
+
+        if (Max!=null) {
+            binding.volumeRange.valueFrom=0F
+            binding.volumeRange.valueTo=(Max.toInt()).toFloat()
+            binding.volumeRange.stepSize=1F
+        }
+    }
+
+    fun putMaxValue(lista:List<FacturaEntity>): Float? {
+        var Max: Float? = null
+            for (i in lista) {
+                if (Max != null) {
+                    if(Max!! <= i.precio){
+                        Max=i.precio
+                    }
+                } else {
+                    Max=i.precio
+                }
+            }
+        return Max
     }
 
     private fun selectDate() {
@@ -202,7 +239,9 @@ class Filtrar_Facturas_Fragment : Fragment() {
         if (checkBox().isNotEmpty()) {
             entrees.add("CheckBox")
         }
-        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio)
+        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(
+                R.string.dia_mes_anio
+            )
         ) {
             entrees.add("Fechas")
         }

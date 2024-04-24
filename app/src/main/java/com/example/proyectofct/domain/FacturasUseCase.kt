@@ -14,26 +14,27 @@ import kotlinx.coroutines.launch
 class FacturasUseCase(
     private val facturaService: FacturaService
 ) {
-    fun fetchFacturas(appDatabase: FacturaDatabase,callback: (List<facturaItem>) -> Unit) {
+    fun fetchFacturas(appDatabase: FacturaDatabase, callback: (List<facturaItem>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             var facturasList: List<facturaItem> = listOf()
 
             val response = facturaService.getFacturas()
+            try {
+                if (response != null) {
+                    facturasList = response.facturas
+                    Log.i("TAG", "DATOS INTRODUCIDOS POR API")
 
-            if (response != null) {
-                facturasList = response.facturas
-                Log.i("TAG", "DATOS INTRODUCIDOS POR API")
-
-                deleteAllFacturasFromRoom(appDatabase)
-                insertFacturasToRoom(
-                    facturasList.map { it.toFacturaEntity() },
-                    appDatabase
-                )
-            } else {
+                    deleteAllFacturasFromRoom(appDatabase)
+                    insertFacturasToRoom(
+                        facturasList.map { it.toFacturaEntity() },
+                        appDatabase
+                    )
+                }
+            } catch (e: Exception) {
                 facturasList =
                     appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
+                Log.i("TAG", "DATOS INTRODUCIDOS POR ROOM")
             }
-
             callback(facturasList)
         }
     }
@@ -49,7 +50,6 @@ class FacturasUseCase(
             appDatabase.getFactureDao().deleteAllFacturas()
         }
     }
-
 
 
 }

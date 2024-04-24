@@ -126,7 +126,7 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="22dp" />
+            android:layout_marginVertical="15dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -135,21 +135,56 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
-
-        <com.google.android.material.slider.RangeSlider
-            android:id="@+id/volumeRange"
+        
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/color_consumo"
-            android:stepSize="1"
-            android:valueFrom="0"
-            style="@style/CustomRangeSlider"
-            android:valueTo="100" />
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:layout_weight="1"
+                    android:text="@string/valorTVMin"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TVMaxPrecio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    tools:text="0"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/volumeRange"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/color_consumo"
+                android:stepSize="1"
+                android:valueFrom="0"
+                style="@style/CustomRangeSlider"
+                android:valueTo="100" />
+
+        </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="22dp" />
+            android:layout_marginVertical="15dp" />
 
         <TextView
             android:layout_width="match_parent"

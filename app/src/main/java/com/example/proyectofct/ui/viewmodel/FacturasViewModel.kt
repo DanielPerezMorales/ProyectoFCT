@@ -21,11 +21,11 @@ import java.util.Date
 class FacturasViewModel : ViewModel() {
     private val facturaService = FacturaService()
     private val facturasUseCase = FacturasUseCase(facturaService)
-    private val filtradoUseCase=FiltradoUseCase()
+    private val filtradoUseCase = FiltradoUseCase()
     private lateinit var factureServiceMock: Mock
     private val _facturas = MutableLiveData<List<facturaItem>?>()
     val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
-    fun fetchFacturas(appDatabase:FacturaDatabase) {
+    fun fetchFacturas(appDatabase: FacturaDatabase) {
         facturasUseCase.fetchFacturas(appDatabase) { facturasList ->
             _facturas.postValue(facturasList)
         }
@@ -39,7 +39,14 @@ class FacturasViewModel : ViewModel() {
         lista: List<FacturaEntity>,
         listaFiltrados: List<String>
     ) {
-        filtradoUseCase.filtrado(precio,fechaInicio,fechaFin,listaCheck,lista,listaFiltrados){filtradoList ->
+        filtradoUseCase.filtrado(
+            precio,
+            fechaInicio,
+            fechaFin,
+            listaCheck,
+            lista,
+            listaFiltrados
+        ) { filtradoList ->
             _facturas.postValue(filtradoList)
         }
     }
