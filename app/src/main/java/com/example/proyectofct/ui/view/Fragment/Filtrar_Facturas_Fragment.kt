@@ -47,6 +47,20 @@ class Filtrar_Facturas_Fragment : Fragment() {
             activity?.onBackPressed()
         }
 
+        if(isAdded){
+            val someString=getString(R.string.facturas)
+            Log.i("TAG", someString)
+        }
+
+        binding.btnAplicar.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
+            CoroutineScope(Dispatchers.IO).launch {
+                apply(value = precio)
+            }
+            vp.visibility = View.GONE
+        }
+
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
                 val cambioColor = Firebase.remoteConfig.getBoolean("CambioDeValores")
@@ -70,15 +84,6 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
         selectDate()
         delete()
-
-        binding.btnAplicar.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
-            CoroutineScope(Dispatchers.IO).launch {
-                apply(value = precio)
-            }
-            vp.visibility = View.GONE
-        }
 
     }
 
@@ -192,26 +197,28 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     private suspend fun apply(value: Float) {
-        val lista: List<FacturaEntity> =
-            facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
-        val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
-        val fechaInicioText = binding.btnCalendarDesde.text.toString()
-        val fechaFinText = binding.btnCalendarHasta.text.toString()
-        val listaCheck: MutableList<String> = checkBox()
-        val fechaInicio =
-            if (fechaInicioText != getString(R.string.dia_mes_anio)) formatoFecha.parse(
-                fechaInicioText
-            ) else null
-        val fechaFin =
-            if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
-        facturaViewModel.filtrado(
-            precio = value,
-            fechaInicio = fechaInicio,
-            fechaFin = fechaFin,
-            listaCheck = listaCheck,
-            lista,
-            listadoFiltrado()
-        )
+        if (isAdded){
+            val lista: List<FacturaEntity> =
+                facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
+            val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+            val fechaInicioText = binding.btnCalendarDesde.text.toString()
+            val fechaFinText = binding.btnCalendarHasta.text.toString()
+            val listaCheck: MutableList<String> = checkBox()
+            val fechaInicio =
+                if (fechaInicioText != getString(R.string.dia_mes_anio)) formatoFecha.parse(
+                    fechaInicioText
+                ) else null
+            val fechaFin =
+                if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
+            facturaViewModel.filtrado(
+                precio = value,
+                fechaInicio = fechaInicio,
+                fechaFin = fechaFin,
+                listaCheck = listaCheck,
+                lista,
+                listadoFiltrado()
+            )
+        }
     }
 
     private fun checkBox(): MutableList<String> {

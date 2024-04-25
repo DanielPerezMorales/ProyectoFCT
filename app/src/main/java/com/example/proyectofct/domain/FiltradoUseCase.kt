@@ -1,5 +1,6 @@
 package com.example.proyectofct.domain
 
+import android.util.Log
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.data.database.entities.toFacturaItem
@@ -59,6 +60,7 @@ class FiltradoUseCase {
                     }
                 }
             }
+            Log.i("TAG","${listaReturn.toList().map { it.toFacturaItem() }}")
             callback(listaReturn.toList().map { it.toFacturaItem() })
         }
     }

@@ -7,11 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.data.Mock
+import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.model.Modelo_Detalles
-import com.example.proyectofct.data.model.facturaItem
-import com.example.proyectofct.data.model.modelo_Factura
-import com.example.proyectofct.data.network.FacturaService
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +26,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class Detalles_fragment : Fragment() {
     private lateinit var binding: FragmentDetallesFragmentBinding
-    private lateinit var facturaserviceMock:Mock
+    private lateinit var facturaserviceMock: Mock
     private val alert= Alert()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +38,7 @@ class Detalles_fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetallesFragmentBinding.inflate(layoutInflater)
-        facturaserviceMock=Mock(requireContext())
+        facturaserviceMock= Mock(requireContext())
         obtenerDatos(facturaserviceMock)
         binding.btnInformation.setOnClickListener{
             alert.showPopNative(this)

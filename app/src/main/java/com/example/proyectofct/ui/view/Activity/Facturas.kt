@@ -76,6 +76,8 @@ class Facturas : AppCompatActivity() {
         binding.ibBack.setOnClickListener {
             onBackPressed()
         }
+
+        showListFilter()
     }
 
     private fun mock() {
@@ -114,5 +116,13 @@ class Facturas : AppCompatActivity() {
 
     private fun showInformation() {
         alert.showAlertInformation("Información", "Esta funcionalidad aún no está disponible", this)
+    }
+
+    private fun showListFilter(){
+        facturaViewModel.facturas.observe(this, Observer { facturasFiltradas ->
+            facturasFiltradas?.let {
+                adapter.updateList(it)
+            }
+        })
     }
 }

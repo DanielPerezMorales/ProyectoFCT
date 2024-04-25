@@ -4,12 +4,10 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.proyectofct.data.Mock
+import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.data.database.entities.toFacturaItem
 import com.example.proyectofct.data.model.facturaItem
-import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.data.network.FacturaService
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
@@ -47,6 +45,7 @@ class FacturasViewModel : ViewModel() {
             lista,
             listaFiltrados
         ) { filtradoList ->
+            Log.i("TAG","$filtradoList")
             _facturas.postValue(filtradoList)
         }
     }

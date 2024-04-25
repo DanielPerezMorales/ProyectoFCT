@@ -1,5 +1,6 @@
 package com.example.proyectofct.data.model
 
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -14,10 +15,9 @@ class FacturaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.TVestadoFactura.text = superHeroItemResponse.descEstado
 
         if(superHeroItemResponse.descEstado == "Pagada") {
-            // Por ejemplo, cambiar el color del texto a verde para indicar que está pagada
             binding.TVestadoFactura.visibility=View.GONE
         } else {
-            // Si no está pagada, restaurar el color original del texto
+            binding.TVestadoFactura.visibility = View.VISIBLE
             val colorConsumo = ContextCompat.getColor(itemView.context, R.color.color_estado_factura)
             binding.TVestadoFactura.setTextColor(colorConsumo)
         }
@@ -27,6 +27,7 @@ class FacturaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.root.setOnClickListener{
             onItemSelected(superHeroItemResponse.fecha)
         }
+        Log.i("BIND","EL ESTADO ES: ${superHeroItemResponse.descEstado}, LA FECHA ES: ${superHeroItemResponse.fecha}, PRECIO ES: ${superHeroItemResponse.importeOrdenacion}")
     }
 
 }

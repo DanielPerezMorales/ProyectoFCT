@@ -1,4 +1,4 @@
-package com.example.proyectofct.data
+package com.example.proyectofct.data.mock
 
 import android.content.Context
 import android.util.Log
