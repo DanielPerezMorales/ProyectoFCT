@@ -8,9 +8,11 @@ import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.data.network.FacturaService
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
+import com.example.proyectofct.domain.RoomUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,6 +23,7 @@ class FacturasViewModel : ViewModel() {
     private val facturasUseCase = FacturasUseCase(facturaService)
     private val filtradoUseCase = FiltradoUseCase()
     private lateinit var factureServiceMock: Mock
+    private val RoomUseCase = RoomUseCase()
     private val _facturas = MutableLiveData<List<facturaItem>?>()
     val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
     fun fetchFacturas(appDatabase: FacturaDatabase) {
@@ -45,19 +48,25 @@ class FacturasViewModel : ViewModel() {
             lista,
             listaFiltrados
         ) { filtradoList ->
-            Log.i("TAG","$filtradoList")
+            Log.i("TAG", "$filtradoList")
             _facturas.postValue(filtradoList)
         }
     }
 
-    fun putRetroMock(context: Context) {
+    fun putRetroMock(context: Context, appDatabase: FacturaDatabase) {
         factureServiceMock = Mock(context)
         CoroutineScope(Dispatchers.IO).launch {
             var facturasList: List<facturaItem> = listOf()
             val facturasMock = factureServiceMock.getFacturasMOCK()
             if (facturasMock != null) {
                 facturasList = facturasMock.facturas
+                RoomUseCase.deleteAllFacturasFromRoom(appDatabase)
+                RoomUseCase.insertFacturasToRoom(
+                    facturasList.map { it.toFacturaEntity() },
+                    appDatabase
+                )
                 Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK")
+
             }
             _facturas.postValue(facturasList)
         }
