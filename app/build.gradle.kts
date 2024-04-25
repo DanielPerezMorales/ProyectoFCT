@@ -75,4 +75,6 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:3.12.4")
     implementation ("co.infinum:retromock:1.1.0")
     implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    //fingerPrint
+    implementation("androidx.biometric:biometric:1.1.0")
 }

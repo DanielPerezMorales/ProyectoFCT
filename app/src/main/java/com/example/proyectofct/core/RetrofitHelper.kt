@@ -16,7 +16,6 @@ object RetrofitHelper {
         val retrofit = getRetrofit()
         return Retromock.Builder()
             .retrofit(retrofit)
-            // Aquí puedes agregar configuraciones adicionales para Retromock, como la ruta base para las respuestas simuladas
             .defaultBodyFactory(ResourceBodyFactory(context))
             .build()
     }

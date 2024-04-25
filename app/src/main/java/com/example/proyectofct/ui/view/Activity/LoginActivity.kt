@@ -1,6 +1,7 @@
 package com.example.proyectofct.ui.view.Activity
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.text.InputType
 import android.text.InputType.*
@@ -10,8 +11,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.widget.CompoundButtonCompat
 import androidx.lifecycle.Observer
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
@@ -24,6 +29,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
     private val alert = Alert()
+    private var auth = false
+    private var canAuthenticate = false
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,11 +42,53 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val color = ContextCompat.getColor(this, R.color.white)
+        CompoundButtonCompat.setButtonTintList(binding.chckBX, ColorStateList.valueOf(color))
         changeToCreateUser()
         forgotPassword()
         login()
         seePassword()
         hack()
+        logWithFingerPrint()
+        binding.fingerprint.setOnClickListener{
+            if(auth){
+                auth=false
+            } else {
+                authenticate {
+                    auth=it
+                }
+            }
+        }
+    }
+
+    private fun logWithFingerPrint() {
+        if (BiometricManager.from(this)
+                .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL) == BiometricManager.BIOMETRIC_SUCCESS
+        ) {
+            canAuthenticate = true
+            promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle("Autenticación biométrica")
+                .setSubtitle("Autenticate utilizando el sensor biométrico")
+                .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
+                .build()
+        }
+    }
+
+    private fun authenticate(auth: (auth: Boolean) -> Unit) {
+        if (canAuthenticate) {
+            BiometricPrompt(
+                this,
+                ContextCompat.getMainExecutor(this),
+                object : BiometricPrompt.AuthenticationCallback() {
+                    override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                        super.onAuthenticationSucceeded(result)
+                        val intent=Intent(this@LoginActivity,Pagina_Principal::class.java)
+                        startActivity(intent)
+
+                    }
+                }).authenticate(promptInfo)
+        } else {
+            auth(true)
+        }
     }
 
     private fun forgotPassword() {

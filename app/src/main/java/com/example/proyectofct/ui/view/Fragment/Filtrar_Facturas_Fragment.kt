@@ -44,12 +44,9 @@ class Filtrar_Facturas_Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ibCloseWindow.setOnClickListener {
-            activity?.onBackPressed()
-        }
-
-        if(isAdded){
-            val someString=getString(R.string.facturas)
-            Log.i("TAG", someString)
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
+            vp.visibility=View.GONE
         }
 
         binding.btnAplicar.setOnClickListener {
