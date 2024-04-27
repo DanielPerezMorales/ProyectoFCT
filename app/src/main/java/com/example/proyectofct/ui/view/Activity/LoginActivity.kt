@@ -1,29 +1,21 @@
 package com.example.proyectofct.ui.view.Activity
 
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
-import android.text.InputType
 import android.text.InputType.*
-import android.util.Log
-import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.widget.CompoundButtonCompat
 import androidx.lifecycle.Observer
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityLoginBinding
-import com.example.proyectofct.domain.LoginUseCase
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -42,13 +34,10 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val color = ContextCompat.getColor(this, R.color.white)
-        CompoundButtonCompat.setButtonTintList(binding.chckBX, ColorStateList.valueOf(color))
         changeToCreateUser()
         forgotPassword()
         login()
         seePassword()
-        hack()
         logWithFingerPrint()
         binding.fingerprint.setOnClickListener{
             if(auth){
@@ -137,14 +126,6 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
         })
-    }
-
-
-    private fun hack() {
-        binding.hack.setOnClickListener {
-            val intent = Intent(this, Pagina_Principal::class.java)
-            startActivity(intent)
-        }
     }
 
 }

@@ -60,7 +60,6 @@ class FiltradoUseCase {
                     }
                 }
             }
-            Log.i("TAG","${listaReturn.toList().map { it.toFacturaItem() }}")
             callback(listaReturn.toList().map { it.toFacturaItem() })
         }
     }

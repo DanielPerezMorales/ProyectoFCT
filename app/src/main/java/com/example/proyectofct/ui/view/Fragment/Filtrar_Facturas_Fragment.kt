@@ -3,7 +3,6 @@ package com.example.proyectofct.ui.view.Fragment
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.DatePickerFragment
-import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
 import com.example.proyectofct.di.RoomModule
@@ -46,15 +44,6 @@ class Filtrar_Facturas_Fragment : Fragment() {
         binding.ibCloseWindow.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
             val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
-            vp.visibility=View.GONE
-        }
-
-        binding.btnAplicar.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
-            CoroutineScope(Dispatchers.IO).launch {
-                apply(value = precio)
-            }
             vp.visibility = View.GONE
         }
 
@@ -81,36 +70,46 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
         selectDate()
         delete()
+        binding.btnAplicar.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
+            CoroutineScope(Dispatchers.IO).launch {
+                apply(value = precio)
+            }
+            vp.visibility = View.GONE
+        }
 
     }
 
 
     private suspend fun putMax() {
-        val Max: Float? = putMaxValue(facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas())
+        val Max: Float? = putMaxValue(
+            facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
+        )
         if (Max != null) {
             binding.TVMaxPrecio.text = Max.toString()
         } else {
             binding.TVMaxPrecio.text = "100"
         }
 
-        if (Max!=null) {
-            binding.volumeRange.valueFrom=0F
-            binding.volumeRange.valueTo=(Max.toInt()).toFloat()
-            binding.volumeRange.stepSize=1F
+        if (Max != null) {
+            binding.volumeRange.valueFrom = 0F
+            binding.volumeRange.valueTo = (Max.toInt()).toFloat()
+            binding.volumeRange.stepSize = 1F
         }
     }
 
-    fun putMaxValue(lista:List<FacturaEntity>): Float? {
+    fun putMaxValue(lista: List<FacturaEntity>): Float? {
         var Max: Float? = null
-            for (i in lista) {
-                if (Max != null) {
-                    if(Max!! <= i.precio){
-                        Max=i.precio
-                    }
-                } else {
-                    Max=i.precio
+        for (i in lista) {
+            if (Max != null) {
+                if (Max!! <= i.precio) {
+                    Max = i.precio
                 }
+            } else {
+                Max = i.precio
             }
+        }
         return Max
     }
 
@@ -194,7 +193,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     private suspend fun apply(value: Float) {
-        if (isAdded){
+        if (isAdded && activity != null) {
             val lista: List<FacturaEntity> =
                 facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
             val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
@@ -202,11 +201,9 @@ class Filtrar_Facturas_Fragment : Fragment() {
             val fechaFinText = binding.btnCalendarHasta.text.toString()
             val listaCheck: MutableList<String> = checkBox()
             val fechaInicio =
-                if (fechaInicioText != getString(R.string.dia_mes_anio)) formatoFecha.parse(
-                    fechaInicioText
-                ) else null
+                if (fechaInicioText != "dia/mes/año") formatoFecha.parse(fechaInicioText) else null
             val fechaFin =
-                if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
+                if (fechaFinText != "dia/mes/año") formatoFecha.parse(fechaFinText) else null
             facturaViewModel.filtrado(
                 precio = value,
                 fechaInicio = fechaInicio,

@@ -60,7 +60,7 @@ class Detalles_fragment : Fragment() {
     private fun obtenerDatos(service: Mock){
         var modelo_detalles_mock:Modelo_Detalles?=null
         CoroutineScope(Dispatchers.IO).launch {
-            val facturasMock = service.getDetallesMOCK()
+            val facturasMock: Modelo_Detalles? = service.getDetallesMOCK()
             if (facturasMock != null) {
                 modelo_detalles_mock=Modelo_Detalles(CAU = facturasMock.CAU, solicitud= facturasMock.solicitud, Tipo= facturasMock.Tipo, Excedentes = facturasMock.Excedentes, Potencia = facturasMock.Potencia)
                 binding.etCAU.setText(modelo_detalles_mock!!.CAU)

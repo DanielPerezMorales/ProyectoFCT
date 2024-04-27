@@ -27,7 +27,5 @@ class FacturaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         binding.root.setOnClickListener{
             onItemSelected(superHeroItemResponse.fecha)
         }
-        Log.i("BIND","EL ESTADO ES: ${superHeroItemResponse.descEstado}, LA FECHA ES: ${superHeroItemResponse.fecha}, PRECIO ES: ${superHeroItemResponse.importeOrdenacion}")
     }
-
 }

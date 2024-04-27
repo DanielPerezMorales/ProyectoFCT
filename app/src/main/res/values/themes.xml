@@ -5,7 +5,10 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.ProyectoFCT" parent="Base.Theme.ProyectoFCT" />
+    <style name="Theme.ProyectoFCT" parent="Base.Theme.ProyectoFCT">
+        <item name="colorPrimary">@color/color_consumo</item>
+        <!--<item name="colorSecondary">@color/white</item>-->
+    </style>
 
     <style name="CustomRangeSlider" parent="Base.Theme.ProyectoFCT">
         <item name="trackColorActive">@color/color_consumo</item>

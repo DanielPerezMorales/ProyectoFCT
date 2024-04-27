@@ -9,7 +9,7 @@ import com.example.proyectofct.data.network.ApiService
 import retrofit2.Response
 
 
-class Mock (private val context: Context){
+class Mock (context: Context){
 
     var retromock = RetrofitHelper.getRetromock(context)
 
@@ -17,9 +17,7 @@ class Mock (private val context: Context){
         val response = retromock.create(ApiService::class.java).getFacturasMock()
         if (!response.isCanceled) {
             val myresponseMock: Response<modelo_Factura?> =response.execute()
-            if (myresponseMock != null) {
-                return myresponseMock.body()
-            }
+            return myresponseMock.body()
         } else {
             Log.i("PRUEBA", "NO FUNCNIONA")
         }
@@ -30,9 +28,7 @@ class Mock (private val context: Context){
         val response = retromock.create(ApiService::class.java).getDetallesMock()
         if (!response.isCanceled) {
             val myresponseMock: Response<Modelo_Detalles?> =response.execute()
-            if (myresponseMock != null) {
-                return myresponseMock.body()
-            }
+            return myresponseMock.body()
         } else {
             Log.i("PRUEBA", "NO FUNCNIONA")
         }

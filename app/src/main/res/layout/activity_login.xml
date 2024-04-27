@@ -62,7 +62,6 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:buttonTint="@color/color_consumo"
                 android:text="@string/recordar_contrase_a" />
 
             <ImageButton
