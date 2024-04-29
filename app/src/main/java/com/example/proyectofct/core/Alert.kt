@@ -1,6 +1,8 @@
 package com.example.proyectofct.core
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -41,5 +43,16 @@ class Alert {
         }
 
         dialog.show()
+    }
+
+    fun showAlertFiltrado(titulo: String, mensaje: String,cont: Context) {
+        Handler(Looper.getMainLooper()).post {
+            val builder = AlertDialog.Builder(cont)
+            builder.setTitle(titulo)
+            builder.setMessage(mensaje)
+            builder.setPositiveButton("Aceptar", null)
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.proyectofct.domain
 
+import android.content.Context
 import android.util.Log
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.data.database.entities.FacturaEntity
@@ -11,7 +12,6 @@ import kotlinx.coroutines.launch
 import java.util.Date
 
 class FiltradoUseCase {
-    private val alert = Alert()
     fun filtrado(
         precio: Float,
         fechaInicio: Date?,
@@ -60,7 +60,8 @@ class FiltradoUseCase {
                     }
                 }
             }
-            callback(listaReturn.toList().map { it.toFacturaItem() })
+            val listaFiltradaItems = listaReturn.toList().map { it.toFacturaItem() }
+            callback(listaFiltradaItems)
         }
     }
 }

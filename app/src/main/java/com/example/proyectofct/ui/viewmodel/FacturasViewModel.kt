@@ -1,9 +1,14 @@
 package com.example.proyectofct.ui.viewmodel
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.proyectofct.core.Alert
 import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
@@ -26,6 +31,9 @@ class FacturasViewModel : ViewModel() {
     private val RoomUseCase = RoomUseCase()
     private val _facturas = MutableLiveData<List<facturaItem>?>()
     val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
+
+    private val _filtradoExitoso = MutableLiveData<Boolean>()
+    val filtradoExitoso: LiveData<Boolean> get() = _filtradoExitoso
     fun fetchFacturas(appDatabase: FacturaDatabase) {
         facturasUseCase.fetchFacturas(appDatabase) { facturasList ->
             _facturas.postValue(facturasList)
@@ -48,8 +56,13 @@ class FacturasViewModel : ViewModel() {
             lista,
             listaFiltrados
         ) { filtradoList ->
-            Log.i("TAG", "$filtradoList")
-            _facturas.postValue(filtradoList)
+            if (filtradoList.isEmpty()) {
+                _filtradoExitoso.postValue(false)
+            } else {
+                Log.i("TAG","$filtradoList")
+                _filtradoExitoso.postValue(true)
+                _facturas.postValue(filtradoList)
+            }
         }
     }
 

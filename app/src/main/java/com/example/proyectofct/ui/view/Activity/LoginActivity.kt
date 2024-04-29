@@ -97,7 +97,6 @@ class LoginActivity : AppCompatActivity() {
     private fun seePassword() {
         binding.ojoInformacion.setOnClickListener {
             if (binding.etPassword.inputType != TYPE_CLASS_TEXT) {
-                //Log.i("PRUEEEEEEEEEEBAAAAA", binding.etPassword.inputType.toString())
                 binding.etPassword.inputType = TYPE_CLASS_TEXT
             } else {
                 binding.etPassword.inputType = 129

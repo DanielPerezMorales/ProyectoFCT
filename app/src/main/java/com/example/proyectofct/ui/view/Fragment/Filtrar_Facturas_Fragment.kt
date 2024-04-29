@@ -3,6 +3,8 @@ package com.example.proyectofct.ui.view.Fragment
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.viewpager.widget.ViewPager
 import com.example.proyectofct.R
+import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
@@ -22,12 +25,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.concurrent.Semaphore
 
 class Filtrar_Facturas_Fragment : Fragment() {
     private var precio: Float = 0.0f
     private val facturaModule = RoomModule
     private val facturaViewModel: FacturasViewModel by activityViewModels()
     private lateinit var binding: FragmentFiltrarFacturasBinding
+    private var filtradoRealizado = false
+    private val alert = Alert()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,16 +75,15 @@ class Filtrar_Facturas_Fragment : Fragment() {
         }
 
         selectDate()
-        delete()
+        binding.btnEliminarFiltro.setOnClickListener {
+            delete()
+        }
         binding.btnAplicar.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
             CoroutineScope(Dispatchers.IO).launch {
                 apply(value = precio)
+                comprobar()
             }
-            vp.visibility = View.GONE
         }
-
     }
 
 
@@ -93,17 +98,33 @@ class Filtrar_Facturas_Fragment : Fragment() {
         }
 
         if (Max != null) {
-            binding.volumeRange.valueFrom = 0F
             binding.volumeRange.valueTo = (Max.toInt()).toFloat()
             binding.volumeRange.stepSize = 1F
         }
     }
 
+    private fun comprobar() {
+        facturaViewModel.filtradoExitoso.observe(viewLifecycleOwner) { exitoso ->
+            if (exitoso) {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .remove(this).commit()
+                val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
+                vp.visibility = View.GONE
+            } else {
+                Handler(Looper.getMainLooper()).post {
+                    alert.showAlert("ERROR","No hay facturas qu ecumplan estos requisitos",requireContext())
+                }
+                delete()
+            }
+        }
+    }
+
+
     fun putMaxValue(lista: List<FacturaEntity>): Float? {
         var Max: Float? = null
         for (i in lista) {
             if (Max != null) {
-                if (Max!! <= i.precio) {
+                if (Max <= i.precio) {
                     Max = i.precio
                 }
             } else {
@@ -146,6 +167,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
         precio = value
     }
 
+    @SuppressLint("SetTextI18n")
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
         if (boton.equals("Desde")) {
             if (month + 1 < 10) {
@@ -179,7 +201,6 @@ class Filtrar_Facturas_Fragment : Fragment() {
     }
 
     private fun delete() {
-        binding.btnEliminarFiltro.setOnClickListener {
             binding.btnCalendarDesde.setText(R.string.dia_mes_anio)
             binding.btnCalendarHasta.setText(R.string.dia_mes_anio)
             binding.volumeRange.setValues(0.0F)
@@ -188,7 +209,6 @@ class Filtrar_Facturas_Fragment : Fragment() {
             binding.ChckAnuladas.isChecked = false
             binding.ChckCuotaFija.isChecked = false
             binding.ChckPlanDePago.isChecked = false
-        }
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -213,38 +233,43 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 listadoFiltrado()
             )
         }
+        filtradoRealizado = true
     }
 
     private fun checkBox(): MutableList<String> {
         val entrees: MutableList<String> = mutableListOf()
-        if (binding.ChckPagadas.isChecked) {
-            entrees.add(binding.ChckPagadas.text.toString())
-        }
-        if (binding.ChckAnuladas.isChecked) {
-            entrees.add(binding.ChckAnuladas.text.toString())
-        }
-        if (binding.ChckCuotaFija.isChecked) {
-            entrees.add(binding.ChckCuotaFija.text.toString())
-        }
-        if (binding.ChckPendientesDePago.isChecked) {
-            entrees.add(binding.ChckPendientesDePago.text.toString())
-        }
-        if (binding.ChckPlanDePago.isChecked) {
-            entrees.add(binding.ChckPlanDePago.text.toString())
+        if (isAdded && activity != null) {
+            if (binding.ChckPagadas.isChecked) {
+                entrees.add(binding.ChckPagadas.text.toString())
+            }
+            if (binding.ChckAnuladas.isChecked) {
+                entrees.add(binding.ChckAnuladas.text.toString())
+            }
+            if (binding.ChckCuotaFija.isChecked) {
+                entrees.add(binding.ChckCuotaFija.text.toString())
+            }
+            if (binding.ChckPendientesDePago.isChecked) {
+                entrees.add(binding.ChckPendientesDePago.text.toString())
+            }
+            if (binding.ChckPlanDePago.isChecked) {
+                entrees.add(binding.ChckPlanDePago.text.toString())
+            }
         }
         return entrees
     }
 
     private fun listadoFiltrado(): MutableList<String> {
         val entrees: MutableList<String> = mutableListOf()
-        if (checkBox().isNotEmpty()) {
-            entrees.add("CheckBox")
-        }
-        if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(
-                R.string.dia_mes_anio
-            )
-        ) {
-            entrees.add("Fechas")
+        if (isAdded && activity != null) {
+            if (checkBox().isNotEmpty()) {
+                entrees.add("CheckBox")
+            }
+            if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(
+                    R.string.dia_mes_anio
+                )
+            ) {
+                entrees.add("Fechas")
+            }
         }
         return entrees
     }
