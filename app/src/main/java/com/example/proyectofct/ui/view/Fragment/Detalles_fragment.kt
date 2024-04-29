@@ -1,13 +1,12 @@
 package com.example.proyectofct.ui.view.Fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.data.mock.Mock
+import com.example.proyectofct.core.Detalles_Object
 import com.example.proyectofct.data.model.Modelo_Detalles
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 import kotlinx.coroutines.CoroutineScope
@@ -19,14 +18,9 @@ import kotlinx.coroutines.launch
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Detalles_fragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class Detalles_fragment : Fragment() {
     private lateinit var binding: FragmentDetallesFragmentBinding
-    private lateinit var facturaserviceMock: Mock
+    private val Detalles=Detalles_Object
     private val alert= Alert()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,12 +32,29 @@ class Detalles_fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetallesFragmentBinding.inflate(layoutInflater)
-        facturaserviceMock= Mock(requireContext())
-        obtenerDatos(facturaserviceMock)
+        Detalles.inicializar(requireContext())
+        CoroutineScope(Dispatchers.IO).launch {
+            implementarDatos(Detalles.obtenerInstancia())
+        }
         binding.btnInformation.setOnClickListener{
             alert.showPopNative(this)
         }
         return binding.root
+    }
+
+    private fun implementarDatos(detalles: Modelo_Detalles) {
+        binding.etCAU.setText(detalles.CAU)
+        binding.etEstado.setText(detalles.solicitud)
+        binding.etExcedentes.setText(detalles.Excedentes)
+        binding.etPotencia.setText(detalles.Potencia)
+        binding.etAutoConsumo.setText(detalles.Tipo)
+
+
+        binding.etCAU.isEnabled=false
+        binding.etEstado.isEnabled=false
+        binding.etExcedentes.isEnabled=false
+        binding.etPotencia.isEnabled=false
+        binding.etAutoConsumo.isEnabled=false
     }
 
     companion object {
@@ -55,27 +66,5 @@ class Detalles_fragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
-    }
-
-    private fun obtenerDatos(service: Mock){
-        var modelo_detalles_mock:Modelo_Detalles?=null
-        CoroutineScope(Dispatchers.IO).launch {
-            val facturasMock: Modelo_Detalles? = service.getDetallesMOCK()
-            if (facturasMock != null) {
-                modelo_detalles_mock=Modelo_Detalles(CAU = facturasMock.CAU, solicitud= facturasMock.solicitud, Tipo= facturasMock.Tipo, Excedentes = facturasMock.Excedentes, Potencia = facturasMock.Potencia)
-                binding.etCAU.setText(modelo_detalles_mock!!.CAU)
-                binding.etPotencia.setText(modelo_detalles_mock!!.Potencia)
-                binding.etAutoConsumo.setText(modelo_detalles_mock!!.Tipo)
-                binding.etExcedentes.setText(modelo_detalles_mock!!.Excedentes)
-                binding.etEstado.setText(modelo_detalles_mock!!.solicitud)
-
-                binding.etCAU.isEnabled=false
-                binding.etPotencia.isEnabled=false
-                binding.etAutoConsumo.isEnabled=false
-                binding.etExcedentes.isEnabled=false
-                binding.etEstado.isEnabled=false
-                Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK")
-            }
-        }
     }
 }
