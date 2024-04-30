@@ -10,14 +10,14 @@ import kotlinx.coroutines.launch
 class RoomUseCase {
     fun insertFacturasToRoom(facturas: List<FacturaEntity>, appDatabase: FacturaDatabase) {
         CoroutineScope(Dispatchers.IO).launch {
-            Log.i("ROOM","INSERTADO")
+            //Log.i("ROOM","INSERTADO")
             appDatabase.getFactureDao().insertAll(facturas)
         }
     }
 
     fun deleteAllFacturasFromRoom(appDatabase: FacturaDatabase) {
         CoroutineScope(Dispatchers.IO).launch {
-            Log.i("ROOM","BORRADO")
+            //Log.i("ROOM","BORRADO")
             appDatabase.getFactureDao().deleteAllFacturas()
         }
     }

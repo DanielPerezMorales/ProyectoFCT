@@ -21,19 +21,26 @@ class FacturasUseCase(
 
             val response = facturaService.getFacturas()
             try {
-                if (response != null) {
-                    facturasList = response.facturas
-                    Log.i("TAG", "DATOS INTRODUCIDOS POR API")
+                if (response!!.isNotEmpty()) {
+                    facturasList = response
+                    //Log.i("TAG", "DATOS INTRODUCIDOS POR API")
 
                     RoomUseCase.deleteAllFacturasFromRoom(appDatabase)
                     RoomUseCase.insertFacturasToRoom(facturasList.map{it.toFacturaEntity()},appDatabase)
+                } else {
+                    facturasList =
+                        appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
+                    //Log.i("TAG", "DATOS INTRODUCIDOS POR ROOM")
                 }
             } catch (e: Exception) {
                 facturasList =
                     appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
-                Log.i("TAG", "DATOS INTRODUCIDOS POR ROOM")
+                //Log.i("TAG", "DATOS INTRODUCIDOS POR ROOM")
             }
             callback(facturasList)
         }
+    }
+    operator fun invoke(appDatabase: FacturaDatabase, callback: (List<facturaItem>) -> Unit){
+        fetchFacturas(appDatabase,callback)
     }
 }
