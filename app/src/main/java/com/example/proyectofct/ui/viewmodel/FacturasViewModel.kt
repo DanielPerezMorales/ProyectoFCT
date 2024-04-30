@@ -28,6 +28,7 @@ class FacturasViewModel : ViewModel() {
     private val facturasUseCase = FacturasUseCase(facturaService)
     private val filtradoUseCase = FiltradoUseCase()
     private lateinit var factureServiceMock: Mock
+    private val alert = Alert()
     private val RoomUseCase = RoomUseCase()
     private val _facturas = MutableLiveData<List<facturaItem>?>()
     val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
@@ -46,6 +47,7 @@ class FacturasViewModel : ViewModel() {
         fechaFin: Date?,
         listaCheck: List<String>,
         lista: List<FacturaEntity>,
+        context: Context,
         listaFiltrados: List<String>
     ) {
         filtradoUseCase.filtrado(
@@ -58,11 +60,15 @@ class FacturasViewModel : ViewModel() {
         ) { filtradoList ->
             if (filtradoList.isEmpty()) {
                 _filtradoExitoso.postValue(false)
+                Handler(Looper.getMainLooper()).post {
+                    alert.showAlert("ERROR","No hay facturas que cumplan estos requisitos",context)
+                }
             } else {
-                Log.i("TAG","$filtradoList")
                 _filtradoExitoso.postValue(true)
+                Log.i("TAG","$filtradoList")
                 _facturas.postValue(filtradoList)
             }
+            _filtradoExitoso.postValue(false)
         }
     }
 

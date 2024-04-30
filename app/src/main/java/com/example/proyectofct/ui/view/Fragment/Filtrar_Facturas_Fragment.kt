@@ -81,9 +81,9 @@ class Filtrar_Facturas_Fragment : Fragment() {
         binding.btnAplicar.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 apply(value = precio)
-                comprobar()
             }
         }
+        comprobar()
     }
 
 
@@ -111,12 +111,10 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
                 vp.visibility = View.GONE
             } else {
-                Handler(Looper.getMainLooper()).post {
-                    alert.showAlert("ERROR","No hay facturas qu ecumplan estos requisitos",requireContext())
-                }
                 delete()
             }
         }
+        filtradoRealizado=false
     }
 
 
@@ -201,14 +199,14 @@ class Filtrar_Facturas_Fragment : Fragment() {
     }
 
     private fun delete() {
-            binding.btnCalendarDesde.setText(R.string.dia_mes_anio)
-            binding.btnCalendarHasta.setText(R.string.dia_mes_anio)
-            binding.volumeRange.setValues(0.0F)
-            binding.ChckPagadas.isChecked = false
-            binding.ChckPendientesDePago.isChecked = false
-            binding.ChckAnuladas.isChecked = false
-            binding.ChckCuotaFija.isChecked = false
-            binding.ChckPlanDePago.isChecked = false
+        binding.btnCalendarDesde.setText(R.string.dia_mes_anio)
+        binding.btnCalendarHasta.setText(R.string.dia_mes_anio)
+        binding.volumeRange.setValues(0.0F)
+        binding.ChckPagadas.isChecked = false
+        binding.ChckPendientesDePago.isChecked = false
+        binding.ChckAnuladas.isChecked = false
+        binding.ChckCuotaFija.isChecked = false
+        binding.ChckPlanDePago.isChecked = false
     }
 
     @SuppressLint("SimpleDateFormat")
@@ -230,6 +228,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 fechaFin = fechaFin,
                 listaCheck = listaCheck,
                 lista,
+                requireContext(),
                 listadoFiltrado()
             )
         }
