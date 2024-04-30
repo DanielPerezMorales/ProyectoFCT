@@ -50,7 +50,6 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.firebase.config.ktx)
-    testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //ViewModel
@@ -77,4 +76,7 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
     //fingerPrint
     implementation("androidx.biometric:biometric:1.1.0")
+    //Test
+    testImplementation ("io.mockk:mockk:1.12.3")
+    testImplementation(libs.junit)
 }
