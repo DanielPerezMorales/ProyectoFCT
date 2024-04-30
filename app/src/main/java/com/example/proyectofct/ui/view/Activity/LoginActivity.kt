@@ -1,8 +1,10 @@
 package com.example.proyectofct.ui.view.Activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.*
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        sessionActive()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login_activity)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -36,7 +39,9 @@ class LoginActivity : AppCompatActivity() {
         }
         changeToCreateUser()
         forgotPassword()
-        login()
+        binding.btnEntrar.setOnClickListener {
+            login(binding.etUsuario.text.toString(), binding.etPassword.text.toString())
+        }
         seePassword()
         logWithFingerPrint()
         binding.fingerprint.setOnClickListener{
@@ -71,6 +76,8 @@ class LoginActivity : AppCompatActivity() {
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
                         val intent=Intent(this@LoginActivity,Pagina_Principal::class.java)
+                        intent.putExtra("email",binding.etUsuario.text)
+                        intent.putExtra("password",binding.etPassword.text)
                         startActivity(intent)
 
                     }
@@ -104,18 +111,16 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun login() {
-        binding.btnEntrar.setOnClickListener {
-            val email = binding.etUsuario.text.toString()
-            val password = binding.etPassword.text.toString()
-
+    private fun login(email:String, password:String) {
             viewModel.login(email, password)
-        }
+
 
         viewModel.loginResult.observe(this, Observer { result ->
             val (success, errorMessage) = result
             if (success) {
                 val intent = Intent(this, Pagina_Principal::class.java)
+                intent.putExtra("email",email)
+                intent.putExtra("password",password)
                 startActivity(intent)
             } else {
                 alert.showAlert(
@@ -125,6 +130,16 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
         })
+    }
+
+    private fun sessionActive() {
+        val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE)
+        val email = prefs.getString("email", null)
+        val password = prefs.getString("password", null)
+        Log.i("PRUEBA", "Email: $email y password $password")
+        if (email != null && password != null) {
+            login(email,password)
+        }
     }
 
 }

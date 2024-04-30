@@ -1,17 +1,16 @@
 package com.example.proyectofct.ui.view.Activity
 
+import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
-import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofct.R
 import com.example.proyectofct.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -54,6 +53,16 @@ class Pagina_Principal : AppCompatActivity() {
             }
         }
 
+        binding.ibLogOut.setOnClickListener{
+            val prefs =
+                getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
+            prefs.clear()
+            prefs.apply()
+            FirebaseAuth.getInstance().signOut()
+            val intent=Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
         val configSettings:FirebaseRemoteConfigSettings= remoteConfigSettings {
             minimumFetchIntervalInSeconds=0
         }
@@ -61,6 +70,13 @@ class Pagina_Principal : AppCompatActivity() {
         firebaseConfig.setConfigSettingsAsync(configSettings)
         firebaseConfig.setDefaultsAsync(mapOf(("Visualizacion_ListadoFacturas") to true, ("CambioDeValores") to false))
 
+        val bundle = intent.extras
+        val email = bundle?.getString("email")
+        val password = bundle?.getString("password")
 
+        val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
+        prefs.putString("email", email)
+        prefs.putString("password", password)
+        prefs.apply()
     }
 }

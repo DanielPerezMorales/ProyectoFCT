@@ -44,15 +44,4 @@ class Alert {
 
         dialog.show()
     }
-
-    fun showAlertFiltrado(titulo: String, mensaje: String,cont: Context) {
-        Handler(Looper.getMainLooper()).post {
-            val builder = AlertDialog.Builder(cont)
-            builder.setTitle(titulo)
-            builder.setMessage(mensaje)
-            builder.setPositiveButton("Aceptar", null)
-            val dialog: AlertDialog = builder.create()
-            dialog.show()
-        }
-    }
 }
