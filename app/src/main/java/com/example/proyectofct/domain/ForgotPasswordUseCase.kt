@@ -7,16 +7,16 @@ class ForgotPasswordUseCase(private val firebaseAuth: FirebaseAuth) {
         if (email.isBlank()) {
             callback(false, "Por favor, ingresa tu correo electrónico")
             return
-        }
-
-        firebaseAuth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    callback(true, null)
-                } else {
-                    val errorMessage = "Error desconocido al enviar el email."
-                    callback(false, errorMessage)
+        } else {
+            firebaseAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        callback(true, null)
+                    } else {
+                        val errorMessage = "Error desconocido al enviar el email."
+                        callback(false, errorMessage)
+                    }
                 }
-            }
+        }
     }
 }
