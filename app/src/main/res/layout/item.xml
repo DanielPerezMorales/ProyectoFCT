@@ -16,7 +16,6 @@
             android:layout_width="233dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="20sp"
             android:paddingTop="15sp"
             android:paddingBottom="8sp">
 
@@ -50,11 +49,10 @@
 
         <ImageButton
             android:id="@+id/ibPractica1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@color/white"
             android:layout_margin="16sp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             app:srcCompat="@drawable/baseline_arrow_forward_ios_24" />
 
     </LinearLayout>
