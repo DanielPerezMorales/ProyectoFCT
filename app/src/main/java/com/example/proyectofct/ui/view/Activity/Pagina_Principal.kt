@@ -15,9 +15,14 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
+import javax.crypto.Cipher
+import javax.crypto.KeyGenerator
+import javax.crypto.SecretKey
+import javax.crypto.spec.SecretKeySpec
 
 class Pagina_Principal : AppCompatActivity() {
     private lateinit var binding:ActivityMainBinding
+    private lateinit var secretKey: SecretKey
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -70,13 +75,34 @@ class Pagina_Principal : AppCompatActivity() {
         firebaseConfig.setConfigSettingsAsync(configSettings)
         firebaseConfig.setDefaultsAsync(mapOf(("Visualizacion_ListadoFacturas") to true, ("CambioDeValores") to false))
 
+        // Genera o carga la clave de cifrado
+        secretKey = generateOrLoadSecretKey()
+
         val bundle = intent.extras
         val email = bundle?.getString("email")
         val password = bundle?.getString("password")
 
+        // Cifra y guarda los datos en SharedPreferences
+        val encryptedEmail = encryptData(email ?: "")
+        val encryptedPassword = encryptData(password ?: "")
+
         val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
-        prefs.putString("email", email)
-        prefs.putString("password", password)
+        prefs.clear()
+        prefs.putString("email", encryptedEmail)
+        prefs.putString("password", encryptedPassword)
         prefs.apply()
+    }
+
+    private fun generateOrLoadSecretKey(): SecretKey {
+        val keyGenerator = KeyGenerator.getInstance("AES")
+        keyGenerator.init(256) // Selecciona la longitud de la clave (128, 192 o 256 bits)
+        return keyGenerator.generateKey()
+    }
+
+    private fun encryptData(data: String): String {
+        val cipher = Cipher.getInstance("AES")
+        cipher.init(Cipher.ENCRYPT_MODE, secretKey)
+        val encryptedBytes = cipher.doFinal(data.toByteArray())
+        return android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
     }
 }
