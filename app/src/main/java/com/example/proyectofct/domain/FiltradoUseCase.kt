@@ -35,12 +35,24 @@ class FiltradoUseCase {
                                 } else {
                                     false
                                 }
-                            if (precio <= i.precio && fechaDentroRango) {
-                                listaReturn.add(i)
+                            if (precio != 0.0F) {
+                                if (precio >= i.precio && fechaDentroRango) {
+                                    listaReturn.add(i)
+                                }
+                            } else {
+                                if (fechaDentroRango) {
+                                    listaReturn.add(i)
+                                }
                             }
                         } else {
-                            if (precio <= i.precio && listaCheck.contains(i.estado)) {
-                                listaReturn.add(i)
+                            if (precio != 0.0F) {
+                                if (precio >= i.precio && listaCheck.contains(i.estado)) {
+                                    listaReturn.add(i)
+                                }
+                            } else {
+                                if (listaCheck.contains(i.estado)) {
+                                    listaReturn.add(i)
+                                }
                             }
                         }
                     }
@@ -48,13 +60,23 @@ class FiltradoUseCase {
                     2 -> {
                         val fechaDentroRango =
                             fechaInicio == null || fechaFin == null || (i.fecha >= fechaInicio && i.fecha <= fechaFin)
-                        if (precio <= i.precio && fechaDentroRango && listaCheck.contains(i.estado)) {
-                            listaReturn.add(i)
+                        if (precio != 0.0F) {
+                            if (precio>=i.precio && fechaDentroRango && listaCheck.contains(i.estado)) {
+                                listaReturn.add(i)
+                            }
+                        } else {
+                            if (fechaDentroRango && listaCheck.contains(i.estado)) {
+                                listaReturn.add(i)
+                            }
                         }
                     }
 
                     else -> {
-                        if (precio <= i.precio) {
+                        if (precio != 0.0F) {
+                            if (precio>=i.precio) {
+                                listaReturn.add(i)
+                            }
+                        } else {
                             listaReturn.add(i)
                         }
                     }

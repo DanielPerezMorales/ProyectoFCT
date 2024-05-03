@@ -80,4 +80,5 @@
 
     <string name="sheredPref">com.example.proyectofct.PREFERENCE_FILE_KEY</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="_0">"    0€"</string>
 </resources>

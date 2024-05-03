@@ -138,9 +138,11 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, Pagina_Principal::class.java)
                     intent.putExtra("email", email)
                     intent.putExtra("password", password)
+                    intent.putExtra("check",check)
                     startActivity(intent)
                 } else {
                     val intent = Intent(this, Pagina_Principal::class.java)
+                    intent.putExtra("check",check)
                     startActivity(intent)
                 }
 

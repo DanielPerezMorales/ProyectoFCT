@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="@string/fecha_emision"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -88,10 +88,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/boton_disenio"
-                    android:textColor="@color/color_consumo"
+                    android:backgroundTint="@color/gris_boton"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
-                    app:cornerRadius="12dp"
+                    app:cornerRadius="13dp"
                     android:text="@string/dia_mes_anio" />
             </LinearLayout>
 
@@ -116,10 +116,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/boton_disenio"
-                    android:textColor="@color/color_consumo"
+                    android:backgroundTint="@color/gris_boton"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
-                    app:cornerRadius="12dp"
+                    app:cornerRadius="13dp"
                     android:text="@string/dia_mes_anio" />
             </LinearLayout>
         </LinearLayout>
@@ -127,14 +127,14 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="15dp" />
+            android:layout_marginVertical="12dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/por_un_importe"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
         
         <LinearLayout
@@ -148,12 +148,42 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/TVMinPrecioSeleccionado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:text="0€    -"
+                    android:textColor="@color/color_consumo"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/TVMaxPrecioSeleccionado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5sp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/_0"
+                    android:textColor="@color/color_consumo"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="5sp"
                     android:layout_weight="1"
                     android:text="@string/valorTVMin"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gris_boton"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -165,7 +195,7 @@
                     android:layout_weight="1"
                     android:gravity="end"
                     tools:text="0"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gris_boton"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -175,59 +205,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/color_consumo"
-                android:stepSize="1"
-                android:valueFrom="0"
                 style="@style/CustomRangeSlider"
-                android:valueTo="100" />
+                />
 
         </LinearLayout>
 
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginVertical="15dp" />
+            android:layout_marginVertical="12dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/por_estado"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <CheckBox
             android:id="@+id/Chck_Pagadas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="@string/pagadas_check" />
 
         <CheckBox
             android:id="@+id/Chck_Anuladas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="@string/anuladas_check" />
 
         <CheckBox
             android:id="@+id/Chck_CuotaFija"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="@string/cuota_fija_check" />
 
         <CheckBox
             android:id="@+id/Chck_Pendientes_De_Pago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="@string/pendientes_de_pago_check" />
 
         <CheckBox
             android:id="@+id/Chck_PlanDePago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:text="@string/plan_de_pago_check" />
 
         <LinearLayout
@@ -237,13 +265,13 @@
 
             <Button
                 android:id="@+id/btnAplicar"
-                android:layout_width="250sp"
+                android:layout_width="200sp"
                 android:layout_marginTop="2sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/color_consumo"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:layout_weight="1"
                 android:layout_marginEnd="5sp"
                 app:cornerRadius="12dp"
@@ -251,13 +279,13 @@
             <Button
                 android:id="@+id/btnEliminarFiltro"
                 android:layout_marginTop="2sp"
-                android:layout_width="250sp"
+                android:layout_width="200sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textColor="@color/color_consumo"
-                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 app:cornerRadius="12dp"
-                android:background="@drawable/boton_disenio"
+                android:backgroundTint="@color/gris_boton"
                 android:layout_marginStart="5sp"
                 android:layout_weight="1"
                 android:text="@string/eliminar" />

@@ -3,6 +3,7 @@ package com.example.proyectofct.ui.view.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -81,16 +82,19 @@ class Pagina_Principal : AppCompatActivity() {
         val bundle = intent.extras
         val email = bundle?.getString("email")
         val password = bundle?.getString("password")
+        val check = bundle?.getBoolean("check")
 
         // Cifra y guarda los datos en SharedPreferences
         val encryptedEmail = encryptData(email ?: "")
         val encryptedPassword = encryptData(password ?: "")
 
-        val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
-        prefs.clear()
-        prefs.putString("email", encryptedEmail)
-        prefs.putString("password", encryptedPassword)
-        prefs.apply()
+        if(check!!){
+            val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
+            prefs.clear()
+            prefs.putString("email", encryptedEmail)
+            prefs.putString("password", encryptedPassword)
+            prefs.apply()
+        }
     }
 
     private fun generateOrLoadSecretKey(): SecretKey {

@@ -72,6 +72,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
         binding.volumeRange.addOnChangeListener { _, value, _ ->
             saveVolume(value)
+            putMaxSeleccionado(value)
         }
 
         selectDate()
@@ -101,6 +102,10 @@ class Filtrar_Facturas_Fragment : Fragment() {
             binding.volumeRange.valueTo = (Max.toInt()).toFloat()
             binding.volumeRange.stepSize = 1F
         }
+    }
+
+    private fun putMaxSeleccionado(value: Float) {
+        binding.TVMaxPrecioSeleccionado.setText("    $value€")
     }
 
     private fun comprobar() {

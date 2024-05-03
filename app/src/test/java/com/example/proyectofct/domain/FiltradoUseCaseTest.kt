@@ -27,7 +27,7 @@ class FiltradoUseCaseTest {
         val precio = 50F
         val fechaInicio: Date? = null
         val fechaFin: Date? = null
-        val listaCheck = listOf("Pagada")
+        val listaCheck = listOf("Pendiente de pago")
         val listaFiltrados = listOf("Estados")
         val lista = listOf(
             FacturaEntity(1, Date(), "Pagada", 60F),
@@ -43,6 +43,6 @@ class FiltradoUseCaseTest {
 
         // Then
         delay(100)
-        assertEquals(2, resultList?.size)
+        assertEquals(1, resultList?.size)
     }
 }

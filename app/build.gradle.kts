@@ -53,30 +53,34 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     //ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     //LiveData
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     //Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
     //Firebase
-    implementation("com.google.firebase:firebase-auth-ktx:22.3.1")
-    implementation("com.google.firebase:firebase-analytics:21.6.1")
-    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.analytics)
+    implementation(libs.play.services.auth)
     //DaggerHilt
-    implementation("com.google.dagger:hilt-android:2.51.1")
+    implementation(libs.hilt.android)
     kapt("com.google.dagger:hilt-compiler:2.51.1")
     //Room
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.androidx.room.ktx)
     kapt("androidx.room:room-compiler:2.6.1")
     //Mock
     testImplementation("org.mockito:mockito-core:3.12.4")
     testImplementation("org.mockito:mockito-inline:3.12.4")
-    implementation ("co.infinum:retromock:1.1.0")
-    implementation ("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    implementation("co.infinum:retromock:1.1.0")
+    implementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
     //fingerPrint
-    implementation("androidx.biometric:biometric:1.1.0")
+    implementation(libs.androidx.biometric)
     //Test
-    testImplementation ("io.mockk:mockk:1.12.3")
+    testImplementation("io.mockk:mockk:1.12.3")
     testImplementation(libs.junit)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    //Corrutinas
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 }
