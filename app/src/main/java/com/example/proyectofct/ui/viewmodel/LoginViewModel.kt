@@ -7,13 +7,13 @@ import com.example.proyectofct.domain.LoginUseCase
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel : ViewModel() {
+    val firebaseAuth = FirebaseAuth.getInstance()
+    val loginUseCase = LoginUseCase(firebaseAuth)
     private val _loginResult = MutableLiveData<Pair<Boolean, String?>>()
     val loginResult: LiveData<Pair<Boolean, String?>>
         get() = _loginResult
 
     fun login(email: String, password: String) {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val loginUseCase = LoginUseCase(firebaseAuth)
         loginUseCase.login(email, password) { success, errorMessage ->
             _loginResult.postValue(Pair(success, errorMessage))
         }
