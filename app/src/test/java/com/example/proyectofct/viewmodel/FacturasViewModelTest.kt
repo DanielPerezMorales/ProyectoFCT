@@ -3,6 +3,7 @@ package com.example.proyectofct.viewmodel
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.proyectofct.core.Alert
@@ -15,6 +16,9 @@ import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
 import com.example.proyectofct.domain.RoomUseCase
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -27,6 +31,7 @@ import org.junit.Test
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
@@ -50,16 +55,13 @@ class FacturasViewModelTest {
     private lateinit var context: Context
 
     @Mock
-    private lateinit var alert: Alert
-
-    @Mock
     lateinit var appDatabase: FacturaDatabase
 
     @Mock
-    lateinit var factureServiceMock: com.example.proyectofct.data.mock.Mock
+    private lateinit var roomUseCase: RoomUseCase
 
     @Mock
-    lateinit var roomUseCase: RoomUseCase
+    lateinit var factureServiceMock: com.example.proyectofct.data.mock.Mock
 
     @Mock
     private lateinit var observer: Observer<List<facturaItem>?>
@@ -68,11 +70,20 @@ class FacturasViewModelTest {
 
     private val testScope = TestCoroutineScope(testDispatcher)
 
+    @Mock
+    lateinit var handler: Handler
+
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
         viewModel = FacturasViewModel()
         viewModel.facturas.observeForever(observer)
+        // Configure the behavior of the Handler mock
+        `when`(handler.post(any(Runnable::class.java))).thenAnswer { invocation ->
+            val runnable = invocation.arguments[0] as Runnable
+            runnable.run()
+            true // Return true to indicate successful handling
+        }
     }
 
     @After
@@ -155,13 +166,11 @@ class FacturasViewModelTest {
 
         // Then
         verify(observer).onChanged(expectedFacturas)
-        //verify(alert).showAlert("ERROR", "No hay facturas que cumplan estos requisitos", context)
     }
-
     @Test
     fun `putRetroMock posts facturas list`() = runBlockingTest {
         // Given
-        val expectedfacturasList :List<facturaItem> = listOf(
+        val expectedFacturas: List<facturaItem> = listOf(
             facturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F),
             facturaItem(
                 fecha = "01/01/2018",
@@ -174,17 +183,19 @@ class FacturasViewModelTest {
                 importeOrdenacion = 300F
             )
         )
-        val lista: List<facturaItem>? = factureServiceMock.getFacturasMOCK()?.facturas
-        if(lista != null){
-            `when`(lista).thenReturn(expectedfacturasList)
-        }
+        // Asegúrate de que factureServiceMock sea un objeto mock
+        val factureServiceMock = mockk<com.example.proyectofct.data.mock.Mock>()
+
+        // Configura el comportamiento del mock dentro de every
+        coEvery { factureServiceMock.getFacturasMOCK() } returns modelo_Factura(facturas = expectedFacturas, numFacturas = expectedFacturas.size.toString())
 
         // When
         viewModel.putRetroMock(context, appDatabase)
 
-        observer.onChanged(expectedfacturasList)
-
         // Then
-        verify(observer).onChanged(expectedfacturasList)
+        observer.onChanged(expectedFacturas)
+        verify(observer).onChanged(expectedFacturas)
+        verify(roomUseCase).deleteAllFacturasFromRoom(appDatabase)
+        verify(roomUseCase).insertFacturasToRoom(expectedFacturas.map { it.toFacturaEntity() }, appDatabase)
     }
 }

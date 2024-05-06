@@ -20,6 +20,7 @@ import com.example.proyectofct.domain.FiltradoUseCase
 import com.example.proyectofct.domain.RoomUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Date
 
@@ -61,11 +62,17 @@ class FacturasViewModel : ViewModel() {
             if (filtradoList.isEmpty()) {
                 _filtradoExitoso.postValue(false)
                 Handler(Looper.getMainLooper()).post {
-                    alert.showAlert("ERROR","No hay facturas que cumplan estos requisitos",context)
+                    alert.showAlert(
+                        "ERROR",
+                        "No hay facturas que cumplan estos requisitos",
+                        context
+                    )
                 }
             } else {
                 _filtradoExitoso.postValue(true)
-                //Log.i("TAG","$filtradoList")
+                CoroutineScope(Dispatchers.IO).launch {
+                    delay(100)
+                }
                 _facturas.postValue(filtradoList)
             }
             _filtradoExitoso.postValue(false)

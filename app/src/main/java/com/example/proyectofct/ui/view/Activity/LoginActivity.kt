@@ -130,6 +130,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(email:String, password:String) {
+        /*
+        Para entrar :)
+        emailprueba@gmail.com
+        123456
+        */
         viewModel.login(email, password)
 
         val check=binding.chckBX.isChecked

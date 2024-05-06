@@ -119,7 +119,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 delete()
             }
         }
-        filtradoRealizado=false
+        filtradoRealizado = false
     }
 
 
@@ -216,6 +216,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
     @SuppressLint("SimpleDateFormat")
     private suspend fun apply(value: Float) {
+        filtradoRealizado = true
         if (isAdded && activity != null) {
             val lista: List<FacturaEntity> =
                 facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
@@ -237,7 +238,6 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 listadoFiltrado()
             )
         }
-        filtradoRealizado = true
     }
 
     private fun checkBox(): MutableList<String> {
