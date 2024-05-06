@@ -8,6 +8,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.proyectofct.core.Detalles_Object
 import com.example.proyectofct.data.model.Modelo_Detalles
 import com.example.proyectofct.domain.DetallesUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DetallesViewModel: ViewModel() {
@@ -17,7 +19,7 @@ class DetallesViewModel: ViewModel() {
 
     fun cargarDetalles(context: Context, detalles:Detalles_Object) {
         val detallesUseCase = DetallesUseCase(detalles)
-        viewModelScope.launch {
+        CoroutineScope(Dispatchers.IO).launch {
             val detalles = detallesUseCase.obtenerDetalles(context)
             _detallesLiveData.postValue(detalles)
         }
