@@ -1,17 +1,16 @@
 package com.example.proyectofct.ui.view.Fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.Detalles_Object
 import com.example.proyectofct.data.model.Modelo_Detalles
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -19,26 +18,30 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class Detalles_fragment : Fragment() {
-    private lateinit var binding: FragmentDetallesFragmentBinding
-    private val Detalles=Detalles_Object
-    private val alert= Alert()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var binding: FragmentDetallesFragmentBinding
+    private val detallesObject = Detalles_Object
+    private val alert = Alert()
+
+    // ViewModel
+    private val viewModel: DetallesViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentDetallesFragmentBinding.inflate(layoutInflater)
-        Detalles.inicializar(requireContext())
-        CoroutineScope(Dispatchers.IO).launch {
-            implementarDatos(Detalles.obtenerInstancia())
-        }
-        binding.btnInformation.setOnClickListener{
+
+        viewModel.detallesLiveData.observe(viewLifecycleOwner, { detalles ->
+            implementarDatos(detalles)
+        })
+
+        viewModel.cargarDetalles(requireContext(),detallesObject)
+
+        binding.btnInformation.setOnClickListener {
             alert.showPopNative(this)
         }
+
         return binding.root
     }
 
@@ -49,13 +52,13 @@ class Detalles_fragment : Fragment() {
         binding.etPotencia.setText(detalles.Potencia)
         binding.etAutoConsumo.setText(detalles.Tipo)
 
-
-        binding.etCAU.isEnabled=false
-        binding.etEstado.isEnabled=false
-        binding.etExcedentes.isEnabled=false
-        binding.etPotencia.isEnabled=false
-        binding.etAutoConsumo.isEnabled=false
+        binding.etCAU.isEnabled = false
+        binding.etEstado.isEnabled = false
+        binding.etExcedentes.isEnabled = false
+        binding.etPotencia.isEnabled = false
+        binding.etAutoConsumo.isEnabled = false
     }
+
 
     companion object {
         @JvmStatic
