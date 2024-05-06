@@ -18,10 +18,12 @@ import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityLoginBinding
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var viewModel: LoginViewModel
+    private val firebaseAuth = FirebaseAuth.getInstance()
     private val alert = Alert()
     private var auth = false
     private var canAuthenticate = false
@@ -36,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        viewModel = LoginViewModel(firebaseAuth = firebaseAuth)
         changeToCreateUser()
         forgotPassword()
         binding.btnEntrar.setOnClickListener {

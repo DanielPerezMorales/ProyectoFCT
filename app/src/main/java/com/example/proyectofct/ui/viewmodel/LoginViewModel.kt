@@ -6,9 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.example.proyectofct.domain.LoginUseCase
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginViewModel : ViewModel() {
-    val firebaseAuth = FirebaseAuth.getInstance()
-    val loginUseCase = LoginUseCase(firebaseAuth)
+class LoginViewModel (firebaseAuth: FirebaseAuth): ViewModel() {
+    var loginUseCase = LoginUseCase(firebaseAuth)
     private val _loginResult = MutableLiveData<Pair<Boolean, String?>>()
     val loginResult: LiveData<Pair<Boolean, String?>>
         get() = _loginResult

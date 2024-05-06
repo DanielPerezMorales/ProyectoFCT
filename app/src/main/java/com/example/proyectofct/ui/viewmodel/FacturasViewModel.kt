@@ -28,7 +28,7 @@ class FacturasViewModel : ViewModel() {
     private val facturasUseCase = FacturasUseCase(facturaService)
     private val filtradoUseCase = FiltradoUseCase()
     private lateinit var factureServiceMock: Mock
-    private val alert = Alert()
+    var alert = Alert()
     private val RoomUseCase = RoomUseCase()
     private val _facturas = MutableLiveData<List<facturaItem>?>()
     val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
@@ -65,7 +65,7 @@ class FacturasViewModel : ViewModel() {
                 }
             } else {
                 _filtradoExitoso.postValue(true)
-                Log.i("TAG","$filtradoList")
+                //Log.i("TAG","$filtradoList")
                 _facturas.postValue(filtradoList)
             }
             _filtradoExitoso.postValue(false)

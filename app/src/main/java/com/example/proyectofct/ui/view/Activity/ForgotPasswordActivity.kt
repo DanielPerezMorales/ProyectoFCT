@@ -18,7 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
-    private val fgViewModel:ForgotPasswordViewModel by viewModels ()
+    private lateinit var fgViewModel:ForgotPasswordViewModel
+    private val firebaseAuth =FirebaseAuth.getInstance()
     private val alert= Alert()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        fgViewModel = ForgotPasswordViewModel(firebaseAuth)
         sendEmail()
         comeBackToLogin()
     }

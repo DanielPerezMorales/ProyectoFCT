@@ -20,7 +20,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SignupActivity : AppCompatActivity() {
     private val alert= Alert()
-    private val viewModel: SignUpViewModel by viewModels()
+    private lateinit var viewModel: SignUpViewModel
+    private val firebaseAuth= FirebaseAuth.getInstance()
     private lateinit var binding:ActivitySignupBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class SignupActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        viewModel = SignUpViewModel(firebaseAuth = firebaseAuth)
 
         changeToLogin()
         createUser()

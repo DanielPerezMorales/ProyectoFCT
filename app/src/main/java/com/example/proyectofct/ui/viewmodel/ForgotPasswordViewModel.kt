@@ -7,9 +7,8 @@ import com.example.proyectofct.domain.ForgotPasswordUseCase
 import com.example.proyectofct.domain.SignUpUseCase
 import com.google.firebase.auth.FirebaseAuth
 
-class ForgotPasswordViewModel:ViewModel() {
-    private val firebaseAuth = FirebaseAuth.getInstance()
-    private val fgUseCase = ForgotPasswordUseCase(firebaseAuth)
+class ForgotPasswordViewModel (firebaseAuth: FirebaseAuth):ViewModel() {
+    var fgUseCase = ForgotPasswordUseCase(firebaseAuth)
 
     private val _fgResult = MutableLiveData<Pair<Boolean, String?>>()
     val forgotPasswordResult: LiveData<Pair<Boolean, String?>>
