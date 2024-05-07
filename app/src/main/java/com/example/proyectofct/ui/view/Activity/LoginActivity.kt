@@ -19,6 +19,7 @@ import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityLoginBinding
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Calendar
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -146,6 +147,7 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, Pagina_Principal::class.java)
                     intent.putExtra("email", email)
                     intent.putExtra("password", password)
+                    intent.putExtra("localDate", Calendar.getInstance().time)
                     intent.putExtra("check",check)
                     startActivity(intent)
                 } else {

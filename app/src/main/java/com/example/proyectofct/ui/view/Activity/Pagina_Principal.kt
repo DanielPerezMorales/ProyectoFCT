@@ -16,18 +16,20 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
+import java.util.Calendar
+import java.util.Date
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 import javax.crypto.spec.SecretKeySpec
 
 class Pagina_Principal : AppCompatActivity() {
-    private lateinit var binding:ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var secretKey: SecretKey
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding=ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -35,19 +37,19 @@ class Pagina_Principal : AppCompatActivity() {
             insets
         }
 
-        binding.ibPractica1.setOnClickListener{
-            val intent=Intent(this, Facturas::class.java)
-            intent.putExtra("Mock",binding.SWMock.isChecked)
+        binding.ibPractica1.setOnClickListener {
+            val intent = Intent(this, Facturas::class.java)
+            intent.putExtra("Mock", binding.SWMock.isChecked)
             startActivity(intent)
         }
 
-        binding.ibPractica2.setOnClickListener{
-            val intent=Intent(this, PantallaPrincipalSmartSolar::class.java)
+        binding.ibPractica2.setOnClickListener {
+            val intent = Intent(this, PantallaPrincipalSmartSolar::class.java)
             startActivity(intent)
         }
 
-        binding.ibNavegacion.setOnClickListener{
-            val intent=Intent(this, Activity_Navegacion::class.java)
+        binding.ibNavegacion.setOnClickListener {
+            val intent = Intent(this, Activity_Navegacion::class.java)
             startActivity(intent)
         }
 
@@ -59,22 +61,27 @@ class Pagina_Principal : AppCompatActivity() {
             }
         }
 
-        binding.ibLogOut.setOnClickListener{
+        binding.ibLogOut.setOnClickListener {
             val prefs =
                 getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
             prefs.clear()
             prefs.apply()
             FirebaseAuth.getInstance().signOut()
-            val intent=Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        val configSettings:FirebaseRemoteConfigSettings= remoteConfigSettings {
-            minimumFetchIntervalInSeconds=0
+        val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 0
         }
-        val firebaseConfig= Firebase.remoteConfig
+        val firebaseConfig = Firebase.remoteConfig
         firebaseConfig.setConfigSettingsAsync(configSettings)
-        firebaseConfig.setDefaultsAsync(mapOf(("Visualizacion_ListadoFacturas") to true, ("CambioDeValores") to false))
+        firebaseConfig.setDefaultsAsync(
+            mapOf(
+                ("Visualizacion_ListadoFacturas") to true,
+                ("CambioDeValores") to false
+            )
+        )
 
         // Genera o carga la clave de cifrado
         secretKey = generateOrLoadSecretKey()
@@ -82,19 +89,33 @@ class Pagina_Principal : AppCompatActivity() {
         val bundle = intent.extras
         val email = bundle?.getString("email")
         val password = bundle?.getString("password")
-        val check = bundle?.getBoolean("check")
+        val date = bundle?.getSerializable("localDate") as Date
+        val check = bundle.getBoolean("check")
 
         // Cifra y guarda los datos en SharedPreferences
         val encryptedEmail = encryptData(email ?: "")
         val encryptedPassword = encryptData(password ?: "")
 
-        if(check!!){
-            val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
-            prefs.clear()
-            prefs.putString("email", encryptedEmail)
-            prefs.putString("password", encryptedPassword)
-            prefs.apply()
+        if (check) {
+            if (date <= Calendar.getInstance().time) {
+                val prefs = getSharedPreferences(
+                    getString(R.string.sheredPref),
+                    Context.MODE_PRIVATE
+                ).edit()
+                prefs.clear()
+                prefs.putString("email", encryptedEmail)
+                prefs.putString("password", encryptedPassword)
+                prefs.apply()
+            } else {
+                val prefs = getSharedPreferences(
+                    getString(R.string.sheredPref),
+                    Context.MODE_PRIVATE
+                ).edit()
+                prefs.clear()
+                prefs.apply()
+            }
         }
+
     }
 
     private fun generateOrLoadSecretKey(): SecretKey {
