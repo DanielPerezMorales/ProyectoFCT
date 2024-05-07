@@ -10,6 +10,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import org.mockito.Mockito.verify
 
 class SignUpViewModelTest{
     @get:Rule
@@ -47,7 +48,9 @@ class SignUpViewModelTest{
         viewModel.signUp(email, password)
 
         // Then
+        Thread.sleep(100)
         observer.onChanged(Pair(success, errorMessage))
+        verify(observer).onChanged(Pair(success, errorMessage))
     }
 
 

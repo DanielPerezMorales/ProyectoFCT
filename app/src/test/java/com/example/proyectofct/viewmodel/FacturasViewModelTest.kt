@@ -1,7 +1,6 @@
 package com.example.proyectofct.viewmodel
 
 import android.content.Context
-import android.os.Handler
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.proyectofct.data.database.FacturaDatabase
@@ -10,7 +9,6 @@ import com.example.proyectofct.data.model.modelo_Factura
 import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
-import com.example.proyectofct.domain.RoomUseCase
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
