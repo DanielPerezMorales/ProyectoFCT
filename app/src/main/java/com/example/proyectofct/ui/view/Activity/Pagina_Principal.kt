@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.remoteConfigSettings
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import javax.crypto.Cipher
@@ -89,31 +90,23 @@ class Pagina_Principal : AppCompatActivity() {
         val bundle = intent.extras
         val email = bundle?.getString("email")
         val password = bundle?.getString("password")
-        //val date = bundle?.getSerializable("localDate") as Date
         val check = bundle?.getBoolean("check")
+        val date = bundle?.getString("date")
 
         // Cifra y guarda los datos en SharedPreferences
         val encryptedEmail = encryptData(email ?: "")
         val encryptedPassword = encryptData(password ?: "")
 
         if (check == true) {
-            //if (date <= Calendar.getInstance().time) {
-                val prefs = getSharedPreferences(
-                    getString(R.string.sheredPref),
-                    Context.MODE_PRIVATE
-                ).edit()
-                prefs.clear()
-                prefs.putString("email", encryptedEmail)
-                prefs.putString("password", encryptedPassword)
-                prefs.apply()
-            /*} else {
-                val prefs = getSharedPreferences(
-                    getString(R.string.sheredPref),
-                    Context.MODE_PRIVATE
-                ).edit()
-                prefs.clear()
-                prefs.apply()
-            }*/
+            val prefs = getSharedPreferences(
+                getString(R.string.sheredPref),
+                Context.MODE_PRIVATE
+            ).edit()
+            prefs.clear()
+            prefs.putString("email", encryptedEmail)
+            prefs.putString("password", encryptedPassword)
+            prefs.putString("date", date)
+            prefs.apply()
         }
 
     }

@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,7 @@ import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityLoginBinding
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
 import java.util.Calendar
 
 class LoginActivity : AppCompatActivity() {
@@ -64,13 +67,21 @@ class LoginActivity : AppCompatActivity() {
         val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE)
         val email = prefs.getString("email", null)
         val password = prefs.getString("password", null)
-        if (email != null && password != null) {
-            val intent = Intent(this, Pagina_Principal::class.java)
-            intent.putExtra("email",email)
-            intent.putExtra("password",password)
-            startActivity(intent)
+        val date = prefs.getString("date", "1970-01-01")
+        val formatter = SimpleDateFormat("yyyy-MM-dd")
+        if(formatter.parse(date) <= Calendar.getInstance().time){
+            if (email != null && password != null) {
+                val intent = Intent(this, Pagina_Principal::class.java)
+                intent.putExtra("email",email)
+                intent.putExtra("password",password)
+                intent.putExtra("date", date)
+                startActivity(intent)
+            } else {
+                binding.PB.visibility= View.GONE
+            }
         } else {
             binding.PB.visibility= View.GONE
+            Toast.makeText(this,"La sesión ha caducado",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -147,7 +158,8 @@ class LoginActivity : AppCompatActivity() {
                     val intent = Intent(this, Pagina_Principal::class.java)
                     intent.putExtra("email", email)
                     intent.putExtra("password", password)
-                    intent.putExtra("localDate", Calendar.getInstance().time)
+                    val formatter = SimpleDateFormat("yyyy-MM-dd")
+                    intent.putExtra("date", formatter.format(Calendar.getInstance().time))
                     intent.putExtra("check",check)
                     startActivity(intent)
                 } else {
