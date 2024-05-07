@@ -10,7 +10,6 @@ import retrofit2.Response
 
 
 class Mock (context: Context){
-
     var retromock = RetrofitHelper.getRetromock(context)
 
     fun getFacturasMOCK(): modelo_Factura? {

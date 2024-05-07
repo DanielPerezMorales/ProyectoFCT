@@ -1,12 +1,10 @@
 package com.example.proyectofct.data.database.dao
 
-import android.util.Log
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.proyectofct.data.database.entities.FacturaEntity
-import java.util.Date
 
 @Dao
 interface Factura_dao {

@@ -21,7 +21,6 @@ interface ApiService {
     @GET("facturas")
     fun getFacturasMock(): Call<modelo_Factura?>
 
-
     @Mock
     @MockRandom
     @MockResponse(body = "detalles_fragment.json")

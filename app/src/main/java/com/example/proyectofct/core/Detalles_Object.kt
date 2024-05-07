@@ -23,17 +23,13 @@ object Detalles_Object {
         return withContext(Dispatchers.IO) {
             val facturasMock: Modelo_Detalles? = servicioMock?.getDetallesMOCK()
             Log.i("kjdekj","$facturasMock")
-            if (facturasMock != null) {
-                Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK")
-            }
+            if (facturasMock != null) { Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK") }
             facturasMock
         }
     }
 
     suspend fun obtenerInstancia(): Modelo_Detalles {
-        if (modeloDetalles == null) {
-            modeloDetalles = obtenerDatos()
-        }
+        if (modeloDetalles == null) { modeloDetalles = obtenerDatos() }
         return modeloDetalles ?: Modelo_Detalles("", "", "", "", "")
     }
 }

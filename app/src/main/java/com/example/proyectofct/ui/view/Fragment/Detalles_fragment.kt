@@ -12,11 +12,6 @@ import com.example.proyectofct.data.model.Modelo_Detalles
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 class Detalles_fragment : Fragment() {
 
     private lateinit var binding: FragmentDetallesFragmentBinding
@@ -57,17 +52,5 @@ class Detalles_fragment : Fragment() {
         binding.etExcedentes.isEnabled = false
         binding.etPotencia.isEnabled = false
         binding.etAutoConsumo.isEnabled = false
-    }
-
-
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Detalles_fragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
     }
 }

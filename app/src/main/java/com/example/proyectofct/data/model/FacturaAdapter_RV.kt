@@ -5,19 +5,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofct.R
 
-class FacturaAdapter_RV (
-    var FacturaList: List<facturaItem> = emptyList(),
-    private val onItemSelected: (String) -> Unit
-):
-    RecyclerView.Adapter<FacturaViewHolder>(){
-
+class FacturaAdapter_RV (var FacturaList: List<facturaItem> = emptyList(), private val onItemSelected: (String) -> Unit): RecyclerView.Adapter<FacturaViewHolder>(){
     fun updateList(List: List<facturaItem>) {
         FacturaList = List
         notifyDataSetChanged()
-    }
-
-    fun getList(): List<facturaItem> {
-        return FacturaList
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FacturaViewHolder {

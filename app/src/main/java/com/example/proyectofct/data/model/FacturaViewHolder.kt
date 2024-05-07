@@ -1,6 +1,5 @@
 package com.example.proyectofct.data.model
 
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -24,8 +23,6 @@ class FacturaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         var dinero = superHeroItemResponse.importeOrdenacion
         binding.TVDinero.text = "$dinero€"
-        binding.root.setOnClickListener{
-            onItemSelected(superHeroItemResponse.fecha)
-        }
+        binding.root.setOnClickListener{ onItemSelected(superHeroItemResponse.fecha) }
     }
 }

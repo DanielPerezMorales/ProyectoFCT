@@ -4,7 +4,6 @@ package com.example.proyectofct.data.model
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
-import java.util.Date
 
 data class modelo_Factura(
     @SerializedName("numFacturas") val numFacturas: String,

@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class Converter {
-
     private val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
 
     @TypeConverter

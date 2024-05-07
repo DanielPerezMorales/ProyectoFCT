@@ -17,7 +17,6 @@ object RoomModule {
     @Singleton
     @Provides
     fun provideRoom(@ApplicationContext context: Context) = Room.databaseBuilder(context, FacturaDatabase::class.java, NAME_TABLE).build()
-
     @Singleton
     @Provides
     fun provideFactureDao(db:FacturaDatabase)=db.getFactureDao()

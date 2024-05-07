@@ -20,7 +20,6 @@ data class FacturaEntity (
 fun FacturaEntity.toFacturaItem(): facturaItem {
     val formato = SimpleDateFormat("dd/MM/yyyy")
     val fecha_formateada=formato.format(fecha)
-    val entity =
-        facturaItem(fecha = fecha_formateada, descEstado = estado, importeOrdenacion = precio)
+    val entity = facturaItem(fecha = fecha_formateada, descEstado = estado, importeOrdenacion = precio)
     return entity
 }

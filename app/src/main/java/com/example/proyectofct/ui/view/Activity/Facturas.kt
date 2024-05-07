@@ -54,14 +54,6 @@ class Facturas : AppCompatActivity() {
                 } else {
                     alert.showAlert("ERROR", "AHORA MISMO NO SE PUEDE VER", this)
                 }
-
-                val cambioColor = Firebase.remoteConfig.getBoolean("CambioDeValores")
-                if (cambioColor) {
-                    val colorConsumo: Int = ContextCompat.getColor(this, R.color.color_consumo_2_0)
-                    binding.ibBack.setColorFilter(colorConsumo)
-                    binding.TVConsumo.setTextColor(colorConsumo)
-                    binding.TVFacturas.setTypeface(null, Typeface.ITALIC)
-                }
             }
         }
 

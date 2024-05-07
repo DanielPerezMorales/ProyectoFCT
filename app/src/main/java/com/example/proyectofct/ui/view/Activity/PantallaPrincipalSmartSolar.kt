@@ -29,18 +29,6 @@ class PantallaPrincipalSmartSolar : AppCompatActivity() {
             insets
         }
 
-        Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener{
-            if(it.isSuccessful){
-                 val cambioColor= Firebase.remoteConfig.getBoolean("CambioDeValores")
-                if(cambioColor){
-                    val colorConsumo = ContextCompat.getColor(this, R.color.color_consumo_2_0)
-                    binding.ibBack.setColorFilter(colorConsumo)
-                    binding.TVBack.setTextColor(colorConsumo)
-                    binding.TVSmart.setTypeface(null, Typeface.ITALIC)
-                }
-            }
-        }
-
         createTab()
 
         binding.ibBack.setOnClickListener { onBackPressed() }
