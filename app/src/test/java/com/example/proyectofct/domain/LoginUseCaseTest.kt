@@ -1,11 +1,13 @@
 package com.example.proyectofct.domain
 
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
@@ -48,13 +50,15 @@ class LoginUseCaseTest {
         // Given
         val email = "test@example.com"
         val password = "password"
-        val mockedTask = mock(Task::class.java) as Task<AuthResult>
+        val task = mock(Task::class.java) as Task<AuthResult>
 
-        // Simula el comportamiento de signInWithEmailAndPassword para devolver un Task no nulo
-        `when`(firebaseAuth.signInWithEmailAndPassword(email, password)).thenReturn(mockedTask)
-
-        // Simula que la tarea de autenticación no falla
-        `when`(mockedTask.isSuccessful).thenReturn(true)
+        `when`(task.isSuccessful).thenReturn(true)
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
+            val listener = it.arguments[0] as OnCompleteListener<AuthResult>
+            listener.onComplete(task)
+            task
+        }
+        `when`(firebaseAuth.signInWithEmailAndPassword(email, password)).thenReturn(task)
 
         var capturedSuccess: Boolean? = null
         var capturedErrorMessage: String? = null
@@ -75,13 +79,15 @@ class LoginUseCaseTest {
         // Given
         val email = "test@example.com"
         val password = "password"
-        val mockedTask = mock(Task::class.java) as Task<AuthResult>
+        val task = mock(Task::class.java) as Task<AuthResult>
 
-        // Igual que arriba
-        `when`(firebaseAuth.signInWithEmailAndPassword(email, password)).thenReturn(mockedTask)
-
-        // Simula que la tarea de autenticación falla
-        `when`(mockedTask.isSuccessful).thenReturn(false)
+        `when`(task.isSuccessful).thenReturn(false)
+        `when`(task.addOnCompleteListener(any())).thenAnswer {
+            val listener = it.arguments[0] as OnCompleteListener<AuthResult>
+            listener.onComplete(task)
+            task
+        }
+        `when`(firebaseAuth.signInWithEmailAndPassword(email, password)).thenReturn(task)
 
         var capturedSuccess: Boolean? = null
         var capturedErrorMessage: String? = null

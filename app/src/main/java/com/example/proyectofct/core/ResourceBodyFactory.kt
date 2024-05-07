@@ -7,8 +7,6 @@ import java.io.IOException
 import java.io.InputStream
 
 class ResourceBodyFactory (private val context: Context): BodyFactory {
-    override fun create(input: String): InputStream {
-        return context.assets.open(input)
-    }
+    override fun create(input: String): InputStream = context.assets.open(input)
 }
 

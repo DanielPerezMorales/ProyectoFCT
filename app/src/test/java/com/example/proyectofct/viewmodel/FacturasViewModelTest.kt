@@ -138,7 +138,6 @@ class FacturasViewModelTest {
             null,
             listaCheck,
             listaEntity,
-            context,
             listaFiltrados
         )
 
@@ -189,7 +188,6 @@ class FacturasViewModelTest {
             null,
             listaCheck,
             listaEntity,
-            context,
             listaFiltrados
         )
 
