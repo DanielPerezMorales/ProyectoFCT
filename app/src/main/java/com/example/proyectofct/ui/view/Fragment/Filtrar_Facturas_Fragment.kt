@@ -120,6 +120,13 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
                 vp.visibility = View.GONE
             } else {
+                if(filtradoRealizado){
+                    alert.showAlert(
+                        "ERROR",
+                        "No hay facturas que cumplan estos requisitos",
+                        requireContext()
+                    )
+                }
                 delete()
             }
         }

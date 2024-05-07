@@ -61,13 +61,6 @@ class FacturasViewModel : ViewModel() {
         ) { filtradoList ->
             if (filtradoList.isEmpty()) {
                 _filtradoExitoso.postValue(false)
-                Handler(Looper.getMainLooper()).post {
-                    alert.showAlert(
-                        "ERROR",
-                        "No hay facturas que cumplan estos requisitos",
-                        context
-                    )
-                }
             } else {
                 _filtradoExitoso.postValue(true)
                 CoroutineScope(Dispatchers.IO).launch {
@@ -96,6 +89,10 @@ class FacturasViewModel : ViewModel() {
             }
             _facturas.postValue(facturasList)
         }
+    }
+
+    fun putAgainFalse(){
+        _filtradoExitoso.postValue(false)
     }
 }
 

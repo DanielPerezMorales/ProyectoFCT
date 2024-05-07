@@ -61,9 +61,6 @@ class FacturasViewModelTest {
     private lateinit var roomUseCase: RoomUseCase
 
     @Mock
-    lateinit var factureServiceMock: com.example.proyectofct.data.mock.Mock
-
-    @Mock
     private lateinit var observer: Observer<List<facturaItem>?>
 
     private val testDispatcher = TestCoroutineDispatcher()
