@@ -1,17 +1,14 @@
 package com.example.proyectofct.ui.viewmodel
 
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
+import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.model.facturaItem
 import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.data.network.FacturaService
@@ -68,7 +65,6 @@ class FacturasViewModel : ViewModel() {
                 }
                 _facturas.postValue(filtradoList)
             }
-            _filtradoExitoso.postValue(false)
         }
     }
 
@@ -91,7 +87,7 @@ class FacturasViewModel : ViewModel() {
         }
     }
 
-    fun putAgainFalse(){
+    fun putAgainOnFalse(){
         _filtradoExitoso.postValue(false)
     }
 }

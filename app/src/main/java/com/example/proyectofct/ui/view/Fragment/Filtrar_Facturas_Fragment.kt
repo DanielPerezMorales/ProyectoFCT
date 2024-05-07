@@ -3,8 +3,6 @@ package com.example.proyectofct.ui.view.Fragment
 import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +23,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.util.concurrent.Semaphore
 
 class Filtrar_Facturas_Fragment : Fragment() {
     private var precio: Float = 0.0f
@@ -119,6 +116,8 @@ class Filtrar_Facturas_Fragment : Fragment() {
                     .remove(this).commit()
                 val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
                 vp.visibility = View.GONE
+                facturaViewModel.putAgainOnFalse()
+                filtradoRealizado=false
             } else {
                 if(filtradoRealizado){
                     alert.showAlert(
@@ -127,10 +126,10 @@ class Filtrar_Facturas_Fragment : Fragment() {
                         requireContext()
                     )
                 }
+                filtradoRealizado = false
                 delete()
             }
         }
-        filtradoRealizado = false
     }
 
 
