@@ -89,15 +89,15 @@ class Pagina_Principal : AppCompatActivity() {
         val bundle = intent.extras
         val email = bundle?.getString("email")
         val password = bundle?.getString("password")
-        val date = bundle?.getSerializable("localDate") as Date
-        val check = bundle.getBoolean("check")
+        //val date = bundle?.getSerializable("localDate") as Date
+        val check = bundle?.getBoolean("check")
 
         // Cifra y guarda los datos en SharedPreferences
         val encryptedEmail = encryptData(email ?: "")
         val encryptedPassword = encryptData(password ?: "")
 
-        if (check) {
-            if (date <= Calendar.getInstance().time) {
+        if (check == true) {
+            //if (date <= Calendar.getInstance().time) {
                 val prefs = getSharedPreferences(
                     getString(R.string.sheredPref),
                     Context.MODE_PRIVATE
@@ -106,14 +106,14 @@ class Pagina_Principal : AppCompatActivity() {
                 prefs.putString("email", encryptedEmail)
                 prefs.putString("password", encryptedPassword)
                 prefs.apply()
-            } else {
+            /*} else {
                 val prefs = getSharedPreferences(
                     getString(R.string.sheredPref),
                     Context.MODE_PRIVATE
                 ).edit()
                 prefs.clear()
                 prefs.apply()
-            }
+            }*/
         }
 
     }

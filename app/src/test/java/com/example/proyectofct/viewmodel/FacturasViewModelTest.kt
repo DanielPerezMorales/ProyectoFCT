@@ -48,9 +48,6 @@ class FacturasViewModelTest {
     lateinit var appDatabase: FacturaDatabase
 
     @Mock
-    private lateinit var roomUseCase: RoomUseCase
-
-    @Mock
     private lateinit var observer: Observer<List<facturaItem>?>
 
     @Mock
