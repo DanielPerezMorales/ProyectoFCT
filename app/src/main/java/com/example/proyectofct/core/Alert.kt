@@ -1,6 +1,7 @@
 package com.example.proyectofct.core
 
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +25,26 @@ class Alert {
         builder.setPositiveButton("Cerrar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
+    }
+
+    fun showAlertYesOrNo(titulo: String, mensaje: String, cont: Context, yesAction: () -> Unit) {
+        val builder = AlertDialog.Builder(cont)
+        builder.setTitle(titulo)
+        builder.setMessage(mensaje)
+
+        builder.setNegativeButton("Sí") { _, _ ->
+            yesAction()
+        }
+
+        builder.setPositiveButton("No") { _, _ ->
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
+        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
+            dialog.dismiss()
+        }
     }
 
     fun showPopNative(cont: Detalles_fragment) {

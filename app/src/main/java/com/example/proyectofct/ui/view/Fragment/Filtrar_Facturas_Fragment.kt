@@ -2,6 +2,7 @@ package com.example.proyectofct.ui.view.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,10 @@ class Filtrar_Facturas_Fragment : Fragment() {
 
         selectDate()
         binding.btnEliminarFiltro.setOnClickListener {
-            delete()
+            alert.showAlertYesOrNo("Borrado",
+                "¿Seguro que quieres borrar el filtrado?",
+                requireContext()
+            ) { delete() }
         }
         binding.btnAplicar.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch { apply(value = precio) }
@@ -75,7 +79,7 @@ class Filtrar_Facturas_Fragment : Fragment() {
         }
 
         if (Max != null) {
-            binding.volumeRange.valueTo = (Max.toInt()).toFloat()
+            binding.volumeRange.valueTo = (Max.toInt() + 1).toFloat()
             binding.volumeRange.stepSize = 1F
         }
     }
@@ -96,7 +100,11 @@ class Filtrar_Facturas_Fragment : Fragment() {
                 filtradoRealizado = false
             } else {
                 if (filtradoRealizado) {
-                    alert.showAlert("ERROR", "No hay facturas que cumplan estos requisitos", requireContext())
+                    alert.showAlert(
+                        "ERROR",
+                        "No hay facturas que cumplan estos requisitos",
+                        requireContext()
+                    )
                 }
                 filtradoRealizado = false
                 delete()
@@ -187,14 +195,24 @@ class Filtrar_Facturas_Fragment : Fragment() {
     private suspend fun apply(value: Float) {
         filtradoRealizado = true
         if (isAdded && activity != null) {
-            val lista: List<FacturaEntity> = facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
+            val lista: List<FacturaEntity> =
+                facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
             val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
             val fechaInicioText = binding.btnCalendarDesde.text.toString()
             val fechaFinText = binding.btnCalendarHasta.text.toString()
             val listaCheck: MutableList<String> = checkBox()
-            val fechaInicio = if (fechaInicioText != "dia/mes/año") formatoFecha.parse(fechaInicioText) else null
-            val fechaFin = if (fechaFinText != "dia/mes/año") formatoFecha.parse(fechaFinText) else null
-            facturaViewModel.filtrado(precio = value, fechaInicio = fechaInicio, fechaFin = fechaFin, listaCheck = listaCheck, lista, listadoFiltrado())
+            val fechaInicio =
+                if (fechaInicioText != "dia/mes/año") formatoFecha.parse(fechaInicioText) else null
+            val fechaFin =
+                if (fechaFinText != "dia/mes/año") formatoFecha.parse(fechaFinText) else null
+            facturaViewModel.filtrado(
+                precio = value,
+                fechaInicio = fechaInicio,
+                fechaFin = fechaFin,
+                listaCheck = listaCheck,
+                lista,
+                listadoFiltrado()
+            )
         }
     }
 
