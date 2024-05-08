@@ -10,6 +10,12 @@
         <!--<item name="colorSecondary">@color/white</item>-->
     </style>
 
+    <style name="Theme.ProyectoFCT_2.0" parent="Base.Theme.ProyectoFCT">
+        <item name="colorPrimary">@color/color_consumo_2.0</item>
+        <item name="android:textStyle">italic</item>
+        <!--<item name="colorSecondary">@color/white</item>-->
+    </style>
+
     <style name="CustomRangeSlider" parent="Base.Theme.ProyectoFCT">
         <item name="trackColorActive">@color/color_consumo</item>
         <item name="thumbColor">@color/color_consumo</item>

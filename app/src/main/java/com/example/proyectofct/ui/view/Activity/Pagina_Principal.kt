@@ -3,6 +3,7 @@ package com.example.proyectofct.ui.view.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -27,7 +28,33 @@ import javax.crypto.spec.SecretKeySpec
 class Pagina_Principal : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var secretKey: SecretKey
+    private var int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
+        val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 0
+        }
+        val firebaseConfig = Firebase.remoteConfig
+        firebaseConfig.setConfigSettingsAsync(configSettings)
+        firebaseConfig.setDefaultsAsync(
+            mapOf("Visualizacion_ListadoFacturas" to true, "CambioDeValores" to false)
+        )
+        firebaseConfig.fetchAndActivate().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val cambioDeValores = firebaseConfig.getBoolean("CambioDeValores")
+                if (cambioDeValores) {
+                    Log.i("REMOTE_CONFIG", "Cambio de valores detectado")
+                    int = R.style.Theme_ProyectoFCT_2_0
+                    Log.i("THEME","${this.theme}")
+                } else {
+                    Log.i("REMOTE_CONFIG", "Cambio de valores no detectado")
+                    int =R.style.Theme_ProyectoFCT
+                    Log.i("THEME","${this.theme}")
+                }
+            } else {
+                Log.e("Pagina_Principal", "Error fetching remote config", task.exception)
+            }
+        }
+        setTheme(int)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -72,18 +99,6 @@ class Pagina_Principal : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 0
-        }
-        val firebaseConfig = Firebase.remoteConfig
-        firebaseConfig.setConfigSettingsAsync(configSettings)
-        firebaseConfig.setDefaultsAsync(
-            mapOf(
-                ("Visualizacion_ListadoFacturas") to true,
-                ("CambioDeValores") to false
-            )
-        )
-
         // Genera o carga la clave de cifrado
         secretKey = generateOrLoadSecretKey()
 
@@ -108,7 +123,6 @@ class Pagina_Principal : AppCompatActivity() {
             prefs.putString("date", date)
             prefs.apply()
         }
-
     }
 
     private fun generateOrLoadSecretKey(): SecretKey {
@@ -123,4 +137,5 @@ class Pagina_Principal : AppCompatActivity() {
         val encryptedBytes = cipher.doFinal(data.toByteArray())
         return android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
     }
+
 }
