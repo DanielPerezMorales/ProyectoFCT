@@ -23,6 +23,7 @@ import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Calendar
+import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -68,8 +69,13 @@ class LoginActivity : AppCompatActivity() {
         val email = prefs.getString("email", null)
         val password = prefs.getString("password", null)
         val date = prefs.getString("date", "1970-01-01")
-        val formatter = SimpleDateFormat("yyyy-MM-dd")
-        if(formatter.parse(date) <= Calendar.getInstance().time){
+        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val currentDate = Calendar.getInstance()
+        currentDate.set(Calendar.HOUR_OF_DAY, 0)
+        currentDate.set(Calendar.MINUTE, 0)
+        currentDate.set(Calendar.SECOND, 0)
+        currentDate.set(Calendar.MILLISECOND, 0)
+        if(formatter.parse(date) >= currentDate.time){
             if (email != null && password != null) {
                 val intent = Intent(this, Pagina_Principal::class.java)
                 intent.putExtra("email",email)
