@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     tools:context=".ui.view.Activity.Pagina_Principal">
 
     <TextView
@@ -16,7 +15,6 @@
         android:layout_marginTop="75sp"
         android:layout_marginBottom="30sp"
         android:text="@string/practicas_android"
-        android:textColor="@color/black"
         android:textSize="25sp" />
 
     <LinearLayout
@@ -37,7 +35,6 @@
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
                 android:text="@string/tvpractica1"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -75,7 +72,6 @@
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
                 android:text="@string/tvpractica2"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -113,7 +109,6 @@
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
                 android:text="@string/navegacion"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -149,7 +144,6 @@
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
                 android:text="@string/activar_mock"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -188,7 +182,6 @@
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
                 android:text="@string/cerrar_sesi_n"
-                android:textColor="@color/black"
                 android:textSize="20sp" />
         </LinearLayout>
         <ImageButton

@@ -3,7 +3,6 @@ package com.example.proyectofct.ui.view.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -16,46 +15,23 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.remoteConfigSettings
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
-import javax.crypto.spec.SecretKeySpec
 
 class Pagina_Principal : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var secretKey: SecretKey
-    private var int = 0
+    private var themeApplied = false
     override fun onCreate(savedInstanceState: Bundle?) {
-        val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
-            minimumFetchIntervalInSeconds = 0
-        }
-        val firebaseConfig = Firebase.remoteConfig
-        firebaseConfig.setConfigSettingsAsync(configSettings)
-        firebaseConfig.setDefaultsAsync(
-            mapOf("Visualizacion_ListadoFacturas" to true, "CambioDeValores" to false)
-        )
-        firebaseConfig.fetchAndActivate().addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val cambioDeValores = firebaseConfig.getBoolean("CambioDeValores")
-                if (cambioDeValores) {
-                    Log.i("REMOTE_CONFIG", "Cambio de valores detectado")
-                    int = R.style.Theme_ProyectoFCT_2_0
-                    Log.i("THEME","${this.theme}")
-                } else {
-                    Log.i("REMOTE_CONFIG", "Cambio de valores no detectado")
-                    int =R.style.Theme_ProyectoFCT
-                    Log.i("THEME","${this.theme}")
-                }
-            } else {
-                Log.e("Pagina_Principal", "Error fetching remote config", task.exception)
-            }
-        }
-        setTheme(int)
         super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            themeApplied = savedInstanceState.getBoolean("themeApplied", false)
+            applyThemeIfNeeded()
+        } else {
+            setUpRemoteConfig()
+        }
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -136,6 +112,51 @@ class Pagina_Principal : AppCompatActivity() {
         cipher.init(Cipher.ENCRYPT_MODE, secretKey)
         val encryptedBytes = cipher.doFinal(data.toByteArray())
         return android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean("themeApplied", themeApplied)
+        super.onSaveInstanceState(outState)
+    }
+
+    private fun setUpRemoteConfig() {
+        val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
+            minimumFetchIntervalInSeconds = 0
+        }
+        val firebaseConfig = Firebase.remoteConfig
+        firebaseConfig.setConfigSettingsAsync(configSettings)
+        firebaseConfig.setDefaultsAsync(
+            mapOf("Visualizacion_ListadoFacturas" to true, "CambioDeValores" to false)
+        )
+        firebaseConfig.fetchAndActivate().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val cambioDeValores = firebaseConfig.getBoolean("CambioDeValores")
+                if (cambioDeValores && !themeApplied) {
+                    Log.i("REMOTE_CONFIG", "Cambio de valores detectado")
+                    setTheme(R.style.Theme_ProyectoFCT_2_0)
+                    themeApplied = true
+                    recreate()
+                } else {
+                    Log.i("REMOTE_CONFIG", "Cambio de valores no detectado")
+                }
+            } else {
+                Log.e("Pagina_Principal", "Error fetching remote config", task.exception)
+            }
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        themeApplied = savedInstanceState.getBoolean("themeApplied", false)
+        applyThemeIfNeeded()
+    }
+
+    private fun applyThemeIfNeeded() {
+        if (themeApplied) {
+            setTheme(R.style.Theme_ProyectoFCT_2_0)
+        } else {
+            setTheme(R.style.Theme_ProyectoFCT)
+        }
     }
 
 }

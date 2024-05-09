@@ -1,10 +1,12 @@
 package com.example.proyectofct.ui.view.Activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -51,12 +53,12 @@ class LoginActivity : AppCompatActivity() {
         }
         seePassword()
         logWithFingerPrint()
-        binding.fingerprint.setOnClickListener{
-            if(auth){
-                auth=false
+        binding.fingerprint.setOnClickListener {
+            if (auth) {
+                auth = false
             } else {
                 authenticate {
-                    auth=it
+                    auth = it
                 }
             }
         }
@@ -64,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sessionActive() {
-        binding.PB.visibility= View.VISIBLE
+        binding.PB.visibility = View.VISIBLE
         val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE)
         val email = prefs.getString("email", null)
         val password = prefs.getString("password", null)
@@ -75,19 +77,19 @@ class LoginActivity : AppCompatActivity() {
         currentDate.set(Calendar.MINUTE, 0)
         currentDate.set(Calendar.SECOND, 0)
         currentDate.set(Calendar.MILLISECOND, 0)
-        if(formatter.parse(date) >= currentDate.time){
+        if (formatter.parse(date) >= currentDate.time) {
             if (email != null && password != null) {
                 val intent = Intent(this, Pagina_Principal::class.java)
-                intent.putExtra("email",email)
-                intent.putExtra("password",password)
+                intent.putExtra("email", email)
+                intent.putExtra("password", password)
                 intent.putExtra("date", date)
                 startActivity(intent)
             } else {
-                binding.PB.visibility= View.GONE
+                binding.PB.visibility = View.GONE
             }
         } else {
-            binding.PB.visibility= View.GONE
-            Toast.makeText(this,"La sesión ha caducado",Toast.LENGTH_SHORT).show()
+            binding.PB.visibility = View.GONE
+            Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -111,9 +113,9 @@ class LoginActivity : AppCompatActivity() {
                 object : BiometricPrompt.AuthenticationCallback() {
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
-                        val intent=Intent(this@LoginActivity,Pagina_Principal::class.java)
-                        intent.putExtra("email",binding.etUsuario.text)
-                        intent.putExtra("password",binding.etPassword.text)
+                        val intent = Intent(this@LoginActivity, Pagina_Principal::class.java)
+                        intent.putExtra("email", binding.etUsuario.text)
+                        intent.putExtra("password", binding.etPassword.text)
                         startActivity(intent)
 
                     }
@@ -137,17 +139,26 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun seePassword() {
-        binding.ojoInformacion.setOnClickListener {
-            if (binding.etPassword.inputType != TYPE_CLASS_TEXT) {
-                binding.etPassword.inputType = TYPE_CLASS_TEXT
-            } else {
-                binding.etPassword.inputType = 129
+        binding.ojoInformacion.setOnTouchListener { view, motionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.etPassword.inputType = TYPE_CLASS_TEXT
+                    binding.etPassword.setSelection(binding.etPassword.text.length)
+                    true
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.etPassword.inputType = 129
+                    binding.etPassword.setSelection(binding.etPassword.text.length)
+                    true
+                }
+                else -> false
             }
         }
     }
 
-    private fun login(email:String, password:String) {
+    private fun login(email: String, password: String) {
         /*
         Para entrar :)
         emailprueba@gmail.com
@@ -155,22 +166,22 @@ class LoginActivity : AppCompatActivity() {
         */
         viewModel.login(email, password)
 
-        val check=binding.chckBX.isChecked
+        val check = binding.chckBX.isChecked
 
         viewModel.loginResult.observe(this, Observer { result ->
             val (success, errorMessage) = result
             if (success) {
-                if (check){
+                if (check) {
                     val intent = Intent(this, Pagina_Principal::class.java)
                     intent.putExtra("email", email)
                     intent.putExtra("password", password)
                     val formatter = SimpleDateFormat("yyyy-MM-dd")
                     intent.putExtra("date", formatter.format(Calendar.getInstance().time))
-                    intent.putExtra("check",check)
+                    intent.putExtra("check", check)
                     startActivity(intent)
                 } else {
                     val intent = Intent(this, Pagina_Principal::class.java)
-                    intent.putExtra("check",check)
+                    intent.putExtra("check", check)
                     startActivity(intent)
                 }
 

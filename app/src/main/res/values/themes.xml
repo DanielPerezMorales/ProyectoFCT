@@ -7,12 +7,15 @@
 
     <style name="Theme.ProyectoFCT" parent="Base.Theme.ProyectoFCT">
         <item name="colorPrimary">@color/color_consumo</item>
+        <item name="android:textColor">@color/black</item>
         <!--<item name="colorSecondary">@color/white</item>-->
     </style>
 
     <style name="Theme.ProyectoFCT_2.0" parent="Base.Theme.ProyectoFCT">
         <item name="colorPrimary">@color/color_consumo_2.0</item>
         <item name="android:textStyle">italic</item>
+        <item name="android:textColor">@color/color_consumo</item>
+        <item name="backgroundColor">@color/black</item>
         <!--<item name="colorSecondary">@color/white</item>-->
     </style>
 
