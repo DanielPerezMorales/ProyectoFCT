@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import com.example.proyectofct.R
-import com.example.proyectofct.ui.view.Fragment.Detalles_fragment
+import com.example.proyectofct.ui.view.fragment.Detalles_fragment
 
 class Alert {
     fun showAlert(titulo: String,mensaje: String, cont: Context) {

@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.Fragment
+package com.example.proyectofct.ui.view.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

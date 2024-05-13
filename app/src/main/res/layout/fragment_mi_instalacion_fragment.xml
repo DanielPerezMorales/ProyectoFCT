@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
-    tools:context=".ui.view.Fragment.Mi_instalacion_fragment">
+    tools:context=".ui.view.fragment.Mi_instalacion_fragment">
 
     <TextView
         android:layout_width="wrap_content"

@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.Activity
+package com.example.proyectofct.ui.view.activity
 
 import android.content.Context
 import android.content.Intent
