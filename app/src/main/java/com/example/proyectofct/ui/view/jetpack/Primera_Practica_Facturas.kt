@@ -95,7 +95,7 @@ fun Facturas(navController: NavController?, context: Context?) {
                     }
                 },
                 actions = {
-                    IconButton(onClick = { /* Handle filter */ }) {
+                    IconButton(onClick = { navController?.navigate("filtrar") }) {
                         Icon(
                             painter = painterResource(id = R.drawable.filtericon_3x),
                             contentDescription = null
