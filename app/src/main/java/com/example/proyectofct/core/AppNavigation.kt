@@ -12,6 +12,7 @@ import com.example.proyectofct.ui.view.jetpack.LoginIberdrola
 import com.example.proyectofct.ui.view.jetpack.Menu_principal
 import com.example.proyectofct.ui.view.jetpack.Navegacion
 import com.example.proyectofct.ui.view.jetpack.RegistroIberdrola
+import com.example.proyectofct.ui.view.jetpack.SS_Pantalla
 
 @Composable
 fun AppNavigation(context: Context) {
@@ -37,6 +38,9 @@ fun AppNavigation(context: Context) {
         }
         composable(route = AppScreens.Navegacion.route) {
             Navegacion(context = context)
+        }
+        composable(route = AppScreens.SmartSolar.route) {
+            SS_Pantalla(navController = navController)
         }
 
     }

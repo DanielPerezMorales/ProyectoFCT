@@ -8,4 +8,5 @@ sealed class AppScreens (val route:String){
     object facturas : AppScreens("practica1")
     object filtrado : AppScreens("filtrar")
     object Navegacion : AppScreens("navegador")
+    object SmartSolar : AppScreens("SS")
 }

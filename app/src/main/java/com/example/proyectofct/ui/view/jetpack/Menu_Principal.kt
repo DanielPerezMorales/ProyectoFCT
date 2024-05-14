@@ -43,7 +43,7 @@ fun Body_menu(navController: NavController?) {
             navController?.navigate("practica1")
         }
         TextWithButton("Práctica 2") {
-            navController?.navigate("second_screenSMART_SOLAR")
+            navController?.navigate("SS")
         }
         TextWithButton("Navegación") {
             navController?.navigate("navegador")
