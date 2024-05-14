@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "ProyectoFCT"
+rootProject.name = "ProyectoFCT_Iberdrola"
 include(":app")
  
