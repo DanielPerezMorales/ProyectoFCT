@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectofct.ui.view.jetpack.FGIberdrola
-import com.example.proyectofct.ui.view.jetpack.Facturas
 import com.example.proyectofct.ui.view.jetpack.FacturasIberdrola
 import com.example.proyectofct.ui.view.jetpack.Filtrado
 import com.example.proyectofct.ui.view.jetpack.LoginIberdrola
@@ -33,7 +32,7 @@ fun AppNavigation(context: Context) {
             FacturasIberdrola(navController = navController, context = context)
         }
         composable(route = AppScreens.filtrado.route) {
-            Filtrado(navController = navController, context = context)
+            Filtrado(navController,context)
         }
     }
 }
