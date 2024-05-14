@@ -46,7 +46,7 @@ fun Body_menu(navController: NavController?) {
             navController?.navigate("second_screenSMART_SOLAR")
         }
         TextWithButton("Navegación") {
-            navController?.navigate("second_screenNAVEGACION")
+            navController?.navigate("navegador")
         }
         TextWithSwitch("Mock")
     }

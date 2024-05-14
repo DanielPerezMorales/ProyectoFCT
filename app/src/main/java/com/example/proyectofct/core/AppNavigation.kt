@@ -10,6 +10,7 @@ import com.example.proyectofct.ui.view.jetpack.FacturasIberdrola
 import com.example.proyectofct.ui.view.jetpack.Filtrado
 import com.example.proyectofct.ui.view.jetpack.LoginIberdrola
 import com.example.proyectofct.ui.view.jetpack.Menu_principal
+import com.example.proyectofct.ui.view.jetpack.Navegacion
 import com.example.proyectofct.ui.view.jetpack.RegistroIberdrola
 
 @Composable
@@ -34,5 +35,9 @@ fun AppNavigation(context: Context) {
         composable(route = AppScreens.filtrado.route) {
             Filtrado(navController,context)
         }
+        composable(route = AppScreens.Navegacion.route) {
+            Navegacion(context = context)
+        }
+
     }
 }
