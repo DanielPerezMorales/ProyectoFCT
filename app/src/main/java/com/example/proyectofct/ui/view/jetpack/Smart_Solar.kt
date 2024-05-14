@@ -1,5 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,18 +30,18 @@ import androidx.navigation.NavController
 import com.google.android.material.tabs.TabLayout
 
 @Composable
-fun SS_Pantalla(navController: NavController?) {
-    SS_Body(navController)
+fun SS_Pantalla(navController: NavController?, context: Context) {
+    SS_Body(navController, context)
 }
 
 @Composable
-fun SS_Body(navController: NavController?) {
+fun SS_Body(navController: NavController?, context: Context) {
     Column (Modifier.background(color = colorResource(id = com.example.proyectofct.R.color.white))){
         ParteDeArriba(navController)
         Spacer(modifier = Modifier.height(10.dp))
         TextoGrande()
         Spacer(modifier = Modifier.height(10.dp))
-        TabScreen()
+        TabScreen(context)
     }
 }
 
@@ -76,7 +77,7 @@ private fun TextoGrande() {
 }
 
 @Composable
-private fun TabScreen() {
+private fun TabScreen(context: Context) {
     var tabIndex by remember { mutableStateOf(0) }
 
     val tabs = listOf("Mi instalación", "Energía", "Detalles")
@@ -96,7 +97,7 @@ private fun TabScreen() {
         when (tabIndex) {
             0 -> Instalacion()
             1 -> Energia()
-            2 -> Detalles()
+            2 -> Detalles(context)
         }
     }
 }
@@ -104,5 +105,5 @@ private fun TabScreen() {
 @Preview(showSystemUi = true)
 @Composable
 fun Preview_SS() {
-    SS_Pantalla(null)
+    //SS_Pantalla(null)
 }

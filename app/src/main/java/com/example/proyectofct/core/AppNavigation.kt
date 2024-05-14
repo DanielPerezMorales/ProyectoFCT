@@ -40,7 +40,7 @@ fun AppNavigation(context: Context) {
             Navegacion(context = context)
         }
         composable(route = AppScreens.SmartSolar.route) {
-            SS_Pantalla(navController = navController)
+            SS_Pantalla(navController = navController, context)
         }
 
     }
