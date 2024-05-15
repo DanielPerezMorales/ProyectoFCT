@@ -1,12 +1,17 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Tab
@@ -14,10 +19,10 @@ import androidx.compose.material.TabRow
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -27,16 +32,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.launch
 
 @Composable
-fun SS_Pantalla(navController: NavController?, context: Context) {
+fun SS_Pantalla(navController: NavController?, context: Context?) {
     SS_Body(navController, context)
 }
 
 @Composable
-fun SS_Body(navController: NavController?, context: Context) {
-    Column (Modifier.background(color = colorResource(id = com.example.proyectofct.R.color.white))){
+fun SS_Body(navController: NavController?, context: Context?) {
+    Column(Modifier.background(color = colorResource(id = com.example.proyectofct.R.color.white))) {
         ParteDeArriba(navController)
         Spacer(modifier = Modifier.height(10.dp))
         TextoGrande()
@@ -76,34 +81,71 @@ private fun TextoGrande() {
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun TabScreen(context: Context) {
-    var tabIndex by remember { mutableStateOf(0) }
+private fun TabScreen(context: Context?) {
+    val scope = rememberCoroutineScope()
 
-    val tabs = listOf("Mi instalación", "Energía", "Detalles")
+    val pagerState = rememberPagerState(pageCount = { Tabs.entries.size })
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    val selectedTabIndex = remember {
+        derivedStateOf { pagerState.currentPage }
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+    ) {
         TabRow(
-            selectedTabIndex = tabIndex,
+            selectedTabIndex = selectedTabIndex.value,
             backgroundColor = colorResource(id = com.example.proyectofct.R.color.transparente)
         ) {
-            tabs.forEachIndexed { index, title ->
-                Tab(text = { Text(title) },
-                    selected = tabIndex == index,
-                    onClick = { tabIndex = index }
+            Tabs.entries.forEachIndexed { index, currentTab ->
+                Tab(
+                    selected = selectedTabIndex.value == index,
+                    selectedContentColor = colorResource(id = com.example.proyectofct.R.color.color_consumo),
+                    unselectedContentColor = colorResource(id = com.example.proyectofct.R.color.black),
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(currentTab.ordinal)
+                        }
+                    },
+                    text = { Text(text = currentTab.text) }
                 )
             }
         }
-        when (tabIndex) {
-            0 -> Instalacion()
-            1 -> Energia()
-            2 -> Detalles(context)
+        HorizontalPager(
+            state = pagerState, modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                when (selectedTabIndex.value) {
+                    0 -> Instalacion()
+                    1 -> Energia()
+                    2 -> context?.let { Detalles(it) }
+                }
+            }
         }
+
     }
 }
+
+
+enum class Tabs(
+    val text: String
+) {
+    Instalacion("Mi instalación"),
+    Energia("Energía"),
+    Detalles("Detalles")
+}
+
 
 @Preview(showSystemUi = true)
 @Composable
 fun Preview_SS() {
-    //SS_Pantalla(null)
+    SS_Pantalla(null, null)
 }
