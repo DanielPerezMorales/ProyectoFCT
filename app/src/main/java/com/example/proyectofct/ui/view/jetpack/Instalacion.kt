@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -21,7 +22,12 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun Instalacion() {
-    Instalacion_Body()
+    Column (
+        Modifier
+            .fillMaxHeight()
+            .background(color = colorResource(id = com.example.proyectofct.R.color.white))){
+        Instalacion_Body()
+    }
 }
 
 @Composable
