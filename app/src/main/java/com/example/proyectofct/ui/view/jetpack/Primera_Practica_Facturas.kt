@@ -33,6 +33,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -165,42 +166,50 @@ fun FacturaItem(factura: facturaItem, onItemClick: () -> Unit) {
             Modifier
                 .fillMaxWidth()
                 .clickable(onClick = onItemClick)
-                .padding(bottom = 10.dp)
         ) {
-            Column(Modifier.padding(10.dp)) {
+            Column(
+                modifier = if (factura.descEstado == "Pagada") {
+                    Modifier.align(alignment = Alignment.CenterVertically)
+                } else {
+                    Modifier
+                }
+            ) {
                 Text(
                     text = factura.fecha,
                     fontSize = 20.sp,
-                    color = Color.Black
+                    color = Color.Black,
+                    modifier = Modifier
+                        .padding(
+                            top = 10.dp,
+                            end = 10.dp,
+                            start = 10.dp,
+                            bottom = if (factura.descEstado == "Pagada") 10.dp else 0.dp
+                        )
                 )
-                Text(
-                    text = factura.descEstado,
-                    fontSize = 18.sp,
-                    color = if (
-                        factura.descEstado != "Pagada"
-                    ) {
-                        colorResource(id = R.color.color_estado_factura)
-                    } else {
-                        colorResource(id = R.color.black)
-                    },
-                    modifier = Modifier.padding(top = 10.dp)
-                )
+                if (factura.descEstado != "Pagada") {
+                    Text(
+                        text = factura.descEstado,
+                        fontSize = 18.sp,
+                        color = colorResource(id = R.color.color_estado_factura),
+                        modifier = Modifier.padding(10.dp)
+                    )
+                }
             }
             Text(
                 text = "${factura.importeOrdenacion}€",
                 fontSize = 23.sp,
                 color = Color.Black,
-                modifier = if(factura.descEstado == "Pendiente de pago") {
+                modifier = if (factura.descEstado == "Pendiente de pago") {
                     Modifier.padding(
                         top = 20.dp,
-                        start = 50.dp,
+                        start = if(factura.importeOrdenacion.toString().length == 4) 60.dp else 50.dp,
                         bottom = 20.dp,
                         end = 20.dp
                     )
                 } else {
                     Modifier.padding(
                         top = 20.dp,
-                        start = 90.dp,
+                        start = if(factura.importeOrdenacion.toString().length == 4) 120.dp else 90.dp,
                         bottom = 20.dp,
                         end = 20.dp
                     )
