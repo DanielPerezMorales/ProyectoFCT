@@ -37,10 +37,12 @@ fun Menu_principal(navController: NavController?) {
 @Composable
 fun Body_menu(navController: NavController?) {
     Column(Modifier.background(Color.White)) {
+        var isActive by remember { mutableStateOf(false) }
+        val context = LocalContext.current
         Titulo()
         Spacer(modifier = Modifier.height(20.dp))
         TextWithButton("Práctica 1") {
-            navController?.navigate("practica1")
+            navController?.navigate("practica1$isActive")
         }
         TextWithButton("Práctica 2") {
             navController?.navigate("SS")
@@ -48,7 +50,38 @@ fun Body_menu(navController: NavController?) {
         TextWithButton("Navegación") {
             navController?.navigate("navegador")
         }
-        TextWithSwitch("Mock")
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 10.dp)
+            ) {
+                Text(
+                    text = "Mock",
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(10.dp)
+                )
+            }
+
+            Switch(checked = isActive, onCheckedChange = {
+                isActive = it
+                if (isActive) {
+                    Toast.makeText(context, "Mock activado", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "Mock desactivado", Toast.LENGTH_SHORT).show()
+                }
+            }, Modifier.padding(16.dp))
+        }
+
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = 1.dp
+        )
     }
 }
 
@@ -93,45 +126,6 @@ fun TextWithButton(text:String, onClick: () -> Unit) {
         thickness = 1.dp
     )
 }
-
-@Composable
-fun TextWithSwitch(text:String) {
-    var isActive by remember { mutableStateOf(false) }
-    val context = LocalContext.current
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = 10.dp)
-        ) {
-            Text(
-                text = text,
-                fontSize = 20.sp,
-                modifier = Modifier.padding(10.dp)
-            )
-        }
-
-        Switch(checked = isActive, onCheckedChange = {
-            isActive = it
-            if (isActive) {
-                Toast.makeText(context, "Mock activado", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "Mock desactivado", Toast.LENGTH_SHORT).show()
-            }
-        }, Modifier.padding(16.dp))
-    }
-
-    Divider(
-        modifier = Modifier.fillMaxWidth(),
-        thickness = 1.dp
-    )
-}
-
 
 @Preview(showSystemUi = true)
 @Composable

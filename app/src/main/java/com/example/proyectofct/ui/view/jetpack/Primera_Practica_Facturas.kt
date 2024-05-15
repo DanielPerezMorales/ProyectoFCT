@@ -3,7 +3,6 @@ package com.example.proyectofct.ui.view.jetpack
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -44,7 +43,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -71,19 +69,20 @@ private val alert = Alert()
 fun FacturasIberdrola(
     navController: NavController?,
     context: Context?,
-    viewmodel: FacturasViewModel?
+    viewmodel: FacturasViewModel?,
+    boolean: Boolean
 ) {
-    BodyFacturas(navController, context, viewmodel)
+    BodyFacturas(navController, context, viewmodel, boolean)
 }
 
 @Composable
-fun BodyFacturas(navController: NavController?, context: Context?, viewmodel: FacturasViewModel?) {
-    Facturas(navController, context = context, viewmodel)
+fun BodyFacturas(navController: NavController?, context: Context?, viewmodel: FacturasViewModel?, boolean: Boolean) {
+    Facturas(navController, context = context, viewmodel, boolean)
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun Facturas(navController: NavController?, context: Context?, viewmodel: FacturasViewModel?) {
+fun Facturas(navController: NavController?, context: Context?, viewmodel: FacturasViewModel?, boolean: Boolean) {
     var facturas by remember { mutableStateOf<List<facturaItem>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
     var isFiltredOpen = remember { mutableStateOf(false) }
@@ -243,7 +242,7 @@ fun Facturas(navController: NavController?, context: Context?, viewmodel: Factur
                                 Checkbox(checked = isCheckedAnuladas, onCheckedChange = {
                                     isCheckedAnuladas = it
                                 })
-                                androidx.compose.material3.Text(text = "Anuladas")
+                                androidx.compose.material3.Text(text = "Anulada")
                             }
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Checkbox(checked = isCheckedCuotaFija, onCheckedChange = {
@@ -272,7 +271,7 @@ fun Facturas(navController: NavController?, context: Context?, viewmodel: Factur
                                 entrees.add("Pagada")
                             }
                             if (isCheckedAnuladas) {
-                                entrees.add("Anuladas")
+                                entrees.add("Anulada")
                             }
                             if (isCheckedCuotaFija) {
                                 entrees.add("Cuota Fija")
@@ -479,7 +478,11 @@ fun Facturas(navController: NavController?, context: Context?, viewmodel: Factur
     }
 
     LaunchedEffect(key1 = true) {
-        viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
+        if(boolean){
+            viewmodel?.putRetroMock(context!!, facturaModule.provideRoom(context))
+        } else {
+            viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
+        }
     }
 
     viewmodel?.facturas?.observe(context as LifecycleOwner, Observer {
@@ -615,5 +618,5 @@ fun mostrarResultado(year: Int, month: Int, day: Int): String {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewFacturas() {
-    Facturas(navController = null, context = null, viewmodel = null)
+    Facturas(navController = null, context = null, viewmodel = null, false)
 }

@@ -2,9 +2,11 @@ package com.example.proyectofct.core
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.proyectofct.ui.view.jetpack.FGIberdrola
 import com.example.proyectofct.ui.view.jetpack.FacturasIberdrola
 import com.example.proyectofct.ui.view.jetpack.LoginIberdrola
@@ -30,14 +32,16 @@ fun AppNavigation(context: Context, viewmodel:FacturasViewModel) {
         composable(route = AppScreens.FG.route) {
             FGIberdrola(navController = navController, context = context)
         }
-        composable(route = AppScreens.facturas.route) {
-            FacturasIberdrola(navController = navController, context = context, viewmodel)
-        }
         composable(route = AppScreens.Navegacion.route) {
             Navegacion(context = context)
         }
         composable(route = AppScreens.SmartSolar.route) {
             SS_Pantalla(navController = navController, context)
+        }
+        composable(route= AppScreens.facturas.route + "{mock}", arguments = listOf(navArgument(name="mock"){
+            type = NavType.BoolType
+        })){
+            FacturasIberdrola(navController = navController, context = context, viewmodel, it.arguments!!.getBoolean("mock"))
         }
 
     }
