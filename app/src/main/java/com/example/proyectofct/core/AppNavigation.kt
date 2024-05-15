@@ -7,15 +7,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.proyectofct.ui.view.jetpack.FGIberdrola
 import com.example.proyectofct.ui.view.jetpack.FacturasIberdrola
-import com.example.proyectofct.ui.view.jetpack.Filtrado
 import com.example.proyectofct.ui.view.jetpack.LoginIberdrola
 import com.example.proyectofct.ui.view.jetpack.Menu_principal
 import com.example.proyectofct.ui.view.jetpack.Navegacion
 import com.example.proyectofct.ui.view.jetpack.RegistroIberdrola
 import com.example.proyectofct.ui.view.jetpack.SS_Pantalla
+import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 
 @Composable
-fun AppNavigation(context: Context) {
+fun AppNavigation(context: Context, viewmodel:FacturasViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppScreens.Login.route) {
         composable(route = AppScreens.Login.route) {
@@ -31,10 +31,7 @@ fun AppNavigation(context: Context) {
             FGIberdrola(navController = navController, context = context)
         }
         composable(route = AppScreens.facturas.route) {
-            FacturasIberdrola(navController = navController, context = context)
-        }
-        composable(route = AppScreens.filtrado.route) {
-            Filtrado(navController,context)
+            FacturasIberdrola(navController = navController, context = context, viewmodel)
         }
         composable(route = AppScreens.Navegacion.route) {
             Navegacion(context = context)

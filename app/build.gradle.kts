@@ -115,5 +115,5 @@ dependencies {
     implementation("androidx.compose.foundation:foundation-layout:1.6.7")
     implementation(libs.androidx.navigation.compose)
 
-    implementation ("androidx.webkit:webkit:1.4.0")
+    implementation ("androidx.webkit:webkit:1.11.0")
 }
