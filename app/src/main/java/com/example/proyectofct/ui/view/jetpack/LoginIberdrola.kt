@@ -1,9 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
-import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -44,7 +41,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.ui.view.activity.Pagina_Principal
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 

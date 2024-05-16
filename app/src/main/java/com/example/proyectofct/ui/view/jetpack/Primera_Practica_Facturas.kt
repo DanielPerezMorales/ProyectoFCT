@@ -32,6 +32,7 @@ import androidx.compose.material3.SliderColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -76,13 +77,23 @@ fun FacturasIberdrola(
 }
 
 @Composable
-fun BodyFacturas(navController: NavController?, context: Context?, viewmodel: FacturasViewModel?, boolean: Boolean) {
+fun BodyFacturas(
+    navController: NavController?,
+    context: Context?,
+    viewmodel: FacturasViewModel?,
+    boolean: Boolean
+) {
     Facturas(navController, context = context, viewmodel, boolean)
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
 @Composable
-fun Facturas(navController: NavController?, context: Context?, viewmodel: FacturasViewModel?, boolean: Boolean) {
+fun Facturas(
+    navController: NavController?,
+    context: Context?,
+    viewmodel: FacturasViewModel?,
+    boolean: Boolean
+) {
     var facturas by remember { mutableStateOf<List<facturaItem>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
     var isFiltredOpen = remember { mutableStateOf(false) }
@@ -92,12 +103,19 @@ fun Facturas(navController: NavController?, context: Context?, viewmodel: Factur
     var isBotonDesde by remember { mutableStateOf(false) }
     var DesdeFecha by remember { mutableStateOf(stringnormla) }
     var HastaFecha by remember { mutableStateOf(stringnormla) }
-    var precio by remember { mutableStateOf(0.0f) }
+    var precio by remember { mutableFloatStateOf(0.0f) }
     var isCheckedPagada by remember { mutableStateOf(false) }
     var isCheckedPendiente by remember { mutableStateOf(false) }
     var isCheckedPlanDePago by remember { mutableStateOf(false) }
     var isCheckedAnuladas by remember { mutableStateOf(false) }
     var isCheckedCuotaFija by remember { mutableStateOf(false) }
+    val preciomin = 0.0f
+    var preciomax = 0.0f
+    CoroutineScope(Dispatchers.IO).launch {
+        preciomax = putMaxValue(
+            facturaModule.provideRoom(context!!).getFactureDao().getAllFacturas()
+        ) ?: 100F
+    }
 
     Column(
         modifier = Modifier
@@ -199,16 +217,19 @@ fun Facturas(navController: NavController?, context: Context?, viewmodel: Factur
                             modifier = Modifier.padding(vertical = 10.dp)
                         )
                         Row {
-                            Text(text = "0")
+                            Text(text = preciomin.toInt().toString())
                             Text(text = precio.toInt().toString(), Modifier.padding(start = 165.dp))
-                            Text(text = "100", Modifier.padding(start = 130.dp))
+                            Text(
+                                text = preciomax.toInt().toString(),
+                                modifier = Modifier.padding(start = 130.dp)
+                            )
                         }
                         Slider(
                             value = precio,
                             onValueChange = { newValue ->
                                 precio = newValue
                             },
-                            valueRange = 0.0F..100.0F,
+                            valueRange = preciomin..preciomax,
                             colors = SliderColors(
                                 activeTickColor = colorResource(id = R.color.transparente),
                                 disabledActiveTickColor = colorResource(id = R.color.transparente),
@@ -329,6 +350,14 @@ fun Facturas(navController: NavController?, context: Context?, viewmodel: Factur
                                     CoroutineScope(Dispatchers.IO).launch {
                                         apply(precio)
                                         delay(1000)
+                                        DesdeFecha = stringnormla
+                                        HastaFecha = stringnormla
+                                        precio = 0F
+                                        isCheckedAnuladas = false
+                                        isCheckedPagada = false
+                                        isCheckedPendiente = false
+                                        isCheckedCuotaFija = false
+                                        isCheckedPlanDePago = false
                                     }
                                     isFiltredOpen.value = false
                                 },
@@ -478,7 +507,7 @@ fun Facturas(navController: NavController?, context: Context?, viewmodel: Factur
     }
 
     LaunchedEffect(key1 = true) {
-        if(boolean){
+        if (boolean) {
             viewmodel?.putRetroMock(context!!, facturaModule.provideRoom(context))
         } else {
             viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
@@ -536,17 +565,17 @@ fun FacturaItem(factura: facturaItem, onItemClick: () -> Unit) {
                 text = "${factura.importeOrdenacion}€",
                 fontSize = 23.sp,
                 color = Color.Black,
-                modifier = if (factura.descEstado == "Pendiente de pago") {
+                modifier = if (factura.descEstado == "Pagada" || factura.descEstado == "Anulada") {
                     Modifier.padding(
                         top = 20.dp,
-                        start = if (factura.importeOrdenacion.toString().length == 4) 60.dp else 50.dp,
+                        start = if (factura.importeOrdenacion.toString().length == 4) 120.dp else 90.dp,
                         bottom = 20.dp,
                         end = 20.dp
                     )
                 } else {
                     Modifier.padding(
                         top = 20.dp,
-                        start = if (factura.importeOrdenacion.toString().length == 4) 120.dp else 90.dp,
+                        start = if (factura.importeOrdenacion.toString().length == 4) 60.dp else 50.dp,
                         bottom = 20.dp,
                         end = 20.dp
                     )
@@ -612,6 +641,20 @@ fun mostrarResultado(year: Int, month: Int, day: Int): String {
             "$day/${month + 1}/$year"
         }
     }
+}
+
+private fun putMaxValue(lista: List<FacturaEntity>): Float? {
+    var Max: Float? = null
+    for (i in lista) {
+        if (Max != null) {
+            if (Max <= i.precio) {
+                Max = i.precio
+            }
+        } else {
+            Max = i.precio
+        }
+    }
+    return Max
 }
 
 

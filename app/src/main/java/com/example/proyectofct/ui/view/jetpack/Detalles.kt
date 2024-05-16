@@ -21,12 +21,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import com.example.proyectofct.R
-import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.Detalles_Object
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 
 
-private val alert= Alert()
 private val viewModel: DetallesViewModel = DetallesViewModel()
 private val detallesObject = Detalles_Object
 @Composable

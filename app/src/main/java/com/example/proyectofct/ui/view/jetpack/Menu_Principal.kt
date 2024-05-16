@@ -30,10 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectofct.R
-import com.example.proyectofct.core.Alert
 import com.google.firebase.auth.FirebaseAuth
-
-private val alert = Alert()
 
 
 @Composable

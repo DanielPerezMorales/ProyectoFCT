@@ -1,7 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,15 +26,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.ui.view.activity.LoginActivity
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
-import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth = FirebaseAuth.getInstance()
 private val viewModel = ForgotPasswordViewModel(firebaseAuth)
 private val alert = Alert()
-private var isCheck = false
 
 @Composable
 fun FGIberdrola(navController: NavController?, context: Context) {
