@@ -65,22 +65,22 @@ dependencies {
     implementation(libs.play.services.auth)
     //DaggerHilt
     implementation(libs.hilt.android)
-    kapt("com.google.dagger:hilt-compiler:2.51.1")
+    kapt(libs.hilt.compiler)
     //Room
     implementation(libs.androidx.room.ktx)
-    kapt("androidx.room:room-compiler:2.6.1")
+    kapt(libs.androidx.room.compiler)
     //Mock
-    testImplementation("org.mockito:mockito-core:3.12.4")
-    testImplementation("org.mockito:mockito-inline:3.12.4")
-    implementation("co.infinum:retromock:1.1.0")
-    implementation("com.squareup.retrofit2:retrofit-mock:2.9.0")
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    implementation(libs.retromock)
+    implementation(libs.retrofit.mock)
     //fingerPrint
     implementation(libs.androidx.biometric)
     //Test
-    testImplementation("io.mockk:mockk:1.12.3")
+    testImplementation(libs.mockk.mockk)
     testImplementation(libs.junit)
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.core.testing)
     //Corrutinas
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation(libs.kotlinx.coroutines.android)
 }
