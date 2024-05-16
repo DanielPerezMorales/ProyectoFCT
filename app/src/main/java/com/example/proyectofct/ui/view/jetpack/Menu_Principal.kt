@@ -1,5 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -23,15 +24,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectofct.R
+import com.example.proyectofct.core.Alert
+import com.google.firebase.auth.FirebaseAuth
+
+private val alert = Alert()
+
 
 @Composable
-fun Menu_principal(navController: NavController?) {
+fun Menu_principal(navController: NavController?, email: String?, pass: String?, check: Boolean?) {
     Body_menu(navController)
+    if (check == true) {
+        val prefs = LocalContext.current.getSharedPreferences(
+            LocalContext.current.getString(R.string.sheredPrefJetpack),
+            Context.MODE_PRIVATE
+        ).edit()
+        prefs.clear()
+        prefs.putString("email", email)
+        prefs.putString("password", pass)
+        prefs.putBoolean("check", check)
+        prefs.apply()
+    }
 }
 
 @Composable
@@ -82,6 +100,18 @@ fun Body_menu(navController: NavController?) {
             modifier = Modifier.fillMaxWidth(),
             thickness = 1.dp
         )
+        Spacer(modifier = Modifier.height(200.dp))
+        TextWithButtonSignOut {
+            val prefs =
+                context.getSharedPreferences(
+                    context.getString(R.string.sheredPrefJetpack),
+                    Context.MODE_PRIVATE
+                ).edit()
+            prefs.clear()
+            prefs.apply()
+            FirebaseAuth.getInstance().signOut()
+            navController?.navigate("login")
+        }
     }
 }
 
@@ -91,7 +121,7 @@ fun Titulo() {
 }
 
 @Composable
-fun TextWithButton(text:String, onClick: () -> Unit) {
+fun TextWithButton(text: String, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -111,7 +141,7 @@ fun TextWithButton(text:String, onClick: () -> Unit) {
         }
 
         IconButton(
-            onClick =  onClick,
+            onClick = onClick,
             modifier = Modifier.padding(16.dp)
         ) {
             Icon(
@@ -127,8 +157,45 @@ fun TextWithButton(text:String, onClick: () -> Unit) {
     )
 }
 
+@Composable
+private fun TextWithButtonSignOut(onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 10.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.cerrar_sesi_n),
+                fontSize = 20.sp,
+                modifier = Modifier.padding(10.dp)
+            )
+        }
+
+        IconButton(
+            onClick = onClick,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.baseline_exit_to_app_24),
+                contentDescription = "Sign Out Icon"
+            )
+        }
+    }
+
+    Divider(
+        modifier = Modifier.fillMaxWidth(),
+        thickness = 1.dp
+    )
+}
+
 @Preview(showSystemUi = true)
 @Composable
 fun Preview_menu() {
-    Menu_principal(navController = null)
+    Menu_principal(navController = null, email = "null", pass = "pass", check = false)
 }

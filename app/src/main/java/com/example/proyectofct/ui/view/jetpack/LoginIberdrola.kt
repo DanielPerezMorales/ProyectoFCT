@@ -1,6 +1,9 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
+import android.content.Intent
+import android.util.Log
+import android.view.View
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -31,6 +34,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -40,16 +44,27 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
+import com.example.proyectofct.ui.view.activity.Pagina_Principal
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth = FirebaseAuth.getInstance()
-private val viewModel =LoginViewModel(firebaseAuth)
+private val viewModel = LoginViewModel(firebaseAuth)
 private val alert = Alert()
 private var isCheck = false
+
 @Composable
-fun LoginIberdrola(navController: NavController,context:Context) {
-    Body(navController,context)
+fun LoginIberdrola(navController: NavController, context: Context) {
+    val prefs = LocalContext.current.getSharedPreferences(
+        LocalContext.current.getString(R.string.sheredPrefJetpack),
+        Context.MODE_PRIVATE
+    )
+    val email = prefs.getString("email", null)
+    val password = prefs.getString("password", null)
+    if (email != null && password != null) {
+        login(email, password, navController, context)
+    }
+    Body(navController, context)
 }
 
 @Composable
@@ -79,7 +94,7 @@ fun LogoIberdrola() {
 }
 
 @Composable
-fun EditTexts(navController: NavController,context: Context) {
+fun EditTexts(navController: NavController, context: Context) {
     var isChecked by remember { mutableStateOf(false) }
     var textEmail by remember { mutableStateOf("danieles.03@gmail.com") }
     var textPassword by remember { mutableStateOf("123456") }
@@ -108,10 +123,10 @@ fun EditTexts(navController: NavController,context: Context) {
             text = "He olvidado mis datos",
             textDecoration = TextDecoration.Underline,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.clickable {navController.navigate("FG") }
+            modifier = Modifier.clickable { navController.navigate("FG") }
         )
         Spacer(modifier = Modifier.height(100.dp))
-        Button("Entrar", textEmail, textPassword, navController,context)
+        Button("Entrar", textEmail, textPassword, navController, context)
         Spacer(modifier = Modifier.height(5.dp))
         Linea("También puedes")
         Spacer(modifier = Modifier.height(5.dp))
@@ -137,7 +152,7 @@ private fun Button(
             onClick = {
                 if (email != null && password != null) {
                     if (navController != null) {
-                        login(email, password, navController,context)
+                        login(email, password, navController, context)
                     }
                 }
             },
@@ -151,16 +166,16 @@ private fun Button(
     }
 }
 
-private fun login(email: String, password: String, navController: NavController,context: Context) {
+private fun login(email: String, password: String, navController: NavController, context: Context) {
     viewModel.login(email, password)
 
     viewModel.loginResult.observe(context as LifecycleOwner, Observer { result ->
         val (success, errorMessage) = result
         if (success) {
             if (isCheck) {
-                navController.navigate("menu_principal")
+                navController.navigate("menu_principal/${email}/${password}/true")
             } else {
-                navController.navigate("menu_principal")
+                navController.navigate("menu_principal/${email}/${password}/false")
             }
 
         } else {
@@ -174,7 +189,7 @@ private fun login(email: String, password: String, navController: NavController,
 }
 
 @Composable
-fun ButtonSecundario(texto:String,navController: NavController?, ruta:String) {
+fun ButtonSecundario(texto: String, navController: NavController?, ruta: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -217,15 +232,15 @@ fun EditText(texto: String, text: String, onTextChange: (String) -> Unit) {
 }
 
 @Composable
-fun Body(navController: NavController,context: Context) {
+fun Body(navController: NavController, context: Context) {
     Column(Modifier.background(Color.White)) {
         LogoIberdrola()
-        EditTexts(navController,context)
+        EditTexts(navController, context)
     }
 }
 
 @Composable
-fun Linea(text:String) {
+fun Linea(text: String) {
     Box(
         modifier = Modifier
             .width(500.dp)

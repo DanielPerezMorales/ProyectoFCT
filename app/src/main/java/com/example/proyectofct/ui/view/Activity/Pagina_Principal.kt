@@ -103,7 +103,7 @@ class Pagina_Principal : AppCompatActivity() {
 
     private fun generateOrLoadSecretKey(): SecretKey {
         val keyGenerator = KeyGenerator.getInstance("AES")
-        keyGenerator.init(256) // Selecciona la longitud de la clave (128, 192 o 256 bits)
+        keyGenerator.init(256)
         return keyGenerator.generateKey()
     }
 
