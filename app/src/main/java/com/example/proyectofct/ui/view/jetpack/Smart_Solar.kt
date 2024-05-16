@@ -2,6 +2,7 @@ package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Tab
 import androidx.compose.material.TabRow
@@ -57,13 +57,13 @@ private fun ParteDeArriba(navController: NavController?) {
         elevation = 0.dp
     ) {
         IconButton(onClick = { navController?.popBackStack() }) {
-            Icon(
+            Image(
                 painter = painterResource(id = com.example.proyectofct.R.drawable.baseline_arrow_back_ios_new_24),
                 contentDescription = null
             )
         }
         Text(
-            text = stringResource(id = com.example.proyectofct.R.string.atras),
+            text = stringResource(id = com.example.proyectofct.R.string.atras), fontSize = 20.sp,
             color = colorResource(
                 id = com.example.proyectofct.R.color.color_consumo
             )

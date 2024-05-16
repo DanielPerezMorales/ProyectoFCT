@@ -2,6 +2,7 @@ package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
@@ -141,7 +141,7 @@ fun TextWithButton(text: String, onClick: () -> Unit) {
             onClick = onClick,
             modifier = Modifier.padding(16.dp)
         ) {
-            Icon(
+            Image(
                 painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                 contentDescription = "Forward Icon"
             )
@@ -178,7 +178,7 @@ private fun TextWithButtonSignOut(onClick: () -> Unit) {
             onClick = onClick,
             modifier = Modifier.padding(16.dp)
         ) {
-            Icon(
+            Image(
                 painter = painterResource(id = R.drawable.baseline_exit_to_app_24),
                 contentDescription = "Sign Out Icon"
             )

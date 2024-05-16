@@ -3,6 +3,7 @@ package com.example.proyectofct.ui.view.jetpack
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +22,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Divider
-import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -131,7 +131,7 @@ fun Facturas(
                             elevation = 0.dp,
                             actions = {
                                 IconButton(onClick = { isFiltredOpen.value = false }) {
-                                    Icon(
+                                    Image(
                                         painter = painterResource(id = R.drawable.baseline_close_32),
                                         contentDescription = "Close"
                                     )
@@ -449,7 +449,7 @@ fun Facturas(
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController?.popBackStack() }) {
-                        Icon(
+                        Image(
                             painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
                             contentDescription = null,
                         )
@@ -457,7 +457,7 @@ fun Facturas(
                 },
                 actions = {
                     IconButton(onClick = { isFiltredOpen.value = true }) {
-                        Icon(
+                        Image(
                             painter = painterResource(id = R.drawable.filtericon_3x),
                             contentDescription = null
                         )
@@ -580,7 +580,7 @@ fun FacturaItem(factura: facturaItem, onItemClick: () -> Unit) {
                 }
             )
             IconButton(onClick = {}) {
-                Icon(
+                Image(
                     painter = painterResource(id = R.drawable.baseline_arrow_forward_ios_24),
                     contentDescription = null,
                     modifier = Modifier.padding(20.dp)
