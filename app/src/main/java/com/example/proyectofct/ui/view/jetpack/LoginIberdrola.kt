@@ -126,7 +126,7 @@ fun EditTexts(navController: NavController, context: Context) {
         Spacer(modifier = Modifier.height(100.dp))
         Button(textEmail, textPassword, navController, context)
         Spacer(modifier = Modifier.height(5.dp))
-        Linea("También puedes")
+        Linea()
         Spacer(modifier = Modifier.height(5.dp))
         ButtonSecundario("Ir a registro", navController, "registro")
     }
@@ -243,7 +243,7 @@ fun Body(navController: NavController, context: Context) {
 }
 
 @Composable
-fun Linea(text: String) {
+private fun Linea() {
     Box(
         modifier = Modifier
             .width(500.dp)
@@ -255,7 +255,7 @@ fun Linea(text: String) {
             color = Color.Gray
         )
         Text(
-            text = text,
+            text = "También puedes",
             Modifier
                 .background(Color.White)
                 .width(150.dp)

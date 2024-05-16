@@ -3,12 +3,14 @@ package com.example.proyectofct.ui.view.jetpack
 import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.Divider
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +53,7 @@ fun EditTextsFG(navController: NavController?, context: Context) {
         }
         Spacer(modifier = Modifier.height(230.dp))
         Button(email = textEmail, navController = navController, context)
-        Linea("También puedes")
+        Linea()
         Spacer(modifier = Modifier.height(5.dp))
         ButtonSecundario("Ir a inicio de sesion", navController, "login")
     }
@@ -89,6 +92,28 @@ fun BodyFG(navController: NavController?, context: Context) {
     Column(Modifier.background(Color.White)) {
         LogoIberdrola()
         EditTextsFG(navController, context)
+    }
+}
+
+@Composable
+private fun Linea() {
+    Box(
+        modifier = Modifier
+            .width(500.dp)
+            .height(20.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            color = Color.Gray
+        )
+        Text(
+            text = "También puedes",
+            Modifier
+                .background(Color.White)
+                .width(150.dp)
+                .padding(start = 10.dp)
+        )
     }
 }
 
