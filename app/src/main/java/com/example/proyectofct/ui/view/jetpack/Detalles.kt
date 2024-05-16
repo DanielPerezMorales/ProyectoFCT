@@ -5,9 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -61,31 +63,37 @@ private fun Detalles_Body(context: Context) {
         }
 
         if (isLoading) {
-            EditText(stringResource(id = R.string.cau), textCAU)
-            EditText(stringResource(id = R.string.estado_solicitud), textEstado)
-            EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo)
-            EditText(stringResource(id = R.string.comprobacion_de_excedentes), textExcedentes)
-            EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia)
+            EditText(stringResource(id = R.string.cau), textCAU, isLoading)
+            EditText(stringResource(id = R.string.estado_solicitud), textEstado, isLoading)
+            EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo, isLoading)
+            EditText(stringResource(id = R.string.comprobacion_de_excedentes), textExcedentes, isLoading)
+            EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia, isLoading)
         } else {
-            EditText(stringResource(id = R.string.cau), textCAU)
-            EditText(stringResource(id = R.string.estado_solicitud), textEstado)
-            EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo)
-            EditText(stringResource(id = R.string.comprobacion_de_excedentes), textExcedentes)
-            EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia)
+            EditText(stringResource(id = R.string.cau), textCAU, isLoading)
+            EditText(stringResource(id = R.string.estado_solicitud), textEstado, isLoading)
+            EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo, isLoading)
+            EditText(stringResource(id = R.string.comprobacion_de_excedentes), textExcedentes, isLoading)
+            EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia, isLoading)
         }
     }
 }
 
 
 @Composable
-private fun EditText(text: String, textoMutable:String) {
+private fun EditText(text: String, textoMutable: String, enabled: Boolean) {
     var textEmail by remember { mutableStateOf(textoMutable) }
-    Column {
-        Text(text = text, fontSize = 20.sp)
-        EditText(textEmail, text) { newText ->
-            textEmail = newText
-        }
-        Spacer(modifier = Modifier.height(15.dp))
+    Column (Modifier.padding(10.dp)){
+        Text(text = text, fontSize = 20.sp, modifier = Modifier.padding(bottom = 10.dp))
+        TextField(
+            value = textEmail,
+            onValueChange = { newText ->
+                textEmail = newText
+            },
+            enabled = enabled,
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = colorResource(id = R.color.white))
+        )
     }
 }
 
