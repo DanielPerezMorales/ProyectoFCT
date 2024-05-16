@@ -176,7 +176,7 @@ private fun TextWithButtonSignOut(onClick: () -> Unit) {
 
         IconButton(
             onClick = onClick,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(end = 16.dp)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_exit_to_app_24),
