@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
@@ -102,7 +101,7 @@ fun PreviewFG() {
 private fun sendEmail(navController: NavController?, context: Context, email: String) {
     viewModel.sendEmail(email)
 
-    viewModel.forgotPasswordResult.observe(context as LifecycleOwner, Observer { result ->
+    viewModel.forgotPasswordResult.observe(context as LifecycleOwner) { result ->
         val (success, errorMessage) = result
         if (success) {
             navController?.navigate("login")
@@ -113,5 +112,5 @@ private fun sendEmail(navController: NavController?, context: Context, email: St
                 context
             )
         }
-    })
+    }
 }

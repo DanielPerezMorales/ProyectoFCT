@@ -1,5 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
+import android.annotation.SuppressLint
 import android.app.Activity.RESULT_OK
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -34,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 
-private val LINK_IBERDROLA = "https://www.iberdrola.es"
+private const val LINK_IBERDROLA = "https://www.iberdrola.es"
 
 @Composable
 fun Navegacion(context: Context?) {
@@ -112,6 +113,7 @@ fun Navegacion(context: Context?) {
 }
 
 
+@SuppressLint("SetJavaScriptEnabled")
 @Composable
 fun LikeWebView(url: String) {
     AndroidView(

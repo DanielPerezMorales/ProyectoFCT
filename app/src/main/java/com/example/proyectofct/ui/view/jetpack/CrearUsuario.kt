@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
@@ -80,7 +79,7 @@ private fun Button(
                 if (email != null && password != null) {
                     viewModel.signUp(email,password)
 
-                    viewModel.signupResult.observe(context as LifecycleOwner, Observer { result ->
+                    viewModel.signupResult.observe(context as LifecycleOwner) { result ->
                         val (success, errorMessage) = result
                         if (success) {
                             navController?.navigate("menu_principal")
@@ -91,7 +90,7 @@ private fun Button(
                                 context
                             )
                         }
-                    })
+                    }
                 }
             },
             modifier = Modifier

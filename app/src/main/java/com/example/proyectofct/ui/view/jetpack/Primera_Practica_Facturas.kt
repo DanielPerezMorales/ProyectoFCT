@@ -48,7 +48,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
@@ -86,7 +85,7 @@ fun BodyFacturas(
     Facturas(navController, context = context, viewmodel, boolean)
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition", "SimpleDateFormat")
 @Composable
 fun Facturas(
     navController: NavController?,
@@ -96,13 +95,13 @@ fun Facturas(
 ) {
     var facturas by remember { mutableStateOf<List<facturaItem>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
-    var isFiltredOpen = remember { mutableStateOf(false) }
+    val isFiltredOpen = remember { mutableStateOf(false) }
     var selectedDate by remember { mutableStateOf(Triple(0, 0, 0)) }
     val stringnormla = stringResource(id = R.string.dia_mes_anio)
     var isDatePickerDialogVisible by remember { mutableStateOf(false) }
     var isBotonDesde by remember { mutableStateOf(false) }
-    var DesdeFecha by remember { mutableStateOf(stringnormla) }
-    var HastaFecha by remember { mutableStateOf(stringnormla) }
+    var desdeFecha by remember { mutableStateOf(stringnormla) }
+    var hastaFecha by remember { mutableStateOf(stringnormla) }
     var precio by remember { mutableFloatStateOf(0.0f) }
     var isCheckedPagada by remember { mutableStateOf(false) }
     var isCheckedPendiente by remember { mutableStateOf(false) }
@@ -190,7 +189,7 @@ fun Facturas(
                                 ),
                                 contentPadding = PaddingValues(13.dp)
                             ) {
-                                Text(text = DesdeFecha, color = Color.Black)
+                                Text(text = desdeFecha, color = Color.Black)
                             }
                             androidx.compose.material.Button(
                                 onClick = { isDatePickerDialogVisible = true },
@@ -204,7 +203,7 @@ fun Facturas(
                                 ),
                                 contentPadding = PaddingValues(13.dp)
                             ) {
-                                Text(text = HastaFecha, color = Color.Black)
+                                Text(text = hastaFecha, color = Color.Black)
                             }
                         }
                         Spacer(modifier = Modifier.height(20.dp))
@@ -311,20 +310,19 @@ fun Facturas(
                             if (checkBox().isNotEmpty()) {
                                 entrees.add("CheckBox")
                             }
-                            if (DesdeFecha != stringnormla && HastaFecha != stringnormla) {
+                            if (desdeFecha != stringnormla && hastaFecha != stringnormla) {
                                 entrees.add("Fechas")
                             }
                             return entrees
                         }
 
-                        @SuppressLint("SimpleDateFormat")
                         suspend fun apply(value: Float) {
                             val lista: List<FacturaEntity> =
                                 facturaModule.provideRoom(context!!).getFactureDao()
                                     .getAllFacturas()
                             val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
-                            val fechaInicioText = DesdeFecha
-                            val fechaFinText = HastaFecha
+                            val fechaInicioText = desdeFecha
+                            val fechaFinText = hastaFecha
                             val listaCheck: MutableList<String> = checkBox()
                             val fechaInicio =
                                 if (fechaInicioText != "dia/mes/año") formatoFecha.parse(
@@ -350,8 +348,8 @@ fun Facturas(
                                     CoroutineScope(Dispatchers.IO).launch {
                                         apply(precio)
                                         delay(1000)
-                                        DesdeFecha = stringnormla
-                                        HastaFecha = stringnormla
+                                        desdeFecha = stringnormla
+                                        hastaFecha = stringnormla
                                         precio = 0F
                                         isCheckedAnuladas = false
                                         isCheckedPagada = false
@@ -378,8 +376,8 @@ fun Facturas(
                             }
                             androidx.compose.material.Button(
                                 onClick = {
-                                    DesdeFecha = stringnormla
-                                    HastaFecha = stringnormla
+                                    desdeFecha = stringnormla
+                                    hastaFecha = stringnormla
                                     precio = 0F
                                     isCheckedAnuladas = false
                                     isCheckedPagada = false
@@ -408,7 +406,7 @@ fun Facturas(
                             if (isBotonDesde) {
                                 DatePickerDialog { year, month, day ->
                                     selectedDate = Triple(year, month, day)
-                                    DesdeFecha = mostrarResultado(
+                                    desdeFecha = mostrarResultado(
                                         selectedDate.first,
                                         selectedDate.second,
                                         selectedDate.third
@@ -419,7 +417,7 @@ fun Facturas(
                             } else {
                                 DatePickerDialog { year, month, day ->
                                     selectedDate = Triple(year, month, day)
-                                    HastaFecha = mostrarResultado(
+                                    hastaFecha = mostrarResultado(
                                         selectedDate.first,
                                         selectedDate.second,
                                         selectedDate.third
@@ -514,14 +512,14 @@ fun Facturas(
         }
     }
 
-    viewmodel?.facturas?.observe(context as LifecycleOwner, Observer {
+    viewmodel?.facturas?.observe(context as LifecycleOwner) {
         if (it != null) {
             if (it.isNotEmpty()) {
                 facturas = it
                 isLoading.value = false
             }
         }
-    })
+    }
 }
 
 
@@ -644,17 +642,17 @@ fun mostrarResultado(year: Int, month: Int, day: Int): String {
 }
 
 private fun putMaxValue(lista: List<FacturaEntity>): Float? {
-    var Max: Float? = null
+    var max: Float? = null
     for (i in lista) {
-        if (Max != null) {
-            if (Max <= i.precio) {
-                Max = i.precio
+        if (max != null) {
+            if (max <= i.precio) {
+                max = i.precio
             }
         } else {
-            Max = i.precio
+            max = i.precio
         }
     }
-    return Max
+    return max
 }
 
 

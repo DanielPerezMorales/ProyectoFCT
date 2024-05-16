@@ -37,7 +37,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
@@ -122,7 +121,7 @@ fun EditTexts(navController: NavController, context: Context) {
             modifier = Modifier.clickable { navController.navigate("FG") }
         )
         Spacer(modifier = Modifier.height(100.dp))
-        Button("Entrar", textEmail, textPassword, navController, context)
+        Button(textEmail, textPassword, navController, context)
         Spacer(modifier = Modifier.height(5.dp))
         Linea("También puedes")
         Spacer(modifier = Modifier.height(5.dp))
@@ -132,7 +131,6 @@ fun EditTexts(navController: NavController, context: Context) {
 
 @Composable
 private fun Button(
-    textto: String,
     email: String?,
     password: String?,
     navController: NavController?,
@@ -157,7 +155,7 @@ private fun Button(
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9CBB29))
         ) {
-            Text(text = textto)
+            Text(text = "Entrar")
         }
     }
 }
@@ -165,7 +163,7 @@ private fun Button(
 private fun login(email: String, password: String, navController: NavController, context: Context) {
     viewModel.login(email, password)
 
-    viewModel.loginResult.observe(context as LifecycleOwner, Observer { result ->
+    viewModel.loginResult.observe(context as LifecycleOwner) { result ->
         val (success, errorMessage) = result
         if (success) {
             if (isCheck) {
@@ -181,7 +179,7 @@ private fun login(email: String, password: String, navController: NavController,
                 context
             )
         }
-    })
+    }
 }
 
 @Composable
