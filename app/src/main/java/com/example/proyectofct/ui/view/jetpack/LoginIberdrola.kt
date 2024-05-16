@@ -1,6 +1,7 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -31,7 +32,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -194,18 +197,24 @@ fun ButtonSecundario(texto: String, navController: NavController?, ruta: String)
             onClick = {
                 navController?.navigate(ruta)
             },
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.Transparent,
+                contentColor = colorResource(id = R.color.color_consumo),
+            ),
             modifier = Modifier
                 .width(250.dp)
-                .clip(shape = MaterialTheme.shapes.extraLarge)
                 .height(50.dp)
+                .clip(RectangleShape)
+                .background(
+                    color = colorResource(
+                        id = R.color.transparente
+                    )
+                )
                 .border(
-                    width = 5.dp,
-                    color = Color.Gray
-                ),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = Color.Gray,
-                contentColor = Color.White
-            )
+                    shape = CircleShape,
+                    color = colorResource(id = R.color.color_consumo),
+                    width = 2.dp
+                )
         ) {
             Text(text = texto)
         }
@@ -250,7 +259,7 @@ fun Linea(text: String) {
             Modifier
                 .background(Color.White)
                 .width(150.dp)
-                .padding(start = 22.dp)
+                .padding(start = 10.dp)
         )
     }
 }

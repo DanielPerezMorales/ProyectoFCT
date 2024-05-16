@@ -20,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
@@ -32,12 +33,12 @@ private val firebaseAuth= FirebaseAuth.getInstance()
 private val viewModel = SignUpViewModel(firebaseAuth)
 private val alert= Alert()
 @Composable
-fun RegistroIberdrola(navController: NavController?, context: Context) {
+fun RegistroIberdrola(navController: NavController?, context: Context?) {
     BodyRegistro(navController, context)
 }
 
 @Composable
-fun EditTextsRegistro(navController: NavController?, context: Context) {
+fun EditTextsRegistro(navController: NavController?, context: Context?) {
     var textEmail by remember { mutableStateOf("") }
     var textPassword by remember { mutableStateOf("") }
     Column(
@@ -54,7 +55,7 @@ fun EditTextsRegistro(navController: NavController?, context: Context) {
         }
         Spacer(modifier = Modifier.height(10.dp))
         Spacer(modifier = Modifier.height(160.dp))
-        Button( textEmail, textPassword, navController, context)
+        Button( textEmail, textPassword, navController, LocalContext.current)
         Spacer(modifier = Modifier.height(5.dp))
         Linea("Si ya tienes cuenta")
         Spacer(modifier = Modifier.height(5.dp))
@@ -104,7 +105,7 @@ private fun Button(
 }
 
 @Composable
-fun BodyRegistro(navController: NavController?, context:Context) {
+fun BodyRegistro(navController: NavController?, context:Context?) {
     Column(Modifier.background(Color.White)) {
         LogoIberdrola()
         EditTextsRegistro(navController, context)
@@ -114,5 +115,5 @@ fun BodyRegistro(navController: NavController?, context:Context) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewRegistro(){
-    //RegistroIberdrola(null)
+    RegistroIberdrola(null, null)
 }
