@@ -46,8 +46,6 @@ class LoginActivity : AppCompatActivity() {
         forgotPassword()
         binding.btnEntrar.setOnClickListener {
             login(binding.etUsuario.text.toString(), binding.etPassword.text.toString())
-            binding.etUsuario.setText("")
-            binding.etPassword.setText("")
         }
         seePassword()
         logWithFingerPrint()
@@ -163,11 +161,6 @@ class LoginActivity : AppCompatActivity() {
 
     @SuppressLint("SimpleDateFormat")
     private fun login(email: String, password: String) {
-        /*
-        Para entrar :)
-        emailprueba@gmail.com
-        123456
-        */
         viewModel.login(email, password)
 
         val check = binding.chckBX.isChecked
@@ -183,10 +176,16 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("date", formatter.format(Calendar.getInstance().time))
                     intent.putExtra("check", true)
                     startActivity(intent)
+
+                    binding.etUsuario.setText("")
+                    binding.etPassword.setText("")
                 } else {
                     val intent = Intent(this, PaginaPrincipal::class.java)
                     intent.putExtra("check", false)
                     startActivity(intent)
+
+                    binding.etUsuario.setText("")
+                    binding.etPassword.setText("")
                 }
 
             } else {
