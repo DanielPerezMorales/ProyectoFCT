@@ -19,7 +19,9 @@
             android:name=".ui.view.activity.MainCompose"
             android:exported="false"
             android:label="MainCompose"
-            android:theme="@style/Theme.ProyectoFCT" />
+            android:theme="@style/Theme.ProyectoFCT" >
+
+        </activity>
         <activity
             android:name=".ui.view.activity.Activity_Navegacion"
             android:exported="false" />
