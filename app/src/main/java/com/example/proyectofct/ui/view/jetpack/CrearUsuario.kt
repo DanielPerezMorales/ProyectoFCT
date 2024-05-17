@@ -96,7 +96,7 @@ private fun Button(
                     viewModel.signupResult.observe(context as LifecycleOwner) { result ->
                         val (success, errorMessage) = result
                         if (success) {
-                            navController?.navigate("menu_principal")
+                            navController?.navigate("menu_principal/${email}/${password}/false")
                         } else {
                             alert.showAlert(
                                 "Error",
@@ -112,7 +112,7 @@ private fun Button(
                 .height(50.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF9CBB29))
         ) {
-            Text(text = "Entrar")
+            Text(text = "Registrar")
         }
     }
 }
