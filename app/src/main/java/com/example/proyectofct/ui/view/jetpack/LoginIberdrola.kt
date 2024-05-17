@@ -1,8 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
-import android.text.InputType
-import android.view.MotionEvent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -76,7 +74,7 @@ fun LoginIberdrola(navController: NavController, context: Context) {
 
 @Composable
 fun Imagen() {
-    androidx.compose.foundation.Image(
+    Image(
         painterResource(id = R.drawable.ic_logo_iberdrola_cli),
         contentDescription = "IMAGEN DE PRUEBA",
         Modifier

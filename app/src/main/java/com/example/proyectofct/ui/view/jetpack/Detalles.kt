@@ -22,6 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,12 +36,14 @@ import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 private val viewModel: DetallesViewModel = DetallesViewModel()
 private val detallesObject = Detalles_Object
 private val alert = Alert()
+
 @Composable
 fun Detalles(context: Context) {
-    Column (
+    Column(
         Modifier
             .fillMaxHeight()
-            .background(color = colorResource(id = R.color.white))){
+            .background(color = colorResource(id = R.color.white))
+    ) {
         Detalles_Body(context = context)
     }
 }
@@ -70,15 +73,33 @@ private fun Detalles_Body(context: Context) {
 
         if (isLoading) {
             EditText(stringResource(id = R.string.cau), textCAU, isLoading)
-            EditTextWithButton(stringResource(id = R.string.estado_solicitud), textEstado, isLoading, context)
+            EditTextWithButton(
+                stringResource(id = R.string.estado_solicitud),
+                textEstado,
+                isLoading,
+                context
+            )
             EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo, isLoading)
-            EditText(stringResource(id = R.string.comprobacion_de_excedentes), textExcedentes, isLoading)
+            EditText(
+                stringResource(id = R.string.comprobacion_de_excedentes),
+                textExcedentes,
+                isLoading
+            )
             EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia, isLoading)
         } else {
             EditText(stringResource(id = R.string.cau), textCAU, isLoading)
-            EditTextWithButton(stringResource(id = R.string.estado_solicitud), textEstado, isLoading, context)
+            EditTextWithButton(
+                stringResource(id = R.string.estado_solicitud),
+                textEstado,
+                isLoading,
+                context
+            )
             EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo, isLoading)
-            EditText(stringResource(id = R.string.comprobacion_de_excedentes), textExcedentes, isLoading)
+            EditText(
+                stringResource(id = R.string.comprobacion_de_excedentes),
+                textExcedentes,
+                isLoading
+            )
             EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia, isLoading)
         }
     }
@@ -88,13 +109,13 @@ private fun Detalles_Body(context: Context) {
 @Composable
 private fun EditText(text: String, textoMutable: String, enabled: Boolean) {
     var textEmail by remember { mutableStateOf(textoMutable) }
-    Column (Modifier.padding(10.dp)){
+    Column(Modifier.padding(10.dp)) {
         Text(text = text, fontSize = 20.sp, modifier = Modifier.padding(bottom = 10.dp))
         TextField(
             value = textEmail,
             onValueChange = { newText ->
                 textEmail = newText
-            },
+            }, textStyle = TextStyle(fontSize = 17.sp),
             enabled = enabled,
             modifier = Modifier
                 .fillMaxWidth()
@@ -104,28 +125,38 @@ private fun EditText(text: String, textoMutable: String, enabled: Boolean) {
 }
 
 @Composable
-private fun EditTextWithButton(text: String, textoMutable: String, enabled: Boolean, context: Context) {
-    Column (Modifier.padding(10.dp)){
+private fun EditTextWithButton(
+    text: String,
+    textoMutable: String,
+    enabled: Boolean,
+    context: Context
+) {
+    Column(Modifier.padding(10.dp)) {
         Text(text = text, fontSize = 20.sp, modifier = Modifier.padding(bottom = 10.dp))
         TextFieldWithIcon(textoMutable, enabled, context)
     }
 }
 
 @Composable
-private fun TextFieldWithIcon(textoMutable: String, enabled: Boolean, context: Context){
+private fun TextFieldWithIcon(textoMutable: String, enabled: Boolean, context: Context) {
     var textEmail by remember { mutableStateOf(textoMutable) }
     TextField(
         value = textEmail,
-        onValueChange = { newText ->;
+        onValueChange = { newText ->
+            ;
             textEmail = newText
         },
+        textStyle = TextStyle(fontSize = 17.sp),
         enabled = enabled,
         modifier = Modifier
             .fillMaxWidth()
             .background(color = colorResource(id = R.color.white)),
         trailingIcon = {
-            IconButton(onClick = { alert.showPopNative_Context(context)}) {
-                Image(painter = painterResource(id = R.drawable.informacion), contentDescription = "ojo informacion")
+            IconButton(onClick = { alert.showPopNative_Context(context) }) {
+                Image(
+                    painter = painterResource(id = R.drawable.informacion),
+                    contentDescription = "ojo informacion"
+                )
             }
         }
     )
