@@ -16,32 +16,32 @@
         android:theme="@style/Theme.ProyectoFCT"
         tools:targetApi="31">
         <activity
-            android:name=".ui.view.activity.MainCompose"
+            android:name=".ui.view.Activity.MainCompose"
             android:exported="false"
             android:label="MainCompose"
             android:theme="@style/Theme.ProyectoFCT" >
 
         </activity>
         <activity
-            android:name=".ui.view.activity.Activity_Navegacion"
+            android:name=".ui.view.Activity.ActivityNavegacion"
             android:exported="false" />
         <activity
-            android:name=".ui.view.activity.ForgotPasswordActivity"
+            android:name=".ui.view.Activity.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.activity.SignupActivity"
+            android:name=".ui.view.Activity.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.activity.Pagina_Principal"
+            android:name=".ui.view.Activity.PaginaPrincipal"
             android:exported="false" />
         <activity
-            android:name=".ui.view.activity.PantallaPrincipalSmartSolar"
+            android:name=".ui.view.Activity.PantallaPrincipalSmartSolar"
             android:exported="false" />
         <activity
-            android:name=".ui.view.activity.Facturas"
+            android:name=".ui.view.Activity.Facturas"
             android:exported="false" />
         <activity
-            android:name=".ui.view.activity.LoginActivity"
+            android:name=".ui.view.Activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

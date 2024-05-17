@@ -1,5 +1,6 @@
-package com.example.proyectofct.ui.view.activity
+package com.example.proyectofct.ui.view.Activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -20,7 +21,7 @@ import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
 
-class Pagina_Principal : AppCompatActivity() {
+class PaginaPrincipal : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var secretKey: SecretKey
     private var themeApplied = false
@@ -53,11 +54,11 @@ class Pagina_Principal : AppCompatActivity() {
         }
 
         binding.ibNavegacion.setOnClickListener {
-            val intent = Intent(this, Activity_Navegacion::class.java)
+            val intent = Intent(this, ActivityNavegacion::class.java)
             startActivity(intent)
         }
 
-        binding.SWMock.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.SWMock.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 Toast.makeText(this, "Mock activado", Toast.LENGTH_SHORT).show()
             } else {
@@ -107,6 +108,7 @@ class Pagina_Principal : AppCompatActivity() {
         return keyGenerator.generateKey()
     }
 
+    @SuppressLint("GetInstance")
     private fun encryptData(data: String): String {
         val cipher = Cipher.getInstance("AES")
         cipher.init(Cipher.ENCRYPT_MODE, secretKey)

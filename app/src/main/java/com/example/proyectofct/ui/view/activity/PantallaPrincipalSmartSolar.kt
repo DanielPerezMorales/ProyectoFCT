@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.activity
+package com.example.proyectofct.ui.view.Activity
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

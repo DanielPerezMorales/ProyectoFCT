@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.activity
+package com.example.proyectofct.ui.view.Activity
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
@@ -73,12 +72,12 @@ class Facturas : AppCompatActivity() {
     private fun mock() {
         binding.PB.isVisible = true
         facturaViewModel.putRetroMock(this, facturaModule.provideRoom(this))
-        facturaViewModel.facturas.observe(this, Observer { facturas ->
+        facturaViewModel.facturas.observe(this) { facturas ->
             facturas?.let {
                 adapter.updateList(it)
                 binding.PB.isVisible = false
             }
-        })
+        }
     }
 
     private fun initUI(mock:Boolean) {
@@ -96,12 +95,12 @@ class Facturas : AppCompatActivity() {
     private fun putFacturasOnRecycler() {
         binding.PB.isVisible = true
         facturaViewModel.fetchFacturas(facturaModule.provideRoom(this))
-        facturaViewModel.facturas.observe(this, Observer { facturas ->
+        facturaViewModel.facturas.observe(this) { facturas ->
             facturas?.let {
                 adapter.updateList(it)
                 binding.PB.isVisible = false
             }
-        })
+        }
     }
 
     private fun showInformation() {
@@ -109,10 +108,10 @@ class Facturas : AppCompatActivity() {
     }
 
     private fun showListFilter(){
-        facturaViewModel.facturas.observe(this, Observer { facturasFiltradas ->
+        facturaViewModel.facturas.observe(this) { facturasFiltradas ->
             facturasFiltradas?.let {
                 adapter.updateList(it)
             }
-        })
+        }
     }
 }

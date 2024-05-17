@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.activity
+package com.example.proyectofct.ui.view.Activity
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -15,7 +15,6 @@ import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityLoginBinding
@@ -83,8 +82,8 @@ class LoginActivity : AppCompatActivity() {
         currentDate.set(Calendar.SECOND, 0)
         currentDate.set(Calendar.MILLISECOND, 0)
         if (email != null && password != null) {
-            if (formatter.parse(date) >= currentDate.time) {
-                val intent = Intent(this, Pagina_Principal::class.java)
+            if (date?.let { formatter.parse(it) }!! >= currentDate.time) {
+                val intent = Intent(this, PaginaPrincipal::class.java)
                 intent.putExtra("email", email)
                 intent.putExtra("password", password)
                 intent.putExtra("date", date)
@@ -118,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
                 object : BiometricPrompt.AuthenticationCallback() {
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
-                        val intent = Intent(this@LoginActivity, Pagina_Principal::class.java)
+                        val intent = Intent(this@LoginActivity, PaginaPrincipal::class.java)
                         intent.putExtra("email", binding.etUsuario.text)
                         intent.putExtra("password", binding.etPassword.text)
                         startActivity(intent)
@@ -146,7 +145,7 @@ class LoginActivity : AppCompatActivity() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun seePassword() {
-        binding.ojoInformacion.setOnTouchListener { view, motionEvent ->
+        binding.ojoInformacion.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
                     binding.etPassword.inputType = TYPE_CLASS_TEXT
@@ -163,6 +162,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun login(email: String, password: String) {
         /*
         Para entrar :)
@@ -173,20 +173,20 @@ class LoginActivity : AppCompatActivity() {
 
         val check = binding.chckBX.isChecked
 
-        viewModel.loginResult.observe(this, Observer { result ->
+        viewModel.loginResult.observe(this) { result ->
             val (success, errorMessage) = result
             if (success) {
                 if (check) {
-                    val intent = Intent(this, Pagina_Principal::class.java)
+                    val intent = Intent(this, PaginaPrincipal::class.java)
                     intent.putExtra("email", email)
                     intent.putExtra("password", password)
                     val formatter = SimpleDateFormat("yyyy-MM-dd")
                     intent.putExtra("date", formatter.format(Calendar.getInstance().time))
-                    intent.putExtra("check", check)
+                    intent.putExtra("check", true)
                     startActivity(intent)
                 } else {
-                    val intent = Intent(this, Pagina_Principal::class.java)
-                    intent.putExtra("check", check)
+                    val intent = Intent(this, PaginaPrincipal::class.java)
+                    intent.putExtra("check", false)
                     startActivity(intent)
                 }
 
@@ -197,7 +197,7 @@ class LoginActivity : AppCompatActivity() {
                     this
                 )
             }
-        })
+        }
     }
 
 }

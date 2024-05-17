@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.activity
+package com.example.proyectofct.ui.view.Activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivitySignupBinding
@@ -44,10 +43,10 @@ class SignupActivity : AppCompatActivity() {
             viewModel.signUp(email, password)
         }
 
-        viewModel.signupResult.observe(this, Observer { result ->
+        viewModel.signupResult.observe(this) { result ->
             val (success, errorMessage) = result
             if (success) {
-                val intent = Intent(this, Pagina_Principal::class.java)
+                val intent = Intent(this, PaginaPrincipal::class.java)
                 startActivity(intent)
             } else {
                 alert.showAlert(
@@ -56,7 +55,7 @@ class SignupActivity : AppCompatActivity() {
                     this
                 )
             }
-        })
+        }
     }
 
     private fun changeToLogin() {

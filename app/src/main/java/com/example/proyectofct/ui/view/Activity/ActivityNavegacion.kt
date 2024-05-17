@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.activity
+package com.example.proyectofct.ui.view.Activity
 
 import android.content.Intent
 import android.net.Uri
@@ -10,9 +10,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofct.R
 import com.example.proyectofct.databinding.ActivityNavegacionBinding
 
-class Activity_Navegacion : AppCompatActivity() {
+class ActivityNavegacion : AppCompatActivity() {
     private lateinit var binding:ActivityNavegacionBinding
-    private val LINK_IBERDROLA="https://www.iberdrola.es"
+    private val linkIberdrolaWeb="https://www.iberdrola.es"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,14 +25,14 @@ class Activity_Navegacion : AppCompatActivity() {
         }
 
         binding.botonWeb.setOnClickListener {
-            val link=Uri.parse(LINK_IBERDROLA)
+            val link=Uri.parse(linkIberdrolaWeb)
             binding.WB.loadUrl("")
             val intent= Intent(Intent.ACTION_VIEW, link)
             startActivity(intent)
         }
 
         binding.botonWebView.setOnClickListener {
-            binding.WB.loadUrl(LINK_IBERDROLA)
+            binding.WB.loadUrl(linkIberdrolaWeb)
         }
     }
 }
