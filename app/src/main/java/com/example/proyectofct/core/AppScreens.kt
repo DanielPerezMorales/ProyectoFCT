@@ -6,7 +6,6 @@ sealed class AppScreens (val route:String){
     object FG : AppScreens("FG")
     object menu_principal : AppScreens("menu_principal")
     object facturas : AppScreens("practica1")
-    object filtrado : AppScreens("filtrar")
     object Navegacion : AppScreens("navegador")
     object SmartSolar : AppScreens("SS")
 }
