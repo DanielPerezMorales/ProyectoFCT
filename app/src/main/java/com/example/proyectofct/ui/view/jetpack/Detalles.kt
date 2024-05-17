@@ -12,12 +12,14 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
@@ -110,7 +112,14 @@ private fun Detalles_Body(context: Context) {
 private fun EditText(text: String, textoMutable: String, enabled: Boolean) {
     var textEmail by remember { mutableStateOf(textoMutable) }
     Column(Modifier.padding(10.dp)) {
-        Text(text = text, fontSize = 20.sp, modifier = Modifier.padding(bottom = 10.dp))
+        Text(
+            text = text,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(bottom = 10.dp),
+            color = colorResource(
+                id = R.color.gris
+            )
+        )
         TextField(
             value = textEmail,
             onValueChange = { newText ->
@@ -119,7 +128,14 @@ private fun EditText(text: String, textoMutable: String, enabled: Boolean) {
             enabled = enabled,
             modifier = Modifier
                 .fillMaxWidth()
-                .background(color = colorResource(id = R.color.white))
+                .background(color = colorResource(id = R.color.white)),
+            colors = TextFieldDefaults.textFieldColors(
+                backgroundColor = Color.White,
+                textColor = Color.Black,
+                disabledTextColor = Color.Black,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            )
         )
     }
 }
@@ -132,7 +148,14 @@ private fun EditTextWithButton(
     context: Context
 ) {
     Column(Modifier.padding(10.dp)) {
-        Text(text = text, fontSize = 20.sp, modifier = Modifier.padding(bottom = 10.dp))
+        Text(
+            text = text,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(bottom = 10.dp),
+            color = colorResource(
+                id = R.color.gris
+            )
+        )
         TextFieldWithIcon(textoMutable, enabled, context)
     }
 }
@@ -143,7 +166,6 @@ private fun TextFieldWithIcon(textoMutable: String, enabled: Boolean, context: C
     TextField(
         value = textEmail,
         onValueChange = { newText ->
-            ;
             textEmail = newText
         },
         textStyle = TextStyle(fontSize = 17.sp),
@@ -158,7 +180,14 @@ private fun TextFieldWithIcon(textoMutable: String, enabled: Boolean, context: C
                     contentDescription = "ojo informacion"
                 )
             }
-        }
+        },
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.White,
+            textColor = Color.Black,
+            disabledTextColor = Color.Black,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        )
     )
 }
 

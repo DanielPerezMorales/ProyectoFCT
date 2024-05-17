@@ -24,6 +24,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.IconButton
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -112,7 +113,7 @@ fun EditTexts(navController: NavController, context: Context) {
             textEmail = newText
         }
         Spacer(modifier = Modifier.height(10.dp))
-        EditTextWithEye(textPassword){ newText ->
+        EditTextWithEye(textPassword) { newText ->
             textPassword = newText
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -235,7 +236,14 @@ private fun EditText(texto: String, onTextChange: (String) -> Unit) {
         onValueChange = onTextChange,
         placeholder = { Text("Ingrese Email") },
         singleLine = true,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.White,
+            textColor = Color.Black,
+            disabledTextColor = Color.Black,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        )
     )
 
     Spacer(modifier = Modifier.height(16.dp))
@@ -264,7 +272,13 @@ private fun EditTextWithEye(texto: String, onTextChange: (String) -> Unit) {
         },
         singleLine = true,
         visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(), colors = TextFieldDefaults.textFieldColors(
+            backgroundColor = Color.White,
+            textColor = Color.Black,
+            disabledTextColor = Color.Black,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        )
     )
 
     Spacer(modifier = Modifier.height(16.dp))
