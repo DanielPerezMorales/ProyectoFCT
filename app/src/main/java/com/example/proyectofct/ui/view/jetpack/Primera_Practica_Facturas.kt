@@ -19,12 +19,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.ButtonDefaults
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Checkbox
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Divider
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.IconButton
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Scaffold
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Text
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TopAppBar
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Slider
@@ -510,6 +517,8 @@ fun Facturas(
     }
 
     LaunchedEffect(key1 = true) {
+        isLoading.value = true
+        facturas = emptyList()
         if (remoteConfig) {
             if (boolean) {
                 viewmodel?.putRetroMock(context!!, facturaModule.provideRoom(context))
@@ -668,5 +677,9 @@ private fun putMaxValue(lista: List<FacturaEntity>): Float? {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewFacturas() {
-    Facturas(navController = null, context = null, viewmodel = null, false, true)
+    Facturas(
+        navController = null, context = null, viewmodel = null,
+        boolean = false,
+        remoteConfig = true
+    )
 }
