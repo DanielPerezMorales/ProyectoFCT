@@ -1,8 +1,8 @@
 package com.example.proyectofct.domain
 
 import android.content.Context
-import com.example.proyectofct.core.Detalles_Object
-import com.example.proyectofct.data.model.Modelo_Detalles
+import com.example.proyectofct.core.DetallesObject
+import com.example.proyectofct.data.model.ModeloDetalles
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -15,7 +15,7 @@ import org.mockito.MockitoAnnotations
 class DetallesUseCaseTest {
 
     @Mock
-    private lateinit var detallesObject: Detalles_Object
+    private lateinit var detallesObject: DetallesObject
 
     private lateinit var detallesUseCase: DetallesUseCase
 
@@ -29,7 +29,7 @@ class DetallesUseCaseTest {
     fun `obtenerDetalles() returns correct Modelo_Detalles`() = runBlocking {
         // Given
         val context: Context = mockk()
-        val expectedDetalles = Modelo_Detalles(CAU = "CAU", solicitud = "solicitud", Tipo = "TIpo", Excedentes = "exc", Potencia = "Potence")
+        val expectedDetalles = ModeloDetalles(cau = "CAU", solicitud = "solicitud", tipo = "TIpo", excedentes = "exc", potencia = "Potence")
         `when`(detallesObject.inicializar(context)).then { }
         `when`(detallesObject.obtenerInstancia()).thenReturn(expectedDetalles)
 

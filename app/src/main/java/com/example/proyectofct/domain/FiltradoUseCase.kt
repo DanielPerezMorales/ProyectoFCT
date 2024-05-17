@@ -2,14 +2,14 @@ package com.example.proyectofct.domain
 
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.data.database.entities.toFacturaItem
-import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.data.model.FacturaItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
 
 class FiltradoUseCase {
-    fun filtrado(precio: Float, fechaInicio: Date?, fechaFin: Date?, listaCheck: List<String>, lista: List<FacturaEntity>, listaFiltrados: List<String>, callback: (List<facturaItem>) -> Unit
+    fun filtrado(precio: Float, fechaInicio: Date?, fechaFin: Date?, listaCheck: List<String>, lista: List<FacturaEntity>, listaFiltrados: List<String>, callback: (List<FacturaItem>) -> Unit
     ) {
         CoroutineScope(Dispatchers.IO).launch {
             val listaReturn: MutableList<FacturaEntity> = mutableListOf()

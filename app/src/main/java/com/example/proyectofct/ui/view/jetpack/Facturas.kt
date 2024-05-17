@@ -59,7 +59,7 @@ import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.data.model.FacturaItem
 import com.example.proyectofct.di.RoomModule
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -105,7 +105,7 @@ fun Facturas(
     viewmodel: FacturasViewModel?,
     boolean: Boolean, remoteConfig: Boolean
 ) {
-    var facturas by remember { mutableStateOf<List<facturaItem>>(emptyList()) }
+    var facturas by remember { mutableStateOf<List<FacturaItem>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
     val isFiltredOpen = remember { mutableStateOf(false) }
     var selectedDate by remember { mutableStateOf(Triple(0, 0, 0)) }
@@ -542,7 +542,7 @@ fun Facturas(
 
 
 @Composable
-fun FacturaItem(factura: facturaItem, onItemClick: () -> Unit) {
+fun FacturaItem(factura: FacturaItem, onItemClick: () -> Unit) {
     Column {
         Row(
             Modifier

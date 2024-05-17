@@ -8,9 +8,9 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofct.R
 import com.example.proyectofct.core.ViewPagerAdapter
 import com.example.proyectofct.databinding.ActivityPantallaPrincipalSmartSolarBinding
-import com.example.proyectofct.ui.view.fragment.Mi_instalacion_fragment
-import com.example.proyectofct.ui.view.fragment.Detalles_fragment
-import com.example.proyectofct.ui.view.fragment.Energia_fragment
+import com.example.proyectofct.ui.view.Fragment.MiInstalacionFragment
+import com.example.proyectofct.ui.view.Fragment.Detallesfragment
+import com.example.proyectofct.ui.view.Fragment.EnergiaFragment
 
 class PantallaPrincipalSmartSolar : AppCompatActivity() {
     private lateinit var binding: ActivityPantallaPrincipalSmartSolarBinding
@@ -32,9 +32,9 @@ class PantallaPrincipalSmartSolar : AppCompatActivity() {
 
     private fun createTab() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragmentWithTab(Mi_instalacion_fragment(), "Mi instalación")
-        adapter.addFragmentWithTab(Energia_fragment(),"Energía")
-        adapter.addFragmentWithTab(Detalles_fragment(), "Detalles")
+        adapter.addFragmentWithTab(MiInstalacionFragment(), "Mi instalación")
+        adapter.addFragmentWithTab(EnergiaFragment(),"Energía")
+        adapter.addFragmentWithTab(Detallesfragment(), "Detalles")
 
         binding.VP.adapter = adapter
         binding.tablayout.setupWithViewPager(binding.VP)

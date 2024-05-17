@@ -12,7 +12,7 @@ class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager,
 
     override fun getItem(position: Int): Fragment = fragmentList[position]
 
-    override fun getPageTitle(position: Int): CharSequence? = titleList[position]
+    override fun getPageTitle(position: Int): CharSequence = titleList[position]
 
     fun addFragmentWithTab(fragment: Fragment, title: String) {
         fragmentList.add(fragment)

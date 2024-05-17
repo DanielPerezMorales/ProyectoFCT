@@ -12,17 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.ViewPagerAdapter
-import com.example.proyectofct.data.model.FacturaAdapter_RV
+import com.example.proyectofct.data.model.FacturaAdapterRV
 import com.example.proyectofct.databinding.ActivityFacturasBinding
 import com.example.proyectofct.di.RoomModule
-import com.example.proyectofct.ui.view.fragment.Filtrar_Facturas_Fragment
+import com.example.proyectofct.ui.view.Fragment.FiltrarFacturasFragment
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 
 class Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFacturasBinding
-    private lateinit var adapter: FacturaAdapter_RV
+    private lateinit var adapter: FacturaAdapterRV
     private val alert = Alert()
     private val facturaModule = RoomModule
     private val facturaViewModel: FacturasViewModel by viewModels()
@@ -57,7 +57,7 @@ class Facturas : AppCompatActivity() {
         binding.ibFilter.setOnClickListener {
             binding.VP.visibility=View.VISIBLE
             val adapter = ViewPagerAdapter(supportFragmentManager)
-            adapter.addFragment(Filtrar_Facturas_Fragment())
+            adapter.addFragment(FiltrarFacturasFragment())
             binding.VP.adapter=adapter
         }
 
@@ -81,7 +81,7 @@ class Facturas : AppCompatActivity() {
     }
 
     private fun initUI(mock:Boolean) {
-        adapter = FacturaAdapter_RV { showInformation() }
+        adapter = FacturaAdapterRV { showInformation() }
         binding.RVFacturas.layoutManager = LinearLayoutManager(this)
         binding.RVFacturas.adapter = adapter
         binding.RVFacturas.setHasFixedSize(true)

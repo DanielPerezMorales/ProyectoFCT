@@ -2,10 +2,8 @@ package com.example.proyectofct.domain
 
 import org.mockito.Mock
 import com.example.proyectofct.data.database.FacturaDatabase
-import com.example.proyectofct.data.database.dao.Factura_dao
-import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.data.database.entities.toFacturaItem
-import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.data.database.dao.FacturaDao
+import com.example.proyectofct.data.model.FacturaItem
 import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.data.network.FacturaService
 import io.mockk.coEvery
@@ -24,7 +22,7 @@ class FacturasUseCaseTest {
     @Mock
     private lateinit var facturaDatabase: FacturaDatabase
     @Mock
-    private lateinit var facturaDao: Factura_dao // Mock the DAO
+    private lateinit var facturaDao: FacturaDao // Mock the DAO
 
     lateinit var facturasUseCase: FacturasUseCase
 
@@ -39,7 +37,7 @@ class FacturasUseCaseTest {
 
     @Test
     fun `fetchFacturas when response is not successful`() = runBlocking {
-        var lista: List<facturaItem> = listOf()
+        var lista: List<FacturaItem> = listOf()
         // Given
         coEvery { facturaService.getFacturas() } returns emptyList() // Mocking null response
         every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
@@ -57,8 +55,8 @@ class FacturasUseCaseTest {
 
     @Test
     fun `fetchFacturas when response is successful`() = runBlocking {
-        var response:List<facturaItem> = listOf()
-        var lista: List<facturaItem> = listOf(facturaItem("Pagada", 100.0F, "07/12/2019"), facturaItem("Pendiente de pago",50.99F, "21/03/2020"))
+        var response:List<FacturaItem> = listOf()
+        var lista: List<FacturaItem> = listOf(FacturaItem("Pagada", 100.0F, "07/12/2019"), FacturaItem("Pendiente de pago",50.99F, "21/03/2020"))
         // Given
         coEvery { facturaService.getFacturas() } returns lista // Mocking null response
         every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO

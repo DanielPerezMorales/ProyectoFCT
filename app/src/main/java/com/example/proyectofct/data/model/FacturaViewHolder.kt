@@ -1,5 +1,6 @@
 package com.example.proyectofct.data.model
 
+import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,8 @@ import com.example.proyectofct.databinding.ItemBinding
 class FacturaViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = ItemBinding.bind(view)
 
-    fun bind(superHeroItemResponse: facturaItem, onItemSelected: (String) -> Unit) {
+    @SuppressLint("SetTextI18n")
+    fun bind(superHeroItemResponse: FacturaItem, onItemSelected: (String) -> Unit) {
         binding.TVfechaFactura.text = superHeroItemResponse.fecha
         binding.TVestadoFactura.text = superHeroItemResponse.descEstado
 

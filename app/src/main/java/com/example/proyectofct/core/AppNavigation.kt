@@ -24,7 +24,7 @@ fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
             LoginIberdrola(navController, context)
         }
         composable(
-            route = AppScreens.menu_principal.route + "/{email}" + "/{pass}" + "/{check}",
+            route = AppScreens.Menu_principal.route + "/{email}" + "/{pass}" + "/{check}",
             arguments = listOf(
                 navArgument("email") { type = NavType.StringType },
                 navArgument("pass") { type = NavType.StringType },
@@ -49,7 +49,7 @@ fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
             SS_Pantalla(navController = navController, context)
         }
         composable(
-            route = AppScreens.facturas.route + "/{mock}" + "/{remoteConfig}",
+            route = AppScreens.Facturas.route + "/{mock}" + "/{remoteConfig}",
             arguments = listOf(navArgument(name = "mock") {
                 type = NavType.BoolType
             },

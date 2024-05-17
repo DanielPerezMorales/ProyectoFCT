@@ -1,13 +1,15 @@
 package com.example.proyectofct.data.model
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectofct.R
 
-class FacturaAdapter_RV (var FacturaList: List<facturaItem> = emptyList(), private val onItemSelected: (String) -> Unit): RecyclerView.Adapter<FacturaViewHolder>(){
-    fun updateList(List: List<facturaItem>) {
-        FacturaList = List
+class FacturaAdapterRV (private var facturaList: List<FacturaItem> = emptyList(), private val onItemSelected: (String) -> Unit): RecyclerView.Adapter<FacturaViewHolder>(){
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(list: List<FacturaItem>) {
+        facturaList = list
         notifyDataSetChanged()
     }
 
@@ -17,11 +19,11 @@ class FacturaAdapter_RV (var FacturaList: List<facturaItem> = emptyList(), priva
     }
 
     override fun getItemCount(): Int {
-        return FacturaList.size
+        return facturaList.size
     }
 
     override fun onBindViewHolder(holder: FacturaViewHolder, position: Int) {
-        val item = FacturaList[position]
+        val item = facturaList[position]
         holder.bind(item, onItemSelected)
     }
 }

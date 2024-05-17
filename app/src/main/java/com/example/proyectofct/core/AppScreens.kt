@@ -1,11 +1,11 @@
 package com.example.proyectofct.core
 
 sealed class AppScreens (val route:String){
-    object Login : AppScreens("login")
-    object Registro : AppScreens("registro")
-    object FG : AppScreens("FG")
-    object menu_principal : AppScreens("menu_principal")
-    object facturas : AppScreens("practica1")
-    object Navegacion : AppScreens("navegador")
-    object SmartSolar : AppScreens("SS")
+    data object Login : AppScreens("login")
+    data object Registro : AppScreens("registro")
+    data object FG : AppScreens("FG")
+    data object Menu_principal : AppScreens("menu_principal")
+    data object Facturas : AppScreens("practica1")
+    data object Navegacion : AppScreens("navegador")
+    data object SmartSolar : AppScreens("SS")
 }

@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.proyectofct.data.database.entities.FacturaEntity
 
 @Dao
-interface Factura_dao {
+interface FacturaDao {
     @Query("SELECT * FROM factura_tabla")
     suspend fun getAllFacturas():List<FacturaEntity>
 

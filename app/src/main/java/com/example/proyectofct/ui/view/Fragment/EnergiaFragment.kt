@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.fragment
+package com.example.proyectofct.ui.view.Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,12 +12,7 @@ import com.example.proyectofct.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Energia_fragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class Energia_fragment : Fragment() {
+class EnergiaFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null

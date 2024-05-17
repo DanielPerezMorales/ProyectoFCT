@@ -1,10 +1,12 @@
 package com.example.proyectofct.data.database
 
+import android.annotation.SuppressLint
 import androidx.room.TypeConverter
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class Converter {
+    @SuppressLint("SimpleDateFormat")
     private val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
 
     @TypeConverter

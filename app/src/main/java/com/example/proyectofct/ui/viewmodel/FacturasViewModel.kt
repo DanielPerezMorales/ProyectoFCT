@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.data.mock.Mock
-import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.data.model.FacturaItem
 import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.data.network.FacturaService
 import com.example.proyectofct.domain.FacturasUseCase
@@ -26,8 +26,8 @@ class FacturasViewModel : ViewModel() {
     private val filtradoUseCase = FiltradoUseCase()
     private lateinit var factureServiceMock: Mock
     private val RoomUseCase = RoomUseCase()
-    private val _facturas = MutableLiveData<List<facturaItem>?>()
-    val facturas: MutableLiveData<List<facturaItem>?> get() = _facturas
+    private val _facturas = MutableLiveData<List<FacturaItem>?>()
+    val facturas: MutableLiveData<List<FacturaItem>?> get() = _facturas
     private val _filtradoExitoso = MutableLiveData<Boolean>()
     val filtradoExitoso: LiveData<Boolean> get() = _filtradoExitoso
     fun fetchFacturas(appDatabase: FacturaDatabase) {
@@ -58,7 +58,7 @@ class FacturasViewModel : ViewModel() {
     fun putRetroMock(context: Context, appDatabase: FacturaDatabase) {
         factureServiceMock = Mock(context)
         CoroutineScope(Dispatchers.IO).launch {
-            var facturasList: List<facturaItem> = listOf()
+            var facturasList: List<FacturaItem> = listOf()
             val facturasMock = factureServiceMock.getFacturasMOCK()
             if (facturasMock != null) {
                 facturasList = facturasMock.facturas

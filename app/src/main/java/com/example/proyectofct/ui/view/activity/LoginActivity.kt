@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
 import android.view.MotionEvent
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -70,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sessionActive() {
-        binding.PB.visibility = View.VISIBLE
+        //binding.PB.visibility = View.VISIBLE
         val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE)
         val email = prefs.getString("email", null)
         val password = prefs.getString("password", null)
@@ -89,11 +88,11 @@ class LoginActivity : AppCompatActivity() {
                 intent.putExtra("date", date)
                 startActivity(intent)
             } else {
-                binding.PB.visibility = View.GONE
+                //binding.PB.visibility = View.GONE
                 Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
             }
         } else {
-            binding.PB.visibility = View.GONE
+            //binding.PB.visibility = View.GONE
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.fragment
+package com.example.proyectofct.ui.view.Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,11 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.proyectofct.R
 
-class Mi_instalacion_fragment : Fragment() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+class MiInstalacionFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

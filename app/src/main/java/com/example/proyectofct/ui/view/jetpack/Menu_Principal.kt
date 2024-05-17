@@ -1,7 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -56,7 +55,7 @@ fun Menu_principal(navController: NavController?, email: String?, pass: String?,
 
 @Composable
 fun Body_menu(navController: NavController?) {
-    var see_List by remember { mutableStateOf(true) }
+    var seeList by remember { mutableStateOf(true) }
     val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
         minimumFetchIntervalInSeconds = 0
     }
@@ -68,7 +67,7 @@ fun Body_menu(navController: NavController?) {
     Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
         if (it.isSuccessful) {
             val visualizarListado = Firebase.remoteConfig.getBoolean("Visualizacion_ListadoFacturas")
-            see_List = visualizarListado
+            seeList = visualizarListado
         }
     }
 
@@ -78,7 +77,7 @@ fun Body_menu(navController: NavController?) {
         Titulo()
         Spacer(modifier = Modifier.height(20.dp))
         TextWithButton("Práctica 1") {
-            navController?.navigate("practica1/$isActive/$see_List")
+            navController?.navigate("practica1/$isActive/$seeList")
         }
         TextWithButton("Práctica 2") {
             navController?.navigate("SS")

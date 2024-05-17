@@ -3,8 +3,8 @@ package com.example.proyectofct.viewmodel
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.proyectofct.core.Detalles_Object
-import com.example.proyectofct.data.model.Modelo_Detalles
+import com.example.proyectofct.core.DetallesObject
+import com.example.proyectofct.data.model.ModeloDetalles
 import com.example.proyectofct.domain.DetallesUseCase
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,10 +36,10 @@ class DetallesViewModelTest {
     private lateinit var context: Context
 
     @Mock
-    private lateinit var detallesObject: Detalles_Object
+    private lateinit var detallesObject: DetallesObject
 
     @Mock
-    private lateinit var detallesObserver: Observer<Modelo_Detalles>
+    private lateinit var detallesObserver: Observer<ModeloDetalles>
 
     private val testDispatcher = TestCoroutineDispatcher()
 
@@ -61,7 +61,7 @@ class DetallesViewModelTest {
     @Test
     fun `cargarDetalles() returns correct data`() = testScope.runBlockingTest {
         // Given
-        val expectedDetalles = Modelo_Detalles(CAU = "CAU", solicitud = "solicitud", Tipo = "TIpo", Excedentes = "exc", Potencia = "Potence")
+        val expectedDetalles = ModeloDetalles(cau = "CAU", solicitud = "solicitud", tipo = "TIpo", excedentes = "exc", potencia = "Potence")
         `when`(detallesUseCase.obtenerDetalles(context)).thenReturn(expectedDetalles)
 
         // When

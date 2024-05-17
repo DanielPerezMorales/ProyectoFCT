@@ -1,9 +1,10 @@
 package com.example.proyectofct.data.database.entities
 
+import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.proyectofct.data.model.facturaItem
+import com.example.proyectofct.data.model.FacturaItem
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -17,9 +18,9 @@ data class FacturaEntity (
     @ColumnInfo(name = "precio") val precio: Float
 ) : Serializable
 
-fun FacturaEntity.toFacturaItem(): facturaItem {
+@SuppressLint("SimpleDateFormat")
+fun FacturaEntity.toFacturaItem(): FacturaItem {
     val formato = SimpleDateFormat("dd/MM/yyyy")
-    val fecha_formateada=formato.format(fecha)
-    val entity = facturaItem(fecha = fecha_formateada, descEstado = estado, importeOrdenacion = precio)
-    return entity
+    val fechaFormateada = formato.format(fecha)
+    return FacturaItem(fecha = fechaFormateada, descEstado = estado, importeOrdenacion = precio)
 }

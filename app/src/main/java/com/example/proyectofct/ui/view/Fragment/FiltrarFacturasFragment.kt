@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.fragment
+package com.example.proyectofct.ui.view.Fragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -20,7 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 
-class Filtrar_Facturas_Fragment : Fragment() {
+class FiltrarFacturasFragment : Fragment() {
     private var precio: Float = 0.0f
     private val facturaModule = RoomModule
     private val facturaViewModel: FacturasViewModel by activityViewModels()
@@ -67,24 +67,26 @@ class Filtrar_Facturas_Fragment : Fragment() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private suspend fun putMax() {
-        val Max: Float? = putMaxValue(
+        val max: Float? = putMaxValue(
             facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
         )
-        if (Max != null) {
-            binding.TVMaxPrecio.text = Max.toString()
+        if (max != null) {
+            binding.TVMaxPrecio.text = max.toString()
         } else {
             binding.TVMaxPrecio.text = "100"
         }
 
-        if (Max != null) {
-            binding.volumeRange.valueTo = (Max.toInt() + 1).toFloat()
+        if (max != null) {
+            binding.volumeRange.valueTo = (max.toInt() + 1).toFloat()
             binding.volumeRange.stepSize = 1F
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun putMaxSeleccionadoAndPrecio(value: Float) {
-        binding.TVMaxPrecioSeleccionado.setText("    $value€")
+        binding.TVMaxPrecioSeleccionado.text = "    $value€"
         precio = value
     }
 
@@ -112,68 +114,68 @@ class Filtrar_Facturas_Fragment : Fragment() {
     }
 
 
-    fun putMaxValue(lista: List<FacturaEntity>): Float? {
-        var Max: Float? = null
+    private fun putMaxValue(lista: List<FacturaEntity>): Float? {
+        var max: Float? = null
         for (i in lista) {
-            if (Max != null) {
-                if (Max <= i.precio) {
-                    Max = i.precio
+            if (max != null) {
+                if (max <= i.precio) {
+                    max = i.precio
                 }
             } else {
-                Max = i.precio
+                max = i.precio
             }
         }
-        return Max
+        return max
     }
 
     private fun selectDate() {
-        var fecha_Desde: DatePickerFragment? = null
-        var fecha_Hasta: DatePickerFragment? = null
+        var fechaDesde: DatePickerFragment?
+        var fechaHasta: DatePickerFragment?
 
         binding.btnCalendarDesde.setOnClickListener {
-            fecha_Desde = DatePickerFragment { year, month, day ->
+            fechaDesde = DatePickerFragment { year, month, day ->
                 mostrarResultado(year, month, day, "Desde")
             }
-            fecha_Desde!!.show(childFragmentManager, "DATE_PICKER")
+            fechaDesde!!.show(childFragmentManager, "DATE_PICKER")
         }
 
         binding.btnCalendarHasta.setOnClickListener {
-            fecha_Hasta = DatePickerFragment { year, month, day ->
+            fechaHasta = DatePickerFragment { year, month, day ->
                 mostrarResultado(year, month, day, "Hasta")
             }
-            fecha_Hasta!!.show(childFragmentManager, "DATE_PICKER")
+            fechaHasta!!.show(childFragmentManager, "DATE_PICKER")
         }
     }
 
 
     @SuppressLint("SetTextI18n")
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
-        if (boton.equals("Desde")) {
+        if (boton == "Desde") {
             if (month + 1 < 10) {
                 if (day < 10) {
-                    binding.btnCalendarDesde.setText("0$day/0${month + 1}/$year")
+                    binding.btnCalendarDesde.text = "0$day/0${month + 1}/$year"
                 } else {
-                    binding.btnCalendarDesde.setText("$day/0${month + 1}/$year")
+                    binding.btnCalendarDesde.text = "$day/0${month + 1}/$year"
                 }
             } else {
                 if (day < 10) {
-                    binding.btnCalendarDesde.setText("0$day/${month + 1}/$year")
+                    binding.btnCalendarDesde.text = "0$day/${month + 1}/$year"
                 } else {
-                    binding.btnCalendarDesde.setText("$day/${month + 1}/$year")
+                    binding.btnCalendarDesde.text = "$day/${month + 1}/$year"
                 }
             }
         } else {
             if (month + 1 < 10) {
                 if (day < 10) {
-                    binding.btnCalendarHasta.setText("0$day/0${month + 1}/$year")
+                    binding.btnCalendarHasta.text = "0$day/0${month + 1}/$year"
                 } else {
-                    binding.btnCalendarHasta.setText("$day/0${month + 1}/$year")
+                    binding.btnCalendarHasta.text = "$day/0${month + 1}/$year"
                 }
             } else {
                 if (day < 10) {
-                    binding.btnCalendarHasta.setText("0$day/${month + 1}/$year")
+                    binding.btnCalendarHasta.text = "0$day/${month + 1}/$year"
                 } else {
-                    binding.btnCalendarHasta.setText("$day/${month + 1}/$year")
+                    binding.btnCalendarHasta.text = "$day/${month + 1}/$year"
                 }
             }
         }

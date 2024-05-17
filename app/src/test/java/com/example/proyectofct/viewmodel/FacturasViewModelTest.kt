@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.proyectofct.data.database.FacturaDatabase
-import com.example.proyectofct.data.model.facturaItem
-import com.example.proyectofct.data.model.modelo_Factura
+import com.example.proyectofct.data.model.FacturaItem
+import com.example.proyectofct.data.model.ModeloFactura
 import com.example.proyectofct.data.model.toFacturaEntity
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
@@ -46,7 +46,7 @@ class FacturasViewModelTest {
     lateinit var appDatabase: FacturaDatabase
 
     @Mock
-    private lateinit var observer: Observer<List<facturaItem>?>
+    private lateinit var observer: Observer<List<FacturaItem>?>
 
     @Mock
     private lateinit var observerExitoso: Observer<Boolean>
@@ -73,14 +73,14 @@ class FacturasViewModelTest {
     fun `fetchFacturas() returns facturas`() = testScope.runBlockingTest {
         // Given
         val expectedFacturas = listOf(
-            facturaItem(
+            FacturaItem(
                 fecha = "01/01/2017",
                 descEstado = "Pagada",
                 importeOrdenacion = 100F
             )
         )
         `when`(facturasUseCase.fetchFacturas(appDatabase) {}).thenAnswer { invocation ->
-            val callback: (List<facturaItem>?) -> Unit = invocation.getArgument(1)
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }
 
@@ -97,20 +97,20 @@ class FacturasViewModelTest {
     fun `filtrado() returns filtered facturas`() = testScope.runBlockingTest {
         // Given
         val listaFacturaItem = listOf(
-            facturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F),
-            facturaItem(
+            FacturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F),
+            FacturaItem(
                 fecha = "01/01/2018",
                 descEstado = "Pendiente de pago",
                 importeOrdenacion = 200F
             ),
-            facturaItem(
+            FacturaItem(
                 fecha = "01/01/2019",
                 descEstado = "Pendiente de pago",
                 importeOrdenacion = 300F
             )
         )
         val expectedFacturas = listOf(
-            facturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F)
+            FacturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F)
         )
         val listaCheck = listOf("Pagada")
         val listaFiltrados = listOf("Checks")
@@ -125,7 +125,7 @@ class FacturasViewModelTest {
                 listaEntity,
                 listaFiltrados
             ) {}).thenAnswer { invocation ->
-            val callback: (List<facturaItem>?) -> Unit = invocation.getArgument(1)
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }
 
@@ -149,19 +149,19 @@ class FacturasViewModelTest {
     fun `filtrado() returns emptylist`() = testScope.runBlockingTest {
         // Given
         val listaFacturaItem = listOf(
-            facturaItem(fecha = "01/01/2017", descEstado = "Pendiente de pago", importeOrdenacion = 100F),
-            facturaItem(
+            FacturaItem(fecha = "01/01/2017", descEstado = "Pendiente de pago", importeOrdenacion = 100F),
+            FacturaItem(
                 fecha = "01/01/2018",
                 descEstado = "Pendiente de pago",
                 importeOrdenacion = 200F
             ),
-            facturaItem(
+            FacturaItem(
                 fecha = "01/01/2019",
                 descEstado = "Pendiente de pago",
                 importeOrdenacion = 300F
             )
         )
-        val expectedFacturas = emptyList<facturaItem>()
+        val expectedFacturas = emptyList<FacturaItem>()
         val listaCheck = listOf("Pagada")
         val listaFiltrados = listOf("Checks")
         val listaEntity = listaFacturaItem.map { it.toFacturaEntity() }
@@ -175,7 +175,7 @@ class FacturasViewModelTest {
                 listaEntity,
                 listaFiltrados
             ) {}).thenAnswer { invocation ->
-            val callback: (List<facturaItem>?) -> Unit = invocation.getArgument(1)
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }
 
@@ -197,14 +197,14 @@ class FacturasViewModelTest {
     @Test
     fun `putRetroMock posts facturas list`() = runBlockingTest {
         // Given
-        val expectedFacturas: List<facturaItem> = listOf(
-            facturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F),
-            facturaItem(
+        val expectedFacturas: List<FacturaItem> = listOf(
+            FacturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F),
+            FacturaItem(
                 fecha = "01/01/2018",
                 descEstado = "Pendiente de pago",
                 importeOrdenacion = 200F
             ),
-            facturaItem(
+            FacturaItem(
                 fecha = "01/01/2019",
                 descEstado = "Pendiente de pago",
                 importeOrdenacion = 300F
@@ -214,7 +214,7 @@ class FacturasViewModelTest {
         val factureServiceMock = mockk<com.example.proyectofct.data.mock.Mock>()
 
         // Configura el comportamiento del mock dentro de every
-        coEvery { factureServiceMock.getFacturasMOCK() } returns modelo_Factura(facturas = expectedFacturas, numFacturas = expectedFacturas.size.toString())
+        coEvery { factureServiceMock.getFacturasMOCK() } returns ModeloFactura(facturas = expectedFacturas, numFacturas = expectedFacturas.size.toString())
 
         // When
         viewModel.putRetroMock(context, appDatabase)

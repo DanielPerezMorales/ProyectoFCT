@@ -1,4 +1,4 @@
-package com.example.proyectofct.ui.view.fragment
+package com.example.proyectofct.ui.view.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.core.Detalles_Object
-import com.example.proyectofct.data.model.Modelo_Detalles
+import com.example.proyectofct.core.DetallesObject
+import com.example.proyectofct.data.model.ModeloDetalles
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 
-class Detalles_fragment : Fragment() {
+class Detallesfragment : Fragment() {
 
     private lateinit var binding: FragmentDetallesFragmentBinding
-    private val detallesObject = Detalles_Object
+    private val detallesObject = DetallesObject
     private val alert = Alert()
 
     // ViewModel
@@ -27,9 +27,9 @@ class Detalles_fragment : Fragment() {
     ): View {
         binding = FragmentDetallesFragmentBinding.inflate(layoutInflater)
 
-        viewModel.detallesLiveData.observe(viewLifecycleOwner, { detalles ->
+        viewModel.detallesLiveData.observe(viewLifecycleOwner) { detalles ->
             implementarDatos(detalles)
-        })
+        }
 
         viewModel.cargarDetalles(requireContext(),detallesObject)
 
@@ -40,12 +40,12 @@ class Detalles_fragment : Fragment() {
         return binding.root
     }
 
-    private fun implementarDatos(detalles: Modelo_Detalles) {
-        binding.etCAU.setText(detalles.CAU)
+    private fun implementarDatos(detalles: ModeloDetalles) {
+        binding.etCAU.setText(detalles.cau)
         binding.etEstado.setText(detalles.solicitud)
-        binding.etExcedentes.setText(detalles.Excedentes)
-        binding.etPotencia.setText(detalles.Potencia)
-        binding.etAutoConsumo.setText(detalles.Tipo)
+        binding.etExcedentes.setText(detalles.excedentes)
+        binding.etPotencia.setText(detalles.potencia)
+        binding.etAutoConsumo.setText(detalles.tipo)
 
         binding.etCAU.isEnabled = false
         binding.etEstado.isEnabled = false

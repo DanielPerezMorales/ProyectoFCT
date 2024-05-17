@@ -32,12 +32,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.core.Detalles_Object
+import com.example.proyectofct.core.DetallesObject
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 
 
 private val viewModel: DetallesViewModel = DetallesViewModel()
-private val detallesObject = Detalles_Object
+private val detallesObject = DetallesObject
 private val alert = Alert()
 
 @Composable
@@ -65,11 +65,11 @@ private fun Detalles_Body(context: Context) {
         viewModel.cargarDetalles(context, detallesObject)
 
         viewModel.detallesLiveData.observe(context as LifecycleOwner) { detalles ->
-            textCAU = detalles.CAU
-            textTipo = detalles.Tipo
+            textCAU = detalles.cau
+            textTipo = detalles.tipo
             textEstado = detalles.solicitud
-            textExcedentes = detalles.Excedentes
-            textPotencia = detalles.Potencia
+            textExcedentes = detalles.excedentes
+            textPotencia = detalles.potencia
 
             isLoading = false
         }
@@ -175,7 +175,7 @@ private fun TextFieldWithIcon(textoMutable: String, enabled: Boolean, context: C
             .fillMaxWidth()
             .background(color = colorResource(id = R.color.white)),
         trailingIcon = {
-            IconButton(onClick = { alert.showPopNative_Context(context) }) {
+            IconButton(onClick = { alert.showpopnativeContext(context) }) {
                 Image(
                     painter = painterResource(id = R.drawable.informacion),
                     contentDescription = "ojo informacion"

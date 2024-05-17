@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import com.example.proyectofct.R
-import com.example.proyectofct.ui.view.fragment.Detalles_fragment
+import com.example.proyectofct.ui.view.Fragment.Detallesfragment
 
 class Alert {
     fun showAlert(titulo: String,mensaje: String, cont: Context) {
@@ -47,7 +47,7 @@ class Alert {
         }
     }
 
-    fun showPopNative(cont: Detalles_fragment) {
+    fun showPopNative(cont: Detallesfragment) {
         val inflater = LayoutInflater.from(cont.requireContext())
         val dialogView = inflater.inflate(R.layout.pop_nativo_informacion, null)
         val builder = AlertDialog.Builder(cont.requireContext())
@@ -57,7 +57,7 @@ class Alert {
         dismissButton.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
-    fun showPopNative_Context(cont: Context) {
+    fun showpopnativeContext(cont: Context) {
         val inflater = LayoutInflater.from(cont)
         val dialogView = inflater.inflate(R.layout.pop_nativo_informacion, null)
         val builder = AlertDialog.Builder(cont)
