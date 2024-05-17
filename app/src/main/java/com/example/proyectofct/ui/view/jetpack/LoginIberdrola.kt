@@ -1,7 +1,9 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
-import androidx.compose.foundation.BorderStroke
+import android.text.InputType
+import android.view.MotionEvent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -16,8 +18,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Checkbox
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Divider
+//noinspection UsingMaterialAndMaterial3Libraries
+import androidx.compose.material.IconButton
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextField
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -37,6 +44,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
@@ -94,18 +103,18 @@ fun LogoIberdrola() {
 @Composable
 fun EditTexts(navController: NavController, context: Context) {
     var isChecked by remember { mutableStateOf(false) }
-    var textEmail by remember { mutableStateOf("danieles.03@gmail.com") }
-    var textPassword by remember { mutableStateOf("123456") }
+    var textEmail by remember { mutableStateOf("") }
+    var textPassword by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.background)
             .padding(20.dp)
     ) {
-        EditText(textEmail, "Ingrese Email") { newText ->
+        EditText(textEmail) { newText ->
             textEmail = newText
         }
         Spacer(modifier = Modifier.height(10.dp))
-        EditText(textPassword, "Ingrese contraseña") { newText ->
+        EditTextWithEye(textPassword){ newText ->
             textPassword = newText
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -222,17 +231,47 @@ fun ButtonSecundario(texto: String, navController: NavController?, ruta: String)
 }
 
 @Composable
-fun EditText(texto: String, text: String, onTextChange: (String) -> Unit) {
+private fun EditText(texto: String, onTextChange: (String) -> Unit) {
     TextField(
         value = texto,
         onValueChange = onTextChange,
-        label = { Text(text) },
+        placeholder = { Text("Ingrese Email") },
         singleLine = true,
         modifier = Modifier.fillMaxWidth()
     )
 
     Spacer(modifier = Modifier.height(16.dp))
 }
+
+@Composable
+private fun EditTextWithEye(texto: String, onTextChange: (String) -> Unit) {
+    var passwordVisible by remember { mutableStateOf(false) }
+    TextField(
+        value = texto,
+        onValueChange = onTextChange,
+        placeholder = { Text("Ingrese contraseña") },
+        trailingIcon = {
+            IconButton(
+                onClick = {
+                    passwordVisible = !passwordVisible
+                }
+            ) {
+                val icon = if (passwordVisible) {
+                    painterResource(id = R.drawable.ojo)
+                } else {
+                    painterResource(id = R.drawable.ojo)
+                }
+                Image(painter = icon, contentDescription = "Ver/ocultar contraseña")
+            }
+        },
+        singleLine = true,
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        modifier = Modifier.fillMaxWidth()
+    )
+
+    Spacer(modifier = Modifier.height(16.dp))
+}
+
 
 @Composable
 fun Body(navController: NavController, context: Context) {

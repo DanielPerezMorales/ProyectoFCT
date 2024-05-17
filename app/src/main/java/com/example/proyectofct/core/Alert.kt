@@ -57,4 +57,14 @@ class Alert {
         dismissButton.setOnClickListener { dialog.dismiss() }
         dialog.show()
     }
+    fun showPopNative_Context(cont: Context) {
+        val inflater = LayoutInflater.from(cont)
+        val dialogView = inflater.inflate(R.layout.pop_nativo_informacion, null)
+        val builder = AlertDialog.Builder(cont)
+        builder.setView(dialogView)
+        val dialog = builder.create()
+        val dismissButton = dialogView.findViewById<Button>(R.id.btn_Aceptar)
+        dismissButton.setOnClickListener { dialog.dismiss() }
+        dialog.show()
+    }
 }
