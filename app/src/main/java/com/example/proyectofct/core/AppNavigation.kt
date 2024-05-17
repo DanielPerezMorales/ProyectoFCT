@@ -34,7 +34,7 @@ fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
             val email = backStackEntry.arguments?.getString("email")
             val pass = backStackEntry.arguments?.getString("pass")
             val check = backStackEntry.arguments?.getBoolean("check")
-            Menu_principal(navController, email,pass, check)
+            Menu_principal(navController, email, pass, check)
         }
         composable(route = AppScreens.Registro.route) {
             RegistroIberdrola(navController = navController, context)
@@ -49,16 +49,21 @@ fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
             SS_Pantalla(navController = navController, context)
         }
         composable(
-            route = AppScreens.facturas.route + "{mock}",
+            route = AppScreens.facturas.route + "/{mock}" + "/{remoteConfig}",
             arguments = listOf(navArgument(name = "mock") {
                 type = NavType.BoolType
-            })
+            },
+                navArgument(name = "remoteConfig") {
+                    type = NavType.BoolType
+                }
+            )
         ) {
             FacturasIberdrola(
                 navController = navController,
                 context = context,
                 viewmodel,
-                it.arguments!!.getBoolean("mock")
+                it.arguments!!.getBoolean("mock"),
+                it.arguments!!.getBoolean("remoteConfig")
             )
         }
 

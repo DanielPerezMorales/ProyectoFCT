@@ -1,6 +1,7 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -31,6 +32,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
+import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
 
 
 @Composable
@@ -51,13 +56,29 @@ fun Menu_principal(navController: NavController?, email: String?, pass: String?,
 
 @Composable
 fun Body_menu(navController: NavController?) {
+    var see_List by remember { mutableStateOf(true) }
+    val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
+        minimumFetchIntervalInSeconds = 0
+    }
+    val firebaseConfig = Firebase.remoteConfig
+    firebaseConfig.setConfigSettingsAsync(configSettings)
+    firebaseConfig.setDefaultsAsync(
+        mapOf("Visualizacion_ListadoFacturas" to true, "CambioDeValores" to false)
+    )
+    Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
+        if (it.isSuccessful) {
+            val visualizarListado = Firebase.remoteConfig.getBoolean("Visualizacion_ListadoFacturas")
+            see_List = visualizarListado
+        }
+    }
+
     Column(Modifier.background(Color.White)) {
         var isActive by remember { mutableStateOf(false) }
         val context = LocalContext.current
         Titulo()
         Spacer(modifier = Modifier.height(20.dp))
         TextWithButton("Práctica 1") {
-            navController?.navigate("practica1$isActive")
+            navController?.navigate("practica1/$isActive/$see_List")
         }
         TextWithButton("Práctica 2") {
             navController?.navigate("SS")

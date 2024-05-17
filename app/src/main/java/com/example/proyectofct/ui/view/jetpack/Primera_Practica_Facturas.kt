@@ -70,9 +70,10 @@ fun FacturasIberdrola(
     navController: NavController?,
     context: Context?,
     viewmodel: FacturasViewModel?,
-    boolean: Boolean
+    mock: Boolean,
+    remoteConfig: Boolean
 ) {
-    BodyFacturas(navController, context, viewmodel, boolean)
+    BodyFacturas(navController, context, viewmodel, mock, remoteConfig)
 }
 
 @Composable
@@ -80,18 +81,22 @@ fun BodyFacturas(
     navController: NavController?,
     context: Context?,
     viewmodel: FacturasViewModel?,
-    boolean: Boolean
+    boolean: Boolean, remoteConfig: Boolean
 ) {
-    Facturas(navController, context = context, viewmodel, boolean)
+    Facturas(navController, context = context, viewmodel, boolean, remoteConfig)
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter", "CoroutineCreationDuringComposition", "SimpleDateFormat")
+@SuppressLint(
+    "UnusedMaterialScaffoldPaddingParameter",
+    "CoroutineCreationDuringComposition",
+    "SimpleDateFormat"
+)
 @Composable
 fun Facturas(
     navController: NavController?,
     context: Context?,
     viewmodel: FacturasViewModel?,
-    boolean: Boolean
+    boolean: Boolean, remoteConfig: Boolean
 ) {
     var facturas by remember { mutableStateOf<List<facturaItem>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
@@ -505,10 +510,14 @@ fun Facturas(
     }
 
     LaunchedEffect(key1 = true) {
-        if (boolean) {
-            viewmodel?.putRetroMock(context!!, facturaModule.provideRoom(context))
+        if (remoteConfig) {
+            if (boolean) {
+                viewmodel?.putRetroMock(context!!, facturaModule.provideRoom(context))
+            } else {
+                viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
+            }
         } else {
-            viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
+            alert.showAlert("ERROR", "AHORA MISMO NO SE PUEDE VER", context!!)
         }
     }
 
@@ -659,5 +668,5 @@ private fun putMaxValue(lista: List<FacturaEntity>): Float? {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewFacturas() {
-    Facturas(navController = null, context = null, viewmodel = null, false)
+    Facturas(navController = null, context = null, viewmodel = null, false, true)
 }
