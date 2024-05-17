@@ -1,11 +1,8 @@
-package com.example.proyectofct.ui.view.Activity
+package com.example.proyectofct.ui.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat

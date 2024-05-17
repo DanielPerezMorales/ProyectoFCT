@@ -1,20 +1,16 @@
-package com.example.proyectofct.ui.view.Activity
+package com.example.proyectofct.ui.view.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.databinding.ActivityLoginBinding
 import com.example.proyectofct.databinding.ActivitySignupBinding
-import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 import com.google.firebase.auth.FirebaseAuth
 

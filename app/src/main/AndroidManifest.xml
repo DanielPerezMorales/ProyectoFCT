@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,25 +16,30 @@
         android:theme="@style/Theme.ProyectoFCT"
         tools:targetApi="31">
         <activity
-            android:name=".ui.view.Activity.Activity_Navegacion"
+            android:name=".ui.view.activity.MainCompose"
+            android:exported="false"
+            android:label="MainCompose"
+            android:theme="@style/Theme.ProyectoFCT" />
+        <activity
+            android:name=".ui.view.activity.Activity_Navegacion"
             android:exported="false" />
         <activity
-            android:name=".ui.view.Activity.ForgotPasswordActivity"
+            android:name=".ui.view.activity.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.Activity.SignupActivity"
+            android:name=".ui.view.activity.SignupActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.Activity.Pagina_Principal"
+            android:name=".ui.view.activity.Pagina_Principal"
             android:exported="false" />
         <activity
-            android:name=".ui.view.Activity.PantallaPrincipalSmartSolar"
+            android:name=".ui.view.activity.PantallaPrincipalSmartSolar"
             android:exported="false" />
         <activity
-            android:name=".ui.view.Activity.Facturas"
+            android:name=".ui.view.activity.Facturas"
             android:exported="false" />
         <activity
-            android:name=".ui.view.Activity.LoginActivity"
+            android:name=".ui.view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
