@@ -48,6 +48,8 @@ class LoginActivity : AppCompatActivity() {
         forgotPassword()
         binding.btnEntrar.setOnClickListener {
             login(binding.etUsuario.text.toString(), binding.etPassword.text.toString())
+            binding.etUsuario.setText("")
+            binding.etPassword.setText("")
         }
         seePassword()
         logWithFingerPrint()
@@ -59,6 +61,11 @@ class LoginActivity : AppCompatActivity() {
                     auth = it
                 }
             }
+        }
+
+        binding.jetpack.setOnClickListener{
+            val intent = Intent(this, MainCompose::class.java)
+            startActivity(intent)
         }
         sessionActive()
     }
@@ -75,8 +82,8 @@ class LoginActivity : AppCompatActivity() {
         currentDate.set(Calendar.MINUTE, 0)
         currentDate.set(Calendar.SECOND, 0)
         currentDate.set(Calendar.MILLISECOND, 0)
-        if (formatter.parse(date) >= currentDate.time) {
-            if (email != null && password != null) {
+        if (email != null && password != null) {
+            if (formatter.parse(date) >= currentDate.time) {
                 val intent = Intent(this, Pagina_Principal::class.java)
                 intent.putExtra("email", email)
                 intent.putExtra("password", password)
@@ -84,10 +91,10 @@ class LoginActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 binding.PB.visibility = View.GONE
+                Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
             }
         } else {
             binding.PB.visibility = View.GONE
-            Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -5,8 +5,8 @@
     android:id="@+id/login_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".ui.view.activity.LoginActivity">
 
     <LinearLayout
@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -21,19 +22,19 @@
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
+                android:layout_gravity="center" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60sp"
+                android:text="Iniciando sesion..."
                 android:textColor="@color/color_consumo"
-                android:textSize="30sp"
-                android:text="Iniciando sesion..." />
+                android:textSize="30sp" />
         </FrameLayout>
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -53,21 +54,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="140sp"
-            android:textSize="15sp"
-            android:hint="@string/usuario" />
+            android:hint="@string/usuario"
+            android:textSize="15sp" />
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="40sp"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40sp">
 
             <EditText
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:hint="@string/contrase_a"
                 android:inputType="textPassword"
-                android:hint="@string/contrase_a" />
+                android:textSize="15sp" />
 
             <ImageButton
                 android:id="@+id/ojo_informacion"
@@ -86,8 +87,8 @@
             <CheckBox
                 android:id="@+id/chckBX"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="@string/recordar_contrase_a" />
 
             <ImageButton
@@ -100,13 +101,30 @@
 
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/TV_recuperarDatos"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/he_olvidado_mis_datos"
-            android:textStyle="bold"
-            />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/TV_recuperarDatos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6.5"
+                android:text="@string/he_olvidado_mis_datos"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/jetpack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:src="@drawable/jetpack_24" />
+
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/btnEntrar"
@@ -124,18 +142,18 @@
             <com.google.android.material.divider.MaterialDivider
                 android:layout_width="300sp"
                 android:layout_height="1dp"
-                app:dividerColor="@color/gris"
                 android:layout_gravity="center"
-                android:layout_marginVertical="22dp" />
+                android:layout_marginVertical="22dp"
+                app:dividerColor="@color/gris" />
 
             <TextView
                 android:layout_width="120sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:textColor="@color/gris"
                 android:background="@color/white"
-                android:text="@string/tambi_n_puedes" />
+                android:gravity="center"
+                android:text="@string/tambi_n_puedes"
+                android:textColor="@color/gris" />
         </FrameLayout>
 
         <Button
@@ -144,7 +162,7 @@
             android:layout_height="41dp"
             android:layout_gravity="center"
             android:background="@drawable/boton_disenio"
-            android:textColor="@color/color_consumo"
-            android:text="@string/registrarte" />
+            android:text="@string/registrarte"
+            android:textColor="@color/color_consumo" />
     </LinearLayout>
 </LinearLayout>
