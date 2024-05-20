@@ -94,7 +94,7 @@ class Facturas : AppCompatActivity() {
 
     private fun putFacturasOnRecycler() {
         binding.PB.isVisible = true
-        facturaViewModel.fetchFacturas(facturaModule.provideRoom(this))
+        facturaViewModel.fecthFacturasKTOR()
         facturaViewModel.facturas.observe(this) { facturas ->
             facturas?.let {
                 adapter.updateList(it)

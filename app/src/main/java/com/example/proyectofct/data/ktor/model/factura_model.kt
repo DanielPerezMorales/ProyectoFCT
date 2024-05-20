@@ -1,7 +1,10 @@
 package com.example.proyectofct.data.ktor.model
 
 import com.example.proyectofct.data.retrofit.model.FacturaItem
+import kotlinx.serialization.Serializable
 
+
+@Serializable
 data class factura_model(
     val numFacturas: String,
     val facturas: List<factura_item_model>

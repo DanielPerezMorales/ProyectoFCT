@@ -7,6 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
+import com.example.proyectofct.data.ktor.model.toFacturaItem
+import com.example.proyectofct.data.ktor.network.KtorServiceClass
 import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.retrofit.model.FacturaItem
 import com.example.proyectofct.data.retrofit.model.toFacturaEntity
@@ -22,6 +24,7 @@ import java.util.Date
 
 class FacturasViewModel : ViewModel() {
     private val facturaService = FacturaService()
+    private val KtorService = KtorServiceClass()
     private val facturasUseCase = FacturasUseCase(facturaService)
     private val filtradoUseCase = FiltradoUseCase()
     private lateinit var factureServiceMock: Mock
@@ -33,6 +36,15 @@ class FacturasViewModel : ViewModel() {
     fun fetchFacturas(appDatabase: FacturaDatabase) {
         facturasUseCase.fetchFacturas(appDatabase) { facturasList ->
             _facturas.postValue(facturasList)
+        }
+    }
+
+    fun fecthFacturasKTOR(){
+        CoroutineScope(Dispatchers.IO).launch {
+            val lista = KtorService.getFacturas()
+            if (lista != null) {
+                _facturas.postValue(lista.map { it.toFacturaItem() })
+            }
         }
     }
 

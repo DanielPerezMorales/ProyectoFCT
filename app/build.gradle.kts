@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     id("com.google.gms.google-services")
     id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.5.21"
 }
 
 android {
@@ -117,9 +118,13 @@ dependencies {
     implementation (libs.androidx.webkit)
 
     //Ktor
-    implementation ("io.ktor:ktor-client-core:2.3.11")
-    implementation ("io.ktor:ktor-client-android:2.3.11")
-    implementation ("io.ktor:ktor-client-json:2.3.11")
-    implementation ("io.ktor:ktor-client-serialization:2.3.11")
-    implementation ("io.ktor:ktor-client-logging:2.3.11")
+    implementation("io.ktor:ktor-client-core:2.3.11")
+    implementation("io.ktor:ktor-client-android:2.3.11")
+    implementation("io.ktor:ktor-client-json:2.3.11")
+    implementation("io.ktor:ktor-client-serialization:2.3.11")
+    implementation("io.ktor:ktor-client-logging:2.3.11")
+    implementation("io.ktor:ktor-client-content-negotiation:2.3.11")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:2.0.0")
+
 }
