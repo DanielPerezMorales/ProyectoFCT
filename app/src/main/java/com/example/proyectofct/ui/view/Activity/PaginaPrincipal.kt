@@ -17,6 +17,18 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.android.Android
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.client.request.get
+import io.ktor.client.statement.HttpResponse
+import io.ktor.client.statement.bodyAsText
+import io.ktor.client.statement.readText
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -25,6 +37,11 @@ class PaginaPrincipal : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var secretKey: SecretKey
     private var themeApplied = false
+    private val client = HttpClient(Android) {
+        install(Logging) {
+            level = LogLevel.ALL
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
@@ -99,6 +116,19 @@ class PaginaPrincipal : AppCompatActivity() {
             prefs.putString("password", encryptedPassword)
             prefs.putString("date", date)
             prefs.apply()
+        }
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response: HttpResponse = client.get("http://172.16.216.65:8080/facturas")
+                val responseBody: String = response.bodyAsText()
+                withContext(Dispatchers.Main) {
+                    // Update UI with response
+                    println("Response: $responseBody")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

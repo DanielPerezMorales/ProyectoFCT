@@ -114,6 +114,12 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.foundation.layout)
     implementation(libs.androidx.navigation.compose)
-
     implementation (libs.androidx.webkit)
+
+    //Ktor
+    implementation ("io.ktor:ktor-client-core:2.3.11")
+    implementation ("io.ktor:ktor-client-android:2.3.11")
+    implementation ("io.ktor:ktor-client-json:2.3.11")
+    implementation ("io.ktor:ktor-client-serialization:2.3.11")
+    implementation ("io.ktor:ktor-client-logging:2.3.11")
 }
