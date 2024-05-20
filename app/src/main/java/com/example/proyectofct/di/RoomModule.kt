@@ -2,7 +2,7 @@ package com.example.proyectofct.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.proyectofct.data.database.FacturaDatabase
+import com.example.proyectofct.data.retrofit.database.FacturaDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,5 +19,5 @@ object RoomModule {
     fun provideRoom(@ApplicationContext context: Context) = Room.databaseBuilder(context, FacturaDatabase::class.java, NAME_TABLE).build()
     @Singleton
     @Provides
-    fun provideFactureDao(db:FacturaDatabase)=db.getFactureDao()
+    fun provideFactureDao(db: FacturaDatabase)=db.getFactureDao()
 }

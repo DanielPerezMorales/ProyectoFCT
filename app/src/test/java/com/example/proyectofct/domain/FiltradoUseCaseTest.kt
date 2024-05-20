@@ -1,7 +1,7 @@
 package com.example.proyectofct.domain
 
-import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.data.model.FacturaItem
+import com.example.proyectofct.data.retrofit.database.entities.FacturaEntity
+import com.example.proyectofct.data.retrofit.model.FacturaItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

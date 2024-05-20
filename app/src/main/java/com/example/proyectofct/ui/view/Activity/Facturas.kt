@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.ViewPagerAdapter
-import com.example.proyectofct.data.model.FacturaAdapterRV
+import com.example.proyectofct.data.retrofit.model.FacturaAdapterRV
 import com.example.proyectofct.databinding.ActivityFacturasBinding
 import com.example.proyectofct.di.RoomModule
 import com.example.proyectofct.ui.view.Fragment.FiltrarFacturasFragment

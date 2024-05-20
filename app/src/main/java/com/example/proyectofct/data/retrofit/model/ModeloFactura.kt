@@ -1,8 +1,8 @@
-package com.example.proyectofct.data.model
+package com.example.proyectofct.data.retrofit.model
 
 
 import android.annotation.SuppressLint
-import com.example.proyectofct.data.database.entities.FacturaEntity
+import com.example.proyectofct.data.retrofit.database.entities.FacturaEntity
 import com.google.gson.annotations.SerializedName
 import java.text.SimpleDateFormat
 

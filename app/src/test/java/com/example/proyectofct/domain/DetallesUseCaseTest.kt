@@ -2,7 +2,7 @@ package com.example.proyectofct.domain
 
 import android.content.Context
 import com.example.proyectofct.core.DetallesObject
-import com.example.proyectofct.data.model.ModeloDetalles
+import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

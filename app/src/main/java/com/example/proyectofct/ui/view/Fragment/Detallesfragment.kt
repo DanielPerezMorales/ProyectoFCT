@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DetallesObject
-import com.example.proyectofct.data.model.ModeloDetalles
+import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 

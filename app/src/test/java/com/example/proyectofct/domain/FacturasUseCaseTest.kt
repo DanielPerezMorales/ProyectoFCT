@@ -1,11 +1,11 @@
 package com.example.proyectofct.domain
 
 import org.mockito.Mock
-import com.example.proyectofct.data.database.FacturaDatabase
-import com.example.proyectofct.data.database.dao.FacturaDao
-import com.example.proyectofct.data.model.FacturaItem
-import com.example.proyectofct.data.model.toFacturaEntity
-import com.example.proyectofct.data.network.FacturaService
+import com.example.proyectofct.data.retrofit.database.FacturaDatabase
+import com.example.proyectofct.data.retrofit.database.dao.FacturaDao
+import com.example.proyectofct.data.retrofit.model.FacturaItem
+import com.example.proyectofct.data.retrofit.model.toFacturaEntity
+import com.example.proyectofct.data.retrofit.network.FacturaService
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every

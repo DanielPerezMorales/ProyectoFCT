@@ -1,4 +1,4 @@
-package com.example.proyectofct.data.model
+package com.example.proyectofct.data.retrofit.model
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

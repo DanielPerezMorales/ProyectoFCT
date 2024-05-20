@@ -1,8 +1,8 @@
 package com.example.proyectofct.domain
 
-import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.data.database.entities.toFacturaItem
-import com.example.proyectofct.data.model.FacturaItem
+import com.example.proyectofct.data.retrofit.database.entities.FacturaEntity
+import com.example.proyectofct.data.retrofit.database.entities.toFacturaItem
+import com.example.proyectofct.data.retrofit.model.FacturaItem
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

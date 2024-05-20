@@ -1,9 +1,9 @@
-package com.example.proyectofct.data.network
+package com.example.proyectofct.data.retrofit.network
 
 import android.util.Log
 import com.example.proyectofct.core.RetrofitHelper
-import com.example.proyectofct.data.model.FacturaItem
-import com.example.proyectofct.data.model.ModeloFactura
+import com.example.proyectofct.data.retrofit.model.FacturaItem
+import com.example.proyectofct.data.retrofit.model.ModeloFactura
 
 class FacturaService {
     private val retrofit = RetrofitHelper.getRetrofit()

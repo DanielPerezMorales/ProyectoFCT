@@ -1,10 +1,10 @@
-package com.example.proyectofct.data.network
+package com.example.proyectofct.data.retrofit.network
 
 import co.infinum.retromock.meta.Mock
 import co.infinum.retromock.meta.MockRandom
 import co.infinum.retromock.meta.MockResponse
-import com.example.proyectofct.data.model.ModeloDetalles
-import com.example.proyectofct.data.model.ModeloFactura
+import com.example.proyectofct.data.retrofit.model.ModeloDetalles
+import com.example.proyectofct.data.retrofit.model.ModeloFactura
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET

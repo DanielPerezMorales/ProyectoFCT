@@ -1,4 +1,4 @@
-package com.example.proyectofct.data.model
+package com.example.proyectofct.data.retrofit.model
 
 import com.google.gson.annotations.SerializedName
 

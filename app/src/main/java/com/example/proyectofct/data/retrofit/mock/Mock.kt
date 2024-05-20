@@ -1,11 +1,11 @@
-package com.example.proyectofct.data.mock
+package com.example.proyectofct.data.retrofit.mock
 
 import android.content.Context
 import android.util.Log
 import com.example.proyectofct.core.RetrofitHelper
-import com.example.proyectofct.data.model.ModeloDetalles
-import com.example.proyectofct.data.model.ModeloFactura
-import com.example.proyectofct.data.network.ApiService
+import com.example.proyectofct.data.retrofit.model.ModeloDetalles
+import com.example.proyectofct.data.retrofit.model.ModeloFactura
+import com.example.proyectofct.data.retrofit.network.ApiService
 import retrofit2.Response
 
 

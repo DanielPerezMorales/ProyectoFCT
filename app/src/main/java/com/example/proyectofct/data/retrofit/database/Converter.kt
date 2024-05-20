@@ -1,4 +1,4 @@
-package com.example.proyectofct.data.database
+package com.example.proyectofct.data.retrofit.database
 
 import android.annotation.SuppressLint
 import androidx.room.TypeConverter

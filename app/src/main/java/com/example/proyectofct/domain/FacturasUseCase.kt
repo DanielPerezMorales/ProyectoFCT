@@ -1,10 +1,10 @@
 package com.example.proyectofct.domain
 
-import com.example.proyectofct.data.database.FacturaDatabase
-import com.example.proyectofct.data.database.entities.toFacturaItem
-import com.example.proyectofct.data.model.FacturaItem
-import com.example.proyectofct.data.model.toFacturaEntity
-import com.example.proyectofct.data.network.FacturaService
+import com.example.proyectofct.data.retrofit.database.FacturaDatabase
+import com.example.proyectofct.data.retrofit.database.entities.toFacturaItem
+import com.example.proyectofct.data.retrofit.model.FacturaItem
+import com.example.proyectofct.data.retrofit.model.toFacturaEntity
+import com.example.proyectofct.data.retrofit.network.FacturaService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

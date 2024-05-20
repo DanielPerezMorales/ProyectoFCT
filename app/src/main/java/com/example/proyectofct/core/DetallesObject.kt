@@ -2,8 +2,8 @@ package com.example.proyectofct.core
 
 import android.content.Context
 import android.util.Log
-import com.example.proyectofct.data.mock.Mock
-import com.example.proyectofct.data.model.ModeloDetalles
+import com.example.proyectofct.data.retrofit.mock.Mock
+import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

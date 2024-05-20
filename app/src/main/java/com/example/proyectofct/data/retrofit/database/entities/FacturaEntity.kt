@@ -1,10 +1,10 @@
-package com.example.proyectofct.data.database.entities
+package com.example.proyectofct.data.retrofit.database.entities
 
 import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.proyectofct.data.model.FacturaItem
+import com.example.proyectofct.data.retrofit.model.FacturaItem
 import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.Date

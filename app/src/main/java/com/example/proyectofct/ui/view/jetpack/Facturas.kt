@@ -58,8 +58,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.data.model.FacturaItem
+import com.example.proyectofct.data.retrofit.database.entities.FacturaEntity
+import com.example.proyectofct.data.retrofit.model.FacturaItem
 import com.example.proyectofct.di.RoomModule
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import kotlinx.coroutines.CoroutineScope
