@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
-import com.example.proyectofct.data.retrofit.database.entities.FacturaEntity
+import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
 import com.example.proyectofct.di.RoomModule
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel

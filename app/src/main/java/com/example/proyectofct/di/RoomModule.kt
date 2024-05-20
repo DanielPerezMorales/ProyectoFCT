@@ -2,7 +2,7 @@ package com.example.proyectofct.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.proyectofct.data.retrofit.database.FacturaDatabase
+import com.example.proyectofct.data.database.FacturaDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

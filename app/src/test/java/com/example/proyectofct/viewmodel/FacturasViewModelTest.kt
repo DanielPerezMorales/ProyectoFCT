@@ -3,7 +3,7 @@ package com.example.proyectofct.viewmodel
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.proyectofct.data.retrofit.database.FacturaDatabase
+import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.retrofit.model.FacturaItem
 import com.example.proyectofct.data.retrofit.model.ModeloFactura
 import com.example.proyectofct.data.retrofit.model.toFacturaEntity
@@ -211,7 +211,7 @@ class FacturasViewModelTest {
             )
         )
         // Asegúrate de que factureServiceMock sea un objeto mock
-        val factureServiceMock = mockk<com.example.proyectofct.data.retrofit.mock.Mock>()
+        val factureServiceMock = mockk<com.example.proyectofct.data.mock.Mock>()
 
         // Configura el comportamiento del mock dentro de every
         coEvery { factureServiceMock.getFacturasMOCK() } returns ModeloFactura(facturas = expectedFacturas, numFacturas = expectedFacturas.size.toString())

@@ -117,19 +117,6 @@ class PaginaPrincipal : AppCompatActivity() {
             prefs.putString("date", date)
             prefs.apply()
         }
-
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response: HttpResponse = client.get("http://172.16.216.65:8080/facturas")
-                val responseBody: String = response.bodyAsText()
-                withContext(Dispatchers.Main) {
-                    // Update UI with response
-                    println("Response: $responseBody")
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 
     private fun generateOrLoadSecretKey(): SecretKey {

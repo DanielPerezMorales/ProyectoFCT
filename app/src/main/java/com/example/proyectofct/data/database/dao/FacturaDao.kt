@@ -1,10 +1,10 @@
-package com.example.proyectofct.data.retrofit.database.dao
+package com.example.proyectofct.data.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.proyectofct.data.retrofit.database.entities.FacturaEntity
+import com.example.proyectofct.data.database.entities.FacturaEntity
 
 @Dao
 interface FacturaDao {

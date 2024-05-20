@@ -1,4 +1,4 @@
-package com.example.proyectofct.data.retrofit.database.entities
+package com.example.proyectofct.data.database.entities
 
 import android.annotation.SuppressLint
 import androidx.room.ColumnInfo
