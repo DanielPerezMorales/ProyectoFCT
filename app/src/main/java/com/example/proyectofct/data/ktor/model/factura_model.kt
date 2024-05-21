@@ -10,6 +10,7 @@ data class factura_model(
     val facturas: List<factura_item_model>
 )
 
+@Serializable
 data class factura_item_model(
     val descEstado: String,
     val importeOrdenacion: Float,

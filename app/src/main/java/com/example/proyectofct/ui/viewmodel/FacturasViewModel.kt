@@ -41,9 +41,9 @@ class FacturasViewModel : ViewModel() {
 
     fun fecthFacturasKTOR(){
         CoroutineScope(Dispatchers.IO).launch {
-            val lista = KtorService.getFacturas()
+            val lista = KtorService.getAllFacturas()
             if (lista != null) {
-                _facturas.postValue(lista.map { it.toFacturaItem() })
+                _facturas.postValue(lista.facturas.map { it.toFacturaItem() })
             }
         }
     }
