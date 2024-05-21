@@ -19,20 +19,22 @@ class FacturasUseCaseTest {
 
     @Mock
     private lateinit var facturaService: FacturaService
+
     @Mock
     private lateinit var facturaDatabase: FacturaDatabase
+
     @Mock
     private lateinit var facturaDao: FacturaDao // Mock the DAO
 
     lateinit var facturasUseCase: FacturasUseCase
 
     @Before
-    fun setUp(){
+    fun setUp() {
         MockitoAnnotations.initMocks(this)
-        facturaService= mockk()
-        facturaDatabase= mockk()
-        facturaDao= mockk()
-        facturasUseCase= FacturasUseCase(facturaService)
+        facturaService = mockk()
+        facturaDatabase = mockk()
+        facturaDao = mockk()
+        facturasUseCase = FacturasUseCase(facturaService)
     }
 
     @Test
@@ -44,8 +46,8 @@ class FacturasUseCaseTest {
         coEvery { facturaDao.getAllFacturas() } returns emptyList()// Mocking null response
 
         // When
-        facturasUseCase(facturaDatabase){
-            lista=it
+        facturasUseCase(facturaDatabase) {
+            lista = it
         }
 
         // Then
@@ -55,22 +57,25 @@ class FacturasUseCaseTest {
 
     @Test
     fun `fetchFacturas when response is successful`() = runBlocking {
-        var response:List<FacturaItem> = listOf()
-        var lista: List<FacturaItem> = listOf(FacturaItem("Pagada", 100.0F, "07/12/2019"), FacturaItem("Pendiente de pago",50.99F, "21/03/2020"))
+        var response: List<FacturaItem> = listOf()
+        var lista: List<FacturaItem> = listOf(
+            FacturaItem("Pagada", 100.0F, "07/12/2019"),
+            FacturaItem("Pendiente de pago", 50.99F, "21/03/2020")
+        )
         // Given
         coEvery { facturaService.getFacturas() } returns lista // Mocking null response
         every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
         coEvery { facturaDao.getAllFacturas() } returns emptyList()// Mocking null response
 
         // When
-        facturasUseCase(facturaDatabase){
-            response=it
+        facturasUseCase(facturaDatabase) {
+            response = it
         }
 
         // Then
         //coVerify(exactly = 0) { facturaDao.deleteAllFacturas() }
         coVerify(exactly = 1) { facturaDao.insertAll(lista.map { it.toFacturaEntity() }) }
-        assert(response==lista)
+        assert(response == lista)
 
     }
 

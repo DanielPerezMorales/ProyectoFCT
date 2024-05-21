@@ -9,6 +9,7 @@ import com.example.proyectofct.data.retrofit.model.ModeloFactura
 import com.example.proyectofct.data.retrofit.model.toFacturaEntity
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
+import com.example.proyectofct.domain.KtorUseCase
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -35,6 +36,9 @@ class FacturasViewModelTest {
 
     @Mock
     private lateinit var facturasUseCase: FacturasUseCase
+
+    @Mock
+    private lateinit var ktorUseCase: KtorUseCase
 
     @Mock
     private lateinit var filtradoUseCase: FiltradoUseCase
@@ -80,6 +84,30 @@ class FacturasViewModelTest {
             )
         )
         `when`(facturasUseCase.fetchFacturas(appDatabase) {}).thenAnswer { invocation ->
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
+            callback(expectedFacturas)
+        }
+
+        // When
+        viewModel.fetchFacturas(appDatabase)
+
+
+        observer.onChanged(expectedFacturas)
+        // Then
+        verify(observer).onChanged(expectedFacturas)
+    }
+
+    @Test
+    fun `fecthFacturasKTOR() returns list`() = testScope.runBlockingTest {
+        // Given
+        val expectedFacturas = listOf(
+            FacturaItem(
+                fecha = "01/01/2017",
+                descEstado = "Pagada",
+                importeOrdenacion = 100F
+            )
+        )
+        `when`(ktorUseCase.fetchFacturasKtor(appDatabase) {}).thenAnswer { invocation ->
             val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }
