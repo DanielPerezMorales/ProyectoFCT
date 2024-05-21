@@ -19,8 +19,6 @@ class FiltradoUseCase {
                         if (listaFiltrados[0] == "Fechas") {
                             val fechaDentroRango = if ((i.fecha >= fechaInicio && i.fecha <= fechaFin)) {
                                     true
-                                } else if (fechaInicio == null || fechaFin == null) {
-                                    false
                                 } else { false }
 
                             if (precio != 0.0F) {
