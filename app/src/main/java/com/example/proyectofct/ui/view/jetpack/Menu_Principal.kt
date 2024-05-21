@@ -73,11 +73,12 @@ fun Body_menu(navController: NavController?) {
 
     Column(Modifier.background(Color.White)) {
         var isActive by remember { mutableStateOf(false) }
+        var KTOR by remember { mutableStateOf(false) }
         val context = LocalContext.current
         Titulo()
         Spacer(modifier = Modifier.height(20.dp))
         TextWithButton("Práctica 1") {
-            navController?.navigate("practica1/$isActive/$seeList")
+            navController?.navigate("practica1/$isActive/$seeList/$KTOR")
         }
         TextWithButton("Práctica 2") {
             navController?.navigate("SS")
@@ -97,7 +98,7 @@ fun Body_menu(navController: NavController?) {
                     .padding(start = 10.dp)
             ) {
                 Text(
-                    text = "Mock",
+                    text = "Activar Mock",
                     fontSize = 20.sp,
                     modifier = Modifier.padding(10.dp)
                 )
@@ -112,12 +113,43 @@ fun Body_menu(navController: NavController?) {
                 }
             }, Modifier.padding(16.dp))
         }
+        Divider(
+            modifier = Modifier.fillMaxWidth(),
+            thickness = 1.dp
+        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 10.dp)
+            ) {
+                Text(
+                    text = "Activar KTOR",
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(10.dp)
+                )
+            }
+
+            Switch(checked = KTOR, onCheckedChange = {
+                KTOR = it
+                if (KTOR) {
+                    Toast.makeText(context, "KTOR activado", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "KTOR desactivado", Toast.LENGTH_SHORT).show()
+                }
+            }, Modifier.padding(16.dp))
+        }
 
         Divider(
             modifier = Modifier.fillMaxWidth(),
             thickness = 1.dp
         )
-        Spacer(modifier = Modifier.height(200.dp))
+        Spacer(modifier = Modifier.height(100.dp))
         TextWithButtonSignOut {
             val prefs =
                 context.getSharedPreferences(

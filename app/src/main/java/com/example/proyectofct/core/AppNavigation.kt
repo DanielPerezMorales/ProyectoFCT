@@ -49,11 +49,14 @@ fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
             SS_Pantalla(navController = navController, context)
         }
         composable(
-            route = AppScreens.Facturas.route + "/{mock}" + "/{remoteConfig}",
+            route = AppScreens.Facturas.route + "/{mock}" + "/{remoteConfig}" + "/{KTOR}",
             arguments = listOf(navArgument(name = "mock") {
                 type = NavType.BoolType
             },
                 navArgument(name = "remoteConfig") {
+                    type = NavType.BoolType
+                },
+                navArgument(name = "KTOR") {
                     type = NavType.BoolType
                 }
             )
@@ -63,7 +66,8 @@ fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
                 context = context,
                 viewmodel,
                 it.arguments!!.getBoolean("mock"),
-                it.arguments!!.getBoolean("remoteConfig")
+                it.arguments!!.getBoolean("remoteConfig"),
+                it.arguments!!.getBoolean("KTOR")
             )
         }
 

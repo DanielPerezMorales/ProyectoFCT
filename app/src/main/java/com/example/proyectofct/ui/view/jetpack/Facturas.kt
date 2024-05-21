@@ -78,9 +78,10 @@ fun FacturasIberdrola(
     context: Context?,
     viewmodel: FacturasViewModel?,
     mock: Boolean,
-    remoteConfig: Boolean
+    remoteConfig: Boolean,
+    KTOR: Boolean
 ) {
-    BodyFacturas(navController, context, viewmodel, mock, remoteConfig)
+    BodyFacturas(navController, context, viewmodel, mock, remoteConfig, KTOR)
 }
 
 @Composable
@@ -88,9 +89,9 @@ fun BodyFacturas(
     navController: NavController?,
     context: Context?,
     viewmodel: FacturasViewModel?,
-    boolean: Boolean, remoteConfig: Boolean
+    boolean: Boolean, remoteConfig: Boolean, KTOR: Boolean
 ) {
-    Facturas(navController, context = context, viewmodel, boolean, remoteConfig)
+    Facturas(navController, context = context, viewmodel, boolean, remoteConfig, KTOR)
 }
 
 @SuppressLint(
@@ -103,7 +104,7 @@ fun Facturas(
     navController: NavController?,
     context: Context?,
     viewmodel: FacturasViewModel?,
-    boolean: Boolean, remoteConfig: Boolean
+    boolean: Boolean, remoteConfig: Boolean, KTOR: Boolean
 ) {
     var facturas by remember { mutableStateOf<List<FacturaItem>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
@@ -523,7 +524,11 @@ fun Facturas(
             if (boolean) {
                 viewmodel?.putRetroMock(context!!, facturaModule.provideRoom(context))
             } else {
-                viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
+                if (!KTOR) {
+                    viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
+                } else {
+                    viewmodel?.fecthFacturasKTOR(facturaModule.provideRoom(context!!))
+                }
             }
         } else {
             alert.showAlert("ERROR", "AHORA MISMO NO SE PUEDE VER", context!!)
@@ -680,6 +685,7 @@ fun PreviewFacturas() {
     Facturas(
         navController = null, context = null, viewmodel = null,
         boolean = false,
-        remoteConfig = true
+        remoteConfig = true,
+        KTOR = false
     )
 }
