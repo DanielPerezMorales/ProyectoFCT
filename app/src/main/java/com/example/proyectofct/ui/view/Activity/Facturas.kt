@@ -26,18 +26,19 @@ class Facturas : AppCompatActivity() {
     private val alert = Alert()
     private val facturaModule = RoomModule
     private val facturaViewModel: FacturasViewModel by viewModels()
+    private var ktor = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityFacturasBinding.inflate(layoutInflater)
-        val bundle: Bundle? =intent.extras
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.facturas_layout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val bundle: Bundle? =intent.extras
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
                 val visualizarListado =
@@ -46,6 +47,9 @@ class Facturas : AppCompatActivity() {
                     if(bundle?.getBoolean("Mock") == true){
                         initUI(true)
                     } else {
+                        if(bundle?.getBoolean("KTOR") == true){
+                            ktor = true
+                        }
                         initUI(false)
                     }
                 } else {
@@ -94,7 +98,11 @@ class Facturas : AppCompatActivity() {
 
     private fun putFacturasOnRecycler() {
         binding.PB.isVisible = true
-        facturaViewModel.fecthFacturasKTOR()
+        if(ktor){
+            facturaViewModel.fecthFacturasKTOR(facturaModule.provideRoom(this))
+        } else {
+            facturaViewModel.fetchFacturas(facturaModule.provideRoom(this))
+        }
         facturaViewModel.facturas.observe(this) { facturas ->
             facturas?.let {
                 adapter.updateList(it)

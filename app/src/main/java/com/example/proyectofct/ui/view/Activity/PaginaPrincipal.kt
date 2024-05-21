@@ -62,6 +62,7 @@ class PaginaPrincipal : AppCompatActivity() {
         binding.ibPractica1.setOnClickListener {
             val intent = Intent(this, Facturas::class.java)
             intent.putExtra("Mock", binding.SWMock.isChecked)
+            intent.putExtra("KTOR", binding.SWKTOR.isChecked)
             startActivity(intent)
         }
 
@@ -80,6 +81,14 @@ class PaginaPrincipal : AppCompatActivity() {
                 Toast.makeText(this, "Mock activado", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Mock desactivado", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.SWKTOR.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                Toast.makeText(this, "KTOR activado", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "KTOR desactivado", Toast.LENGTH_SHORT).show()
             }
         }
 

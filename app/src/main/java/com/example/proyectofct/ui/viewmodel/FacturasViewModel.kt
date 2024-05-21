@@ -15,6 +15,7 @@ import com.example.proyectofct.data.retrofit.model.toFacturaEntity
 import com.example.proyectofct.data.retrofit.network.FacturaService
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
+import com.example.proyectofct.domain.KtorUseCase
 import com.example.proyectofct.domain.RoomUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,7 @@ class FacturasViewModel : ViewModel() {
     private val KtorService = KtorServiceClass()
     private val facturasUseCase = FacturasUseCase(facturaService)
     private val filtradoUseCase = FiltradoUseCase()
+    private val KtorUseCase = KtorUseCase(KtorService)
     private lateinit var factureServiceMock: Mock
     private val RoomUseCase = RoomUseCase()
     private val _facturas = MutableLiveData<List<FacturaItem>?>()
@@ -39,12 +41,9 @@ class FacturasViewModel : ViewModel() {
         }
     }
 
-    fun fecthFacturasKTOR(){
-        CoroutineScope(Dispatchers.IO).launch {
-            val lista = KtorService.getAllFacturas()
-            if (lista != null) {
-                _facturas.postValue(lista.facturas.map { it.toFacturaItem() })
-            }
+    fun fecthFacturasKTOR(appDatabase: FacturaDatabase){
+        KtorUseCase.fetchFacturasKtor(appDatabase){facturasList ->
+            _facturas.postValue(facturasList)
         }
     }
 

@@ -2,7 +2,7 @@ package com.example.proyectofct.data.ktor.network
 
 import android.util.Log
 import com.example.proyectofct.data.ktor.HTTPRoutes
-import com.example.proyectofct.data.ktor.model.factura_model
+import com.example.proyectofct.data.ktor.model.factura_item_model
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
@@ -23,12 +23,10 @@ import kotlinx.serialization.json.Json
 class KtorServiceClass : KtorService {
     private val client = HttpClient(Android) {
         install(ContentNegotiation) {
-            install(ContentNegotiation) {
-                json(Json {
-                    prettyPrint =true
-                    isLenient = true
-                })
-            }
+            json(Json {
+                prettyPrint =true
+                isLenient = true
+            })
         }
         install(Logging) {
             level = LogLevel.ALL
@@ -36,8 +34,8 @@ class KtorServiceClass : KtorService {
         }
     }
 
-    override suspend fun getAllFacturas(): factura_model? {
-        var facturas: factura_model? = null
+    override suspend fun getAllFacturas(): List<factura_item_model>? {
+        var facturas: List<factura_item_model>? = null
         withContext(Dispatchers.IO) {
             try {
                 facturas = client.get(HTTPRoutes.BASE_URL).body()
