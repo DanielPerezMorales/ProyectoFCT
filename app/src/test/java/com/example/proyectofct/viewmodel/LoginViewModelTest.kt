@@ -24,7 +24,7 @@ class LoginViewModelTest {
     private lateinit var firebaseAuth: FirebaseAuth
 
     @Mock
-    private lateinit var observer: Observer<Pair<Boolean, String?>>
+    private lateinit var observer: Observer<Pair<Boolean, String?>?>
 
     private lateinit var viewModel: LoginViewModel
 

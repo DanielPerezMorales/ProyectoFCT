@@ -56,9 +56,9 @@ class FacturasUseCaseTest {
     }
 
     @Test
-    fun c() = runBlocking {
+    fun `fetchFacturas when response is successful`() = runBlocking {
         var response: List<FacturaItem> = listOf()
-        var lista: List<FacturaItem> = listOf(
+        val lista: List<FacturaItem> = listOf(
             FacturaItem("Pagada", 100.0F, "07/12/2019"),
             FacturaItem("Pendiente de pago", 50.99F, "21/03/2020")
         )

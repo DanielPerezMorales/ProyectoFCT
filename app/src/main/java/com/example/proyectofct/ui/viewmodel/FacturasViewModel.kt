@@ -80,6 +80,7 @@ class FacturasViewModel : ViewModel() {
     }
 
     fun putRetroMock(context: Context, appDatabase: FacturaDatabase) {
+        _showEmptyDialog.postValue(false)
         RetromockUseCase.putRetromock(context, appDatabase){
             if(it.isEmpty()){
                 _showEmptyDialog.postValue(true)
