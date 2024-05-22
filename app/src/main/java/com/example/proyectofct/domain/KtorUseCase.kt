@@ -22,6 +22,8 @@ class KtorUseCase(private val KtorService: KtorServiceClass) {
                         lista.map { it.toFacturaEntity() },
                         appDatabase
                     )
+                } else {
+                    lista = emptyList()
                 }
             } catch (e: Exception) {
                 lista = appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }

@@ -38,16 +38,16 @@ class Facturas : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val bundle: Bundle? =intent.extras
+        val bundle: Bundle? = intent.extras
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
                 val visualizarListado =
                     Firebase.remoteConfig.getBoolean("Visualizacion_ListadoFacturas")
                 if (visualizarListado) {
-                    if(bundle?.getBoolean("Mock") == true){
+                    if (bundle?.getBoolean("Mock") == true) {
                         initUI(true)
                     } else {
-                        if(bundle?.getBoolean("KTOR") == true){
+                        if (bundle?.getBoolean("KTOR") == true) {
                             ktor = true
                         }
                         initUI(false)
@@ -59,10 +59,10 @@ class Facturas : AppCompatActivity() {
         }
 
         binding.ibFilter.setOnClickListener {
-            binding.VP.visibility=View.VISIBLE
+            binding.VP.visibility = View.VISIBLE
             val adapter = ViewPagerAdapter(supportFragmentManager)
             adapter.addFragment(FiltrarFacturasFragment())
-            binding.VP.adapter=adapter
+            binding.VP.adapter = adapter
         }
 
 
@@ -84,12 +84,12 @@ class Facturas : AppCompatActivity() {
         }
     }
 
-    private fun initUI(mock:Boolean) {
+    private fun initUI(mock: Boolean) {
         adapter = FacturaAdapterRV { showInformation() }
         binding.RVFacturas.layoutManager = LinearLayoutManager(this)
         binding.RVFacturas.adapter = adapter
         binding.RVFacturas.setHasFixedSize(true)
-        if(mock){
+        if (mock) {
             mock()
         } else {
             putFacturasOnRecycler()
@@ -98,15 +98,24 @@ class Facturas : AppCompatActivity() {
 
     private fun putFacturasOnRecycler() {
         binding.PB.isVisible = true
-        if(ktor){
+        if (ktor) {
             facturaViewModel.fecthFacturasKTOR(facturaModule.provideRoom(this))
         } else {
             facturaViewModel.fetchFacturas(facturaModule.provideRoom(this))
         }
-        facturaViewModel.facturas.observe(this) { facturas ->
-            facturas?.let {
-                adapter.updateList(it)
-                binding.PB.isVisible = false
+        facturaViewModel.showEmptyDialog.observe(this) {
+            if (it) {
+                alert.showAlertYesOrNo("Error",
+                    "No hay nada para mostrar. ¿Quieres salir de esta página?",
+                    this
+                ) { onBackPressed() }
+            } else {
+                facturaViewModel.facturas.observe(this) { facturas ->
+                    facturas?.let {
+                        adapter.updateList(it)
+                        binding.PB.isVisible = false
+                    }
+                }
             }
         }
     }
@@ -115,7 +124,7 @@ class Facturas : AppCompatActivity() {
         alert.showAlertInformation("Información", "Esta funcionalidad aún no está disponible", this)
     }
 
-    private fun showListFilter(){
+    private fun showListFilter() {
         facturaViewModel.facturas.observe(this) { facturasFiltradas ->
             facturasFiltradas?.let {
                 adapter.updateList(it)
