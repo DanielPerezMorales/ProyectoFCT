@@ -165,37 +165,43 @@ class LoginActivity : AppCompatActivity() {
 
         val check = binding.chckBX.isChecked
 
+        viewModel.loginResult.removeObservers(this)
         viewModel.loginResult.observe(this) { result ->
-            val (success, errorMessage) = result
-            if (success) {
-                if (check) {
-                    val intent = Intent(this, PaginaPrincipal::class.java)
-                    intent.putExtra("email", email)
-                    intent.putExtra("password", password)
-                    val formatter = SimpleDateFormat("yyyy-MM-dd")
-                    intent.putExtra("date", formatter.format(Calendar.getInstance().time))
-                    intent.putExtra("check", true)
-                    startActivity(intent)
+            result?.let {
+                val (success, errorMessage) = it
+                if (success) {
+                    if (check) {
+                        val intent = Intent(this, PaginaPrincipal::class.java)
+                        intent.putExtra("email", email)
+                        intent.putExtra("password", password)
+                        val formatter = SimpleDateFormat("yyyy-MM-dd")
+                        intent.putExtra("date", formatter.format(Calendar.getInstance().time))
+                        intent.putExtra("check", true)
+                        startActivity(intent)
 
-                    binding.etUsuario.setText("")
-                    binding.etPassword.setText("")
+                        binding.etUsuario.setText("")
+                        binding.etPassword.setText("")
+                    } else {
+                        val intent = Intent(this, PaginaPrincipal::class.java)
+                        intent.putExtra("check", false)
+                        startActivity(intent)
+
+                        binding.etUsuario.setText("")
+                        binding.etPassword.setText("")
+                    }
                 } else {
-                    val intent = Intent(this, PaginaPrincipal::class.java)
-                    intent.putExtra("check", false)
-                    startActivity(intent)
+                    alert.showAlert(
+                        "Error",
+                        errorMessage ?: "Error desconocido al iniciar sesión.",
+                        this
+                    )
 
-                    binding.etUsuario.setText("")
-                    binding.etPassword.setText("")
+                    // Reset login result after handling it
+                    viewModel.resetLoginResult()
                 }
-
-            } else {
-                alert.showAlert(
-                    "Error",
-                    errorMessage ?: "Error desconocido al iniciar sesión.",
-                    this
-                )
             }
         }
     }
+
 
 }

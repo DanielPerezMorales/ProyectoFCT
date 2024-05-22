@@ -8,13 +8,17 @@ import com.google.firebase.auth.FirebaseAuth
 
 class LoginViewModel (firebaseAuth: FirebaseAuth): ViewModel() {
     var loginUseCase = LoginUseCase(firebaseAuth)
-    private val _loginResult = MutableLiveData<Pair<Boolean, String?>>()
-    val loginResult: LiveData<Pair<Boolean, String?>>
+    private val _loginResult = MutableLiveData<Pair<Boolean, String?>?>()
+    val loginResult: MutableLiveData<Pair<Boolean, String?>?>
         get() = _loginResult
 
     fun login(email: String, password: String) {
         loginUseCase.login(email, password) { success, errorMessage ->
             _loginResult.postValue(Pair(success, errorMessage))
         }
+    }
+
+    fun resetLoginResult() {
+        _loginResult.postValue(null)
     }
 }

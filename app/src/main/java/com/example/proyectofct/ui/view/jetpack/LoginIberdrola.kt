@@ -175,20 +175,22 @@ private fun login(email: String, password: String, navController: NavController,
     viewModel.login(email, password)
 
     viewModel.loginResult.observe(context as LifecycleOwner) { result ->
-        val (success, errorMessage) = result
-        if (success) {
-            if (isCheck) {
-                navController.navigate("menu_principal/${email}/${password}/true")
-            } else {
-                navController.navigate("menu_principal/${email}/${password}/false")
-            }
+        result?.let {
+            val (success, errorMessage) = result
+            if (success) {
+                if (isCheck) {
+                    navController.navigate("menu_principal/${email}/${password}/true")
+                } else {
+                    navController.navigate("menu_principal/${email}/${password}/false")
+                }
 
-        } else {
-            alert.showAlert(
-                "Error",
-                errorMessage ?: "Error desconocido al iniciar sesión.",
-                context
-            )
+            } else {
+                alert.showAlert(
+                    "Error",
+                    errorMessage ?: "Error desconocido al iniciar sesión.",
+                    context
+                )
+            }
         }
     }
 }
