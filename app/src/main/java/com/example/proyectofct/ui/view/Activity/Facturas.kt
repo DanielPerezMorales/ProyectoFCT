@@ -76,10 +76,19 @@ class Facturas : AppCompatActivity() {
     private fun mock() {
         binding.PB.isVisible = true
         facturaViewModel.putRetroMock(this, facturaModule.provideRoom(this))
-        facturaViewModel.facturas.observe(this) { facturas ->
-            facturas?.let {
-                adapter.updateList(it)
-                binding.PB.isVisible = false
+        facturaViewModel.showEmptyDialog.observe(this) {
+            if (it) {
+                alert.showAlertYesOrNo("Error",
+                    "No hay nada para mostrar. ¿Quieres salir de esta página?",
+                    this
+                ) { onBackPressed() }
+            } else {
+                facturaViewModel.facturas.observe(this) { facturas ->
+                    facturas?.let {
+                        adapter.updateList(it)
+                        binding.PB.isVisible = false
+                    }
+                }
             }
         }
     }

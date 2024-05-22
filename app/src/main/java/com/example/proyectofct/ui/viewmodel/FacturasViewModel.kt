@@ -15,6 +15,7 @@ import com.example.proyectofct.data.retrofit.network.FacturaService
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
 import com.example.proyectofct.domain.KtorUseCase
+import com.example.proyectofct.domain.RetromockUseCase
 import com.example.proyectofct.domain.RoomUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,8 +30,7 @@ class FacturasViewModel : ViewModel() {
     private val facturasUseCase = FacturasUseCase(facturaService)
     private val filtradoUseCase = FiltradoUseCase()
     private val KtorUseCase = KtorUseCase(KtorService)
-    private lateinit var factureServiceMock: Mock
-    private val RoomUseCase = RoomUseCase()
+    private val RetromockUseCase = RetromockUseCase()
     private val _facturas = MutableLiveData<List<FacturaItem>?>()
     val facturas: MutableLiveData<List<FacturaItem>?> get() = _facturas
     private val _filtradoExitoso = MutableLiveData<Boolean>()
@@ -80,17 +80,12 @@ class FacturasViewModel : ViewModel() {
     }
 
     fun putRetroMock(context: Context, appDatabase: FacturaDatabase) {
-        factureServiceMock = Mock(context)
-        CoroutineScope(Dispatchers.IO).launch {
-            var facturasList: List<FacturaItem> = listOf()
-            val facturasMock = factureServiceMock.getFacturasMOCK()
-            if (facturasMock != null) {
-                facturasList = facturasMock.facturas
-                RoomUseCase.deleteAllFacturasFromRoom(appDatabase)
-                RoomUseCase.insertFacturasToRoom(facturasList.map { it.toFacturaEntity() }, appDatabase)
-                Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK")
+        RetromockUseCase.putRetromock(context, appDatabase){
+            if(it.isEmpty()){
+                _showEmptyDialog.postValue(true)
+            } else {
+                _facturas.postValue(it)
             }
-            _facturas.postValue(facturasList)
         }
     }
 
