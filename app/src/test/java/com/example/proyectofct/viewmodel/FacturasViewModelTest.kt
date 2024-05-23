@@ -5,14 +5,13 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.retrofit.model.FacturaItem
-import com.example.proyectofct.data.retrofit.model.ModeloFactura
 import com.example.proyectofct.data.retrofit.model.toFacturaEntity
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
 import com.example.proyectofct.domain.KtorUseCase
+import com.example.proyectofct.domain.RetromockUseCase
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import io.mockk.coEvery
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -44,6 +43,9 @@ class FacturasViewModelTest {
     private lateinit var filtradoUseCase: FiltradoUseCase
 
     @Mock
+    private lateinit var retromockUseCase: RetromockUseCase
+
+    @Mock
     private lateinit var context: Context
 
     @Mock
@@ -54,6 +56,8 @@ class FacturasViewModelTest {
 
     @Mock
     private lateinit var observerExitoso: Observer<Boolean>
+    @Mock
+    private lateinit var observershowEmptyDialog: Observer<Boolean>
 
     private val testDispatcher = TestCoroutineDispatcher()
 
@@ -65,6 +69,7 @@ class FacturasViewModelTest {
         viewModel = FacturasViewModel()
         viewModel.facturas.observeForever(observer)
         viewModel.filtradoExitoso.observeForever(observerExitoso)
+        viewModel.showEmptyDialog.observeForever(observershowEmptyDialog)
     }
 
     @After
@@ -98,6 +103,24 @@ class FacturasViewModelTest {
     }
 
     @Test
+    fun `fetchFacturas() returns a empty dialog`() = testScope.runBlockingTest {
+        // Given
+        val expectedFacturas = emptyList<FacturaItem>()
+        `when`(facturasUseCase.fetchFacturas(appDatabase) {}).thenAnswer { invocation ->
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
+            callback(expectedFacturas)
+        }
+
+        // When
+        viewModel.fetchFacturas(appDatabase)
+
+
+        observershowEmptyDialog.onChanged(true)
+        // Then
+        verify(observershowEmptyDialog).onChanged(true)
+    }
+
+    @Test
     fun `fecthFacturasKTOR() returns list`() = testScope.runBlockingTest {
         // Given
         val expectedFacturas = listOf(
@@ -119,6 +142,24 @@ class FacturasViewModelTest {
         observer.onChanged(expectedFacturas)
         // Then
         verify(observer).onChanged(expectedFacturas)
+    }
+
+    @Test
+    fun `fecthFacturasKTOR() returns a empty dialog`() = testScope.runBlockingTest {
+        // Given
+        val expectedFacturas = emptyList<FacturaItem>()
+        `when`(ktorUseCase.fetchFacturasKtor(appDatabase) {}).thenAnswer { invocation ->
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
+            callback(expectedFacturas)
+        }
+
+        // When
+        viewModel.fetchFacturas(appDatabase)
+
+
+        observershowEmptyDialog.onChanged(true)
+        // Then
+        verify(observershowEmptyDialog).onChanged(true)
     }
 
     @Test
@@ -223,33 +264,45 @@ class FacturasViewModelTest {
     }
 
     @Test
-    fun `putRetroMock posts facturas list`() = runBlockingTest {
+    fun `putRetroMock posts facturas list`() = testScope.runBlockingTest {
         // Given
-        val expectedFacturas: List<FacturaItem> = listOf(
-            FacturaItem(fecha = "01/01/2017", descEstado = "Pagada", importeOrdenacion = 100F),
+        val expectedFacturas = listOf(
             FacturaItem(
-                fecha = "01/01/2018",
-                descEstado = "Pendiente de pago",
-                importeOrdenacion = 200F
-            ),
-            FacturaItem(
-                fecha = "01/01/2019",
-                descEstado = "Pendiente de pago",
-                importeOrdenacion = 300F
+                fecha = "01/01/2017",
+                descEstado = "Pagada",
+                importeOrdenacion = 100F
             )
         )
-        // Asegúrate de que factureServiceMock sea un objeto mock
-        val factureServiceMock = mockk<com.example.proyectofct.data.mock.Mock>()
-
-        // Configura el comportamiento del mock dentro de every
-        coEvery { factureServiceMock.getFacturasMOCK() } returns ModeloFactura(facturas = expectedFacturas, numFacturas = expectedFacturas.size.toString())
+        `when`(retromockUseCase.putRetromock(context, appDatabase) {}).thenAnswer { invocation ->
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
+            callback(expectedFacturas)
+        }
 
         // When
         viewModel.putRetroMock(context, appDatabase)
 
-        // Then
+
         observer.onChanged(expectedFacturas)
+        // Then
         verify(observer).onChanged(expectedFacturas)
+    }
+
+    @Test
+    fun `putRetroMock posts empty dialog when no facturas`() = testScope.runBlockingTest {
+        // Given
+        val expectedFacturas = emptyList<FacturaItem>()
+        `when`(retromockUseCase.putRetromock(context, appDatabase) {}).thenAnswer { invocation ->
+            val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
+            callback(expectedFacturas)
+        }
+
+        // When
+        viewModel.putRetroMock(context, appDatabase)
+
+
+        observershowEmptyDialog.onChanged(true)
+        // Then
+        verify(observershowEmptyDialog).onChanged(true)
     }
 
     @Test
