@@ -10,13 +10,9 @@ import kotlinx.coroutines.withContext
 object DetallesObject {
     private var servicioMock: Mock? = null
     private var modeloDetalles: ModeloDetalles? = null
-    private var inicializado: Boolean = false
 
     fun inicializar(contexto: Context) {
-        if (!inicializado) {
-            servicioMock = Mock(contexto)
-            inicializado = true
-        }
+        servicioMock = Mock(contexto)
     }
 
     private suspend fun obtenerDatos(): ModeloDetalles? {
