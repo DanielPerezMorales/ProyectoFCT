@@ -8,6 +8,7 @@ import android.text.InputType.TYPE_CLASS_TEXT
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
@@ -18,15 +19,16 @@ import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityLoginBinding
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
-class LoginActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class LoginActivity: AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var viewModel: LoginViewModel
-    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val viewModel: LoginViewModel by viewModels()
     private val alert = Alert()
     private var auth = false
     private var canAuthenticate = false
@@ -41,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        viewModel = LoginViewModel(firebaseAuth = firebaseAuth)
         changeToCreateUser()
         forgotPassword()
         binding.btnEntrar.setOnClickListener {

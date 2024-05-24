@@ -1,10 +1,13 @@
 package com.example.proyectofct.domain
 
 import com.google.firebase.auth.FirebaseAuth
+import javax.inject.Inject
 
-class LoginUseCase(private val firebaseAuth: FirebaseAuth) {
+class LoginUseCase @Inject constructor(
+    private val firebaseAuth: FirebaseAuth
+) {
 
-    fun login(email: String, password: String, callback: (Boolean,String?) -> Unit) {
+    fun login(email: String, password: String, callback: (Boolean, String?) -> Unit) {
         if (email.isBlank() || password.isBlank()) {
             callback(false, "Por favor, ingresa tu correo electrónico y contraseña.")
             return

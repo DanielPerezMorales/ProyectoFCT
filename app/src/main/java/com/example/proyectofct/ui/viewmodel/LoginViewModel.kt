@@ -5,9 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyectofct.domain.LoginUseCase
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class LoginViewModel (firebaseAuth: FirebaseAuth): ViewModel() {
-    var loginUseCase = LoginUseCase(firebaseAuth)
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase
+) : ViewModel() {
     private val _loginResult = MutableLiveData<Pair<Boolean, String?>?>()
     val loginResult: MutableLiveData<Pair<Boolean, String?>?>
         get() = _loginResult

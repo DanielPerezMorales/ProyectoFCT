@@ -55,7 +55,7 @@ import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth = FirebaseAuth.getInstance()
-private val viewModel = LoginViewModel(firebaseAuth)
+//private val viewModel = LoginViewModel by v
 private val alert = Alert()
 private var isCheck = false
 
@@ -172,8 +172,8 @@ private fun Button(
 }
 
 private fun login(email: String, password: String, navController: NavController, context: Context) {
-    viewModel.login(email, password)
-
+    //viewModel.login(email, password)
+/*
     viewModel.loginResult.observe(context as LifecycleOwner) { result ->
         result?.let {
             val (success, errorMessage) = result
@@ -192,7 +192,7 @@ private fun login(email: String, password: String, navController: NavController,
                 )
             }
         }
-    }
+    }*/
 }
 
 @Composable
