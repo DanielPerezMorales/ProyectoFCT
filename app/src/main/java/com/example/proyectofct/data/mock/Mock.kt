@@ -7,8 +7,9 @@ import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import com.example.proyectofct.data.retrofit.model.ModeloFactura
 import com.example.proyectofct.data.retrofit.network.ApiService
 import retrofit2.Response
+import javax.inject.Singleton
 
-
+@Singleton
 class Mock (context: Context){
     private var retromock = RetrofitHelper.getRetromock(context)
 
