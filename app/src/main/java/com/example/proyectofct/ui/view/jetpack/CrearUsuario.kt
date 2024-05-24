@@ -43,7 +43,7 @@ import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth= FirebaseAuth.getInstance()
-private val viewModel = SignUpViewModel(firebaseAuth)
+//private val viewModel = SignUpViewModel(firebaseAuth)
 private val alert= Alert()
 @Composable
 fun RegistroIberdrola(navController: NavController?, context: Context?) {
@@ -91,7 +91,7 @@ private fun Button(
         Button(
             onClick = {
                 if (email != null && password != null) {
-                    viewModel.signUp(email,password)
+                    /*viewModel.signUp(email,password)
 
                     viewModel.signupResult.observe(context as LifecycleOwner) { result ->
                         val (success, errorMessage) = result
@@ -104,7 +104,7 @@ private fun Button(
                                 context
                             )
                         }
-                    }
+                    }*/
                 }
             },
             modifier = Modifier
