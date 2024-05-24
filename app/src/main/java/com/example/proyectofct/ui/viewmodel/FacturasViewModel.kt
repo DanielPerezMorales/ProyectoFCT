@@ -30,7 +30,8 @@ class FacturasViewModel : ViewModel() {
     private val facturasUseCase = FacturasUseCase(facturaService)
     private val filtradoUseCase = FiltradoUseCase()
     private val KtorUseCase = KtorUseCase(KtorService)
-    private val RetromockUseCase = RetromockUseCase()
+    private val roomUseCase = RoomUseCase()
+    private val RetromockUseCase = RetromockUseCase( roomUseCase = roomUseCase)
     private val _facturas = MutableLiveData<List<FacturaItem>?>()
     val facturas: MutableLiveData<List<FacturaItem>?> get() = _facturas
     private val _filtradoExitoso = MutableLiveData<Boolean>()

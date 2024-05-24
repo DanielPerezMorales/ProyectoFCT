@@ -10,21 +10,28 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RetromockUseCase {
-    private val roomUseCase=RoomUseCase()
-    fun putRetromock(context: Context, appDatabase: FacturaDatabase, callback: (List<FacturaItem>) -> Unit){
-        val factureServiceMock = Mock(context)
+class RetromockUseCase(
+    private val roomUseCase: RoomUseCase = RoomUseCase(),
+    private val mockFactory: (Context) -> Mock = { Mock(it) }
+) {
+    fun putRetromock(
+        context: Context,
+        appDatabase: FacturaDatabase,
+        callback: (List<FacturaItem>) -> Unit
+    ) {
         CoroutineScope(Dispatchers.IO).launch {
+            val mock = mockFactory(context)
             var facturasList: List<FacturaItem> = listOf()
-            val facturasMock = factureServiceMock.getFacturasMOCK()
+            val facturasMock = mock.getFacturasMOCK()
             if (facturasMock != null) {
                 facturasList = facturasMock.facturas
                 roomUseCase.deleteAllFacturasFromRoom(appDatabase)
-                roomUseCase.insertFacturasToRoom(facturasList.map { it.toFacturaEntity() }, appDatabase)
-                Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK")
+                roomUseCase.insertFacturasToRoom(
+                    facturasList.map { it.toFacturaEntity() },
+                    appDatabase
+                )
             }
             callback(facturasList)
         }
     }
-
 }
