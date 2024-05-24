@@ -34,7 +34,7 @@ import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth = FirebaseAuth.getInstance()
-private val viewModel = ForgotPasswordViewModel(firebaseAuth)
+//private val viewModel = ForgotPasswordViewModel(firebaseAuth)
 private val alert = Alert()
 
 @Composable
@@ -146,7 +146,7 @@ fun PreviewFG() {
 }
 
 private fun sendEmail(navController: NavController?, context: Context, email: String) {
-    viewModel.sendEmail(email)
+    /*viewModel.sendEmail(email)
 
     viewModel.forgotPasswordResult.observe(context as LifecycleOwner) { result ->
         val (success, errorMessage) = result
@@ -159,5 +159,5 @@ private fun sendEmail(navController: NavController?, context: Context, email: St
                 context
             )
         }
-    }
+    }*/
 }

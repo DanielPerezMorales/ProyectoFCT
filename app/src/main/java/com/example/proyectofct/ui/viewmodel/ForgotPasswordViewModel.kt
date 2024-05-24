@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyectofct.domain.ForgotPasswordUseCase
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ForgotPasswordViewModel (firebaseAuth: FirebaseAuth):ViewModel() {
-    var fgUseCase = ForgotPasswordUseCase(firebaseAuth)
+@HiltViewModel
+class ForgotPasswordViewModel @Inject constructor(private val fgUseCase: ForgotPasswordUseCase):ViewModel() {
     private val _fgResult = MutableLiveData<Pair<Boolean, String?>>()
     val forgotPasswordResult: LiveData<Pair<Boolean, String?>>
         get() = _fgResult

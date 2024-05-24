@@ -3,6 +3,7 @@ package com.example.proyectofct.ui.view.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -12,11 +13,12 @@ import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityForgotPasswordBinding
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
-    private lateinit var fgViewModel:ForgotPasswordViewModel
-    private val firebaseAuth =FirebaseAuth.getInstance()
+    private val fgViewModel:ForgotPasswordViewModel by viewModels()
     private val alert= Alert()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +30,6 @@ class ForgotPasswordActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        fgViewModel = ForgotPasswordViewModel(firebaseAuth)
         sendEmail()
         comeBackToLogin()
     }
