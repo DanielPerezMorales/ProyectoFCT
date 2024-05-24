@@ -79,6 +79,7 @@ class PaginaPrincipal : AppCompatActivity() {
         binding.SWMock.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 Toast.makeText(this, "Mock activado", Toast.LENGTH_SHORT).show()
+                binding.SWKTOR.isChecked = false
             } else {
                 Toast.makeText(this, "Mock desactivado", Toast.LENGTH_SHORT).show()
             }
@@ -87,6 +88,7 @@ class PaginaPrincipal : AppCompatActivity() {
         binding.SWKTOR.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 Toast.makeText(this, "KTOR activado", Toast.LENGTH_SHORT).show()
+                binding.SWMock.isChecked = false
             } else {
                 Toast.makeText(this, "KTOR desactivado", Toast.LENGTH_SHORT).show()
             }
