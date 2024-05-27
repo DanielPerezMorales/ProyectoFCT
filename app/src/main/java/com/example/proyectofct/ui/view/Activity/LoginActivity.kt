@@ -29,7 +29,8 @@ import javax.inject.Inject
 class LoginActivity: AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
-    private val alert = Alert()
+    @Inject
+    lateinit var alert : Alert
     private var auth = false
     private var canAuthenticate = false
     private lateinit var promptInfo: BiometricPrompt.PromptInfo

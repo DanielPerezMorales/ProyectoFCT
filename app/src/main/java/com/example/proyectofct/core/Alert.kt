@@ -7,8 +7,9 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import com.example.proyectofct.R
 import com.example.proyectofct.ui.view.Fragment.Detallesfragment
+import javax.inject.Inject
 
-class Alert {
+class Alert @Inject constructor(){
     fun showAlert(titulo: String,mensaje: String, cont: Context) {
         val builder = AlertDialog.Builder(cont)
         builder.setTitle(titulo)

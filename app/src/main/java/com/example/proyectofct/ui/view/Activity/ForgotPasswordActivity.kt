@@ -14,12 +14,14 @@ import com.example.proyectofct.databinding.ActivityForgotPasswordBinding
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
     private val fgViewModel:ForgotPasswordViewModel by viewModels()
-    private val alert= Alert()
+    @Inject
+    lateinit var alert : Alert
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

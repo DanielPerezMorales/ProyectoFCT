@@ -11,22 +11,28 @@ import androidx.viewpager.widget.ViewPager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.DatePickerFragment
+import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
 import com.example.proyectofct.di.RoomModule
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class FiltrarFacturasFragment : Fragment() {
     private var precio: Float = 0.0f
-    private val facturaModule = RoomModule
+    @Inject
+    lateinit var facturaDatabase: FacturaDatabase
     private val facturaViewModel: FacturasViewModel by activityViewModels()
     private lateinit var binding: FragmentFiltrarFacturasBinding
     private var filtradoRealizado = false
-    private val alert = Alert()
+    @Inject
+    lateinit var alert : Alert
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,7 +76,7 @@ class FiltrarFacturasFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private suspend fun putMax() {
         val max: Float? = putMaxValue(
-            facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
+            facturaDatabase.getFactureDao().getAllFacturas()
         )
         if (max != null) {
             binding.TVMaxPrecio.text = max.toString()
@@ -197,7 +203,7 @@ class FiltrarFacturasFragment : Fragment() {
         filtradoRealizado = true
         if (isAdded && activity != null) {
             val lista: List<FacturaEntity> =
-                facturaModule.provideRoom(requireContext()).getFactureDao().getAllFacturas()
+                facturaDatabase.getFactureDao().getAllFacturas()
             val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
             val fechaInicioText = binding.btnCalendarDesde.text.toString()
             val fechaFinText = binding.btnCalendarHasta.text.toString()

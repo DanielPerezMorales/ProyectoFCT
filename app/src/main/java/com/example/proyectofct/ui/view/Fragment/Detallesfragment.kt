@@ -15,10 +15,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 
-class Detallesfragment @Inject constructor(): Fragment() {
+class Detallesfragment @Inject constructor(private val alert : Alert): Fragment() {
 
     private lateinit var binding: FragmentDetallesFragmentBinding
-    private val alert = Alert()
 
     // ViewModel
     private val viewModel: DetallesViewModel by activityViewModels()

@@ -27,7 +27,8 @@ import javax.inject.Inject
 class Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFacturasBinding
     private lateinit var adapter: FacturaAdapterRV
-    private val alert = Alert()
+    @Inject
+    lateinit var alert : Alert
     private val facturaViewModel: FacturasViewModel by viewModels()
     private var ktor = false
 

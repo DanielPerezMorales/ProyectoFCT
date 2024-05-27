@@ -16,10 +16,12 @@ import com.example.proyectofct.databinding.ActivitySignupBinding
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
-    private val alert= Alert()
+    @Inject
+    lateinit var alert : Alert
     private val viewModel: SignUpViewModel by viewModels()
     private lateinit var binding:ActivitySignupBinding
     override fun onCreate(savedInstanceState: Bundle?) {
