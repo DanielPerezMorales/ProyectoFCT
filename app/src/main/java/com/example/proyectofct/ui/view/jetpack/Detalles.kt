@@ -36,8 +36,8 @@ import com.example.proyectofct.core.DetallesObject
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 
 
-private val viewModel: DetallesViewModel = DetallesViewModel()
-private val detallesObject = DetallesObject
+//private val viewModel: DetallesViewModel = DetallesViewModel()
+//private val detallesObject = DetallesObject
 private val alert = Alert()
 
 @Composable
@@ -62,7 +62,7 @@ private fun Detalles_Body(context: Context) {
         var textExcedentes by remember { mutableStateOf("") }
         var textPotencia by remember { mutableStateOf("") }
 
-        viewModel.cargarDetalles(context, detallesObject)
+        /*viewModel.cargarDetalles(context, detallesObject)
 
         viewModel.detallesLiveData.observe(context as LifecycleOwner) { detalles ->
             textCAU = detalles.cau
@@ -72,7 +72,7 @@ private fun Detalles_Body(context: Context) {
             textPotencia = detalles.potencia
 
             isLoading = false
-        }
+        }*/
 
         if (isLoading) {
             EditText(stringResource(id = R.string.cau), textCAU, isLoading)

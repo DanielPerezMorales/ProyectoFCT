@@ -11,8 +11,11 @@ import com.example.proyectofct.databinding.ActivityPantallaPrincipalSmartSolarBi
 import com.example.proyectofct.ui.view.Fragment.MiInstalacionFragment
 import com.example.proyectofct.ui.view.Fragment.Detallesfragment
 import com.example.proyectofct.ui.view.Fragment.EnergiaFragment
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class PantallaPrincipalSmartSolar : AppCompatActivity() {
+@AndroidEntryPoint
+class PantallaPrincipalSmartSolar @Inject constructor(private val detallesfragment: Detallesfragment): AppCompatActivity() {
     private lateinit var binding: ActivityPantallaPrincipalSmartSolarBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,7 @@ class PantallaPrincipalSmartSolar : AppCompatActivity() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
         adapter.addFragmentWithTab(MiInstalacionFragment(), "Mi instalación")
         adapter.addFragmentWithTab(EnergiaFragment(),"Energía")
-        adapter.addFragmentWithTab(Detallesfragment(), "Detalles")
+        adapter.addFragmentWithTab(detallesfragment, "Detalles")
 
         binding.VP.adapter = adapter
         binding.tablayout.setupWithViewPager(binding.VP)

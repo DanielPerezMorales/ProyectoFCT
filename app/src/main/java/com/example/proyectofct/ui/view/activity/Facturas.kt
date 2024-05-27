@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.ViewPagerAdapter
+import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.retrofit.model.FacturaAdapterRV
 import com.example.proyectofct.databinding.ActivityFacturasBinding
 import com.example.proyectofct.di.RoomModule
@@ -19,12 +20,14 @@ import com.example.proyectofct.ui.view.Fragment.FiltrarFacturasFragment
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFacturasBinding
     private lateinit var adapter: FacturaAdapterRV
     private val alert = Alert()
-    private val facturaModule = RoomModule
     private val facturaViewModel: FacturasViewModel by viewModels()
     private var ktor = false
 
@@ -75,10 +78,11 @@ class Facturas : AppCompatActivity() {
 
     private fun mock() {
         binding.PB.isVisible = true
-        facturaViewModel.putRetroMock(this, facturaModule.provideRoom(this))
+        facturaViewModel.putRetroMock(this)
         facturaViewModel.showEmptyDialog.observe(this) {
             if (it) {
-                alert.showAlertYesOrNo("Error",
+                alert.showAlertYesOrNo(
+                    "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
                     this
                 ) { onBackPressed() }
@@ -108,13 +112,14 @@ class Facturas : AppCompatActivity() {
     private fun putFacturasOnRecycler() {
         binding.PB.isVisible = true
         if (ktor) {
-            facturaViewModel.fecthFacturasKTOR(facturaModule.provideRoom(this))
+            facturaViewModel.fecthFacturasKTOR()
         } else {
-            facturaViewModel.fetchFacturas(facturaModule.provideRoom(this))
+            facturaViewModel.fetchFacturas()
         }
         facturaViewModel.showEmptyDialog.observe(this) {
             if (it) {
-                alert.showAlertYesOrNo("Error",
+                alert.showAlertYesOrNo(
+                    "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
                     this
                 ) { onBackPressed() }

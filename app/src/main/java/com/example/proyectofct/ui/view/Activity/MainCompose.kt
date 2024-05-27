@@ -10,13 +10,13 @@ import com.example.proyectofct.ui.view.activity.ui.theme.ProyectoFCTTheme
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 
 class MainCompose : ComponentActivity() {
-    private val facturasViewModel = FacturasViewModel()
+    //private val facturasViewModel = FacturasViewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent{
             ProyectoFCTTheme {
                 androidx.compose.material.Surface(color = androidx.compose.material.MaterialTheme.colors.background) {
-                    AppNavigation(this, facturasViewModel)
+                    AppNavigation(this)
                 }
             }
         }

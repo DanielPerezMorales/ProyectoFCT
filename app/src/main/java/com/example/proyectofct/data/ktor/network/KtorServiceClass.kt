@@ -19,9 +19,10 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
+import javax.inject.Inject
 
 
-class KtorServiceClass : KtorService {
+class KtorServiceClass @Inject constructor() : KtorService{
     private val client = HttpClient(Android) {
         install(ContentNegotiation) {
             json(Json {

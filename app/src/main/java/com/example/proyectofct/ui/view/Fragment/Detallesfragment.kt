@@ -11,11 +11,13 @@ import com.example.proyectofct.core.DetallesObject
 import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import com.example.proyectofct.databinding.FragmentDetallesFragmentBinding
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-class Detallesfragment : Fragment() {
+@AndroidEntryPoint
+class Detallesfragment @Inject constructor(private val detallesObject : DetallesObject): Fragment() {
 
     private lateinit var binding: FragmentDetallesFragmentBinding
-    private val detallesObject = DetallesObject
     private val alert = Alert()
 
     // ViewModel
@@ -31,7 +33,7 @@ class Detallesfragment : Fragment() {
             implementarDatos(detalles)
         }
 
-        viewModel.cargarDetalles(requireContext(),detallesObject)
+        viewModel.cargarDetalles()
 
         binding.btnInformation.setOnClickListener {
             alert.showPopNative(this)

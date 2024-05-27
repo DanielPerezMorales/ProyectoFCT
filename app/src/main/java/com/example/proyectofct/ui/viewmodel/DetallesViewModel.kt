@@ -7,19 +7,21 @@ import androidx.lifecycle.ViewModel
 import com.example.proyectofct.core.DetallesObject
 import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import com.example.proyectofct.domain.DetallesUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DetallesViewModel: ViewModel() {
+@HiltViewModel
+class DetallesViewModel @Inject constructor(private val detallesUseCase : DetallesUseCase): ViewModel() {
 
     private val _detallesLiveData = MutableLiveData<ModeloDetalles>()
     val detallesLiveData: LiveData<ModeloDetalles> = _detallesLiveData
 
-    fun cargarDetalles(context: Context, detalles:DetallesObject) {
-        val detallesUseCase = DetallesUseCase(detalles)
+    fun cargarDetalles() {
         CoroutineScope(Dispatchers.IO).launch {
-            val detalles = detallesUseCase.obtenerDetalles(context)
+            val detalles = detallesUseCase.obtenerDetalles()
             _detallesLiveData.postValue(detalles)
         }
     }

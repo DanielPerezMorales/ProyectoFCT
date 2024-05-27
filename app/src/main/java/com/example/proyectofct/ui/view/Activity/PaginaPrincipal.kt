@@ -37,11 +37,6 @@ class PaginaPrincipal : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var secretKey: SecretKey
     private var themeApplied = false
-    private val client = HttpClient(Android) {
-        install(Logging) {
-            level = LogLevel.ALL
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {

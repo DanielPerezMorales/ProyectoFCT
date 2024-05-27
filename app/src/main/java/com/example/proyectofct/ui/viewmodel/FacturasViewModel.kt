@@ -1,37 +1,33 @@
 package com.example.proyectofct.ui.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.data.ktor.network.KtorServiceClass
-import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.retrofit.model.FacturaItem
-import com.example.proyectofct.data.retrofit.model.toFacturaEntity
-import com.example.proyectofct.data.retrofit.network.FacturaService
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
 import com.example.proyectofct.domain.KtorUseCase
 import com.example.proyectofct.domain.RetromockUseCase
-import com.example.proyectofct.domain.RoomUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Date
-import java.util.logging.Handler
+import javax.inject.Inject
 
-class FacturasViewModel : ViewModel() {
-    private val facturaService = FacturaService()
-    private val KtorService = KtorServiceClass()
-    private val facturasUseCase = FacturasUseCase(facturaService)
-    private val filtradoUseCase = FiltradoUseCase()
-    private val KtorUseCase = KtorUseCase(KtorService)
-    private val roomUseCase = RoomUseCase()
-    private val RetromockUseCase = RetromockUseCase( roomUseCase = roomUseCase)
+@HiltViewModel
+class FacturasViewModel @Inject constructor(
+    private val facturaDatabase: FacturaDatabase,
+    private val facturasUseCase: FacturasUseCase,
+    private val filtradoUseCase : FiltradoUseCase,
+    private val RetromockUseCase : RetromockUseCase,
+    private val KtorUseCase : KtorUseCase
+): ViewModel() {
     private val _facturas = MutableLiveData<List<FacturaItem>?>()
     val facturas: MutableLiveData<List<FacturaItem>?> get() = _facturas
     private val _filtradoExitoso = MutableLiveData<Boolean>()
@@ -39,9 +35,9 @@ class FacturasViewModel : ViewModel() {
     private val _showEmptyDialog = MutableLiveData<Boolean>()
     val showEmptyDialog: LiveData<Boolean> get() = _showEmptyDialog
     val filtradoExitoso: LiveData<Boolean> get() = _filtradoExitoso
-    fun fetchFacturas(appDatabase: FacturaDatabase) {
+    fun fetchFacturas() {
         _showEmptyDialog.postValue(false)
-        facturasUseCase.fetchFacturas(appDatabase) { facturasList ->
+        facturasUseCase.fetchFacturas(facturaDatabase) { facturasList ->
             if(facturasList.isEmpty()){
                 _showEmptyDialog.postValue(true)
             } else {
@@ -50,9 +46,9 @@ class FacturasViewModel : ViewModel() {
         }
     }
 
-    fun fecthFacturasKTOR(appDatabase: FacturaDatabase){
+    fun fecthFacturasKTOR(){
         _showEmptyDialog.postValue(false)
-        KtorUseCase.fetchFacturasKtor(appDatabase){facturasList ->
+        KtorUseCase.fetchFacturasKtor(facturaDatabase){facturasList ->
             if(facturasList.isEmpty()){
                 _showEmptyDialog.postValue(true)
             } else {
@@ -80,9 +76,9 @@ class FacturasViewModel : ViewModel() {
         }
     }
 
-    fun putRetroMock(context: Context, appDatabase: FacturaDatabase) {
+    fun putRetroMock(context: Context) {
         _showEmptyDialog.postValue(false)
-        RetromockUseCase.putRetromock(context, appDatabase){
+        RetromockUseCase.putRetromock(facturaDatabase){
             if(it.isEmpty()){
                 _showEmptyDialog.postValue(true)
             } else {
@@ -95,5 +91,3 @@ class FacturasViewModel : ViewModel() {
         _filtradoExitoso.postValue(false)
     }
 }
-
-

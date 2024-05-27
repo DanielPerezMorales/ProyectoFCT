@@ -17,7 +17,7 @@ import com.example.proyectofct.ui.view.jetpack.SS_Pantalla
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 
 @Composable
-fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
+fun AppNavigation(context: Context) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppScreens.Login.route) {
         composable(route = AppScreens.Login.route) {
@@ -64,7 +64,7 @@ fun AppNavigation(context: Context, viewmodel: FacturasViewModel) {
             FacturasIberdrola(
                 navController = navController,
                 context = context,
-                viewmodel,
+                null,
                 it.arguments!!.getBoolean("mock"),
                 it.arguments!!.getBoolean("remoteConfig"),
                 it.arguments!!.getBoolean("KTOR")

@@ -9,9 +9,12 @@ import com.example.proyectofct.data.retrofit.model.toFacturaEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class KtorUseCase(private val KtorService: KtorServiceClass) {
-    private val roomUseCase = RoomUseCase()
+class KtorUseCase @Inject constructor(
+    private val KtorService: KtorServiceClass,
+    private val roomUseCase: RoomUseCase
+) {
     fun fetchFacturasKtor(appDatabase: FacturaDatabase, callback: (List<FacturaItem>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             var lista = KtorService.getAllFacturas()?.map { it.toFacturaItem() }

@@ -7,8 +7,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.Date
+import javax.inject.Inject
 
-class FiltradoUseCase {
+class FiltradoUseCase @Inject constructor(){
     fun filtrado(precio: Float, fechaInicio: Date?, fechaFin: Date?, listaCheck: List<String>, lista: List<FacturaEntity>, listaFiltrados: List<String>, callback: (List<FacturaItem>) -> Unit
     ) {
         CoroutineScope(Dispatchers.IO).launch {

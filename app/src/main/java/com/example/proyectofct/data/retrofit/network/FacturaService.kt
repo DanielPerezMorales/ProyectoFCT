@@ -4,9 +4,12 @@ import android.util.Log
 import com.example.proyectofct.data.retrofit.RetrofitHelper
 import com.example.proyectofct.data.retrofit.model.FacturaItem
 import com.example.proyectofct.data.retrofit.model.ModeloFactura
+import retrofit2.Retrofit
+import javax.inject.Inject
 
-class FacturaService {
-    private val retrofit = RetrofitHelper.getRetrofit()
+class FacturaService @Inject constructor(
+    private val retrofit: Retrofit
+){
 
     suspend fun getFacturas(): List<FacturaItem>? {
         val response = retrofit.create(ApiService::class.java).getAllFacturas()

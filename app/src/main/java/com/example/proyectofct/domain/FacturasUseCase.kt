@@ -8,9 +8,12 @@ import com.example.proyectofct.data.retrofit.network.FacturaService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FacturasUseCase(private val facturaService: FacturaService) {
-    private val roomUseCase=RoomUseCase()
+class FacturasUseCase @Inject constructor(
+    private val facturaService: FacturaService,
+    private val roomUseCase: RoomUseCase
+) {
     fun fetchFacturas(appDatabase: FacturaDatabase, callback: (List<FacturaItem>) -> Unit) {
         CoroutineScope(Dispatchers.IO).launch {
             var facturasList: List<FacturaItem>
@@ -19,17 +22,23 @@ class FacturasUseCase(private val facturaService: FacturaService) {
                 if (response!!.isNotEmpty()) {
                     facturasList = response
                     roomUseCase.deleteAllFacturasFromRoom(appDatabase)
-                    roomUseCase.insertFacturasToRoom(facturasList.map{it.toFacturaEntity()},appDatabase)
+                    roomUseCase.insertFacturasToRoom(
+                        facturasList.map { it.toFacturaEntity() },
+                        appDatabase
+                    )
                 } else {
-                    facturasList = appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
+                    facturasList =
+                        appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
                 }
             } catch (e: Exception) {
-                facturasList = appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
+                facturasList =
+                    appDatabase.getFactureDao().getAllFacturas().map { it.toFacturaItem() }
             }
             callback(facturasList)
         }
     }
-    operator fun invoke(appDatabase: FacturaDatabase, callback: (List<FacturaItem>) -> Unit){
-        fetchFacturas(appDatabase,callback)
+
+    operator fun invoke(appDatabase: FacturaDatabase, callback: (List<FacturaItem>) -> Unit) {
+        fetchFacturas(appDatabase, callback)
     }
 }
