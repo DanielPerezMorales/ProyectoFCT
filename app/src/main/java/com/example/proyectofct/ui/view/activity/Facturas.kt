@@ -12,10 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.core.ViewPagerAdapter
-import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.retrofit.model.FacturaAdapterRV
 import com.example.proyectofct.databinding.ActivityFacturasBinding
-import com.example.proyectofct.di.RoomModule
 import com.example.proyectofct.ui.view.Fragment.FiltrarFacturasFragment
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import com.google.firebase.ktx.Firebase
@@ -79,7 +77,7 @@ class Facturas : AppCompatActivity() {
 
     private fun mock() {
         binding.PB.isVisible = true
-        facturaViewModel.putRetroMock(this)
+        facturaViewModel.putRetroMock()
         facturaViewModel.showEmptyDialog.observe(this) {
             if (it) {
                 alert.showAlertYesOrNo(

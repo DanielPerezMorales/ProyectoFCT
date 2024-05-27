@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val signUpUseCase: SignUpUseCase) :ViewModel() {
+class SignUpViewModel @Inject constructor(var signUpUseCase: SignUpUseCase) :ViewModel() {
     private val _signUpResult = MutableLiveData<Pair<Boolean, String?>>()
     val signupResult: LiveData<Pair<Boolean, String?>>
         get() = _signUpResult

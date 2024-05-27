@@ -10,6 +10,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -24,6 +25,9 @@ class FacturasUseCaseTest {
     private lateinit var facturaDatabase: FacturaDatabase
 
     @Mock
+    private lateinit var roomUseCase: RoomUseCase
+
+    @Mock
     private lateinit var facturaDao: FacturaDao // Mock the DAO
 
     lateinit var facturasUseCase: FacturasUseCase
@@ -34,7 +38,7 @@ class FacturasUseCaseTest {
         facturaService = mockk()
         facturaDatabase = mockk()
         facturaDao = mockk()
-        facturasUseCase = FacturasUseCase(facturaService)
+        facturasUseCase = FacturasUseCase(facturaService, roomUseCase)
     }
 
     @Test
@@ -73,7 +77,7 @@ class FacturasUseCaseTest {
         }
 
         // Then
-        //coVerify(exactly = 0) { facturaDao.deleteAllFacturas() }
+        coVerify(exactly = 0) { facturaDao.deleteAllFacturas() }
         coVerify(exactly = 1) { facturaDao.insertAll(lista.map { it.toFacturaEntity() }) }
         assert(response == lista)
 

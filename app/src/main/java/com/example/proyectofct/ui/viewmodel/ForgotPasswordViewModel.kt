@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgotPasswordViewModel @Inject constructor(private val fgUseCase: ForgotPasswordUseCase):ViewModel() {
+class ForgotPasswordViewModel @Inject constructor(var fgUseCase: ForgotPasswordUseCase):ViewModel() {
     private val _fgResult = MutableLiveData<Pair<Boolean, String?>>()
     val forgotPasswordResult: LiveData<Pair<Boolean, String?>>
         get() = _fgResult

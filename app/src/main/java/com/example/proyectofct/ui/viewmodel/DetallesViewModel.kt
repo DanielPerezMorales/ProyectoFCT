@@ -1,10 +1,8 @@
 package com.example.proyectofct.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.proyectofct.core.DetallesObject
 import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import com.example.proyectofct.domain.DetallesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel

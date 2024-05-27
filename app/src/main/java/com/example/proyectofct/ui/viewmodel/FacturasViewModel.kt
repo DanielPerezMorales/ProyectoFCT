@@ -1,12 +1,10 @@
 package com.example.proyectofct.ui.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
-import com.example.proyectofct.data.ktor.network.KtorServiceClass
 import com.example.proyectofct.data.retrofit.model.FacturaItem
 import com.example.proyectofct.domain.FacturasUseCase
 import com.example.proyectofct.domain.FiltradoUseCase
@@ -76,7 +74,7 @@ class FacturasViewModel @Inject constructor(
         }
     }
 
-    fun putRetroMock(context: Context) {
+    fun putRetroMock() {
         _showEmptyDialog.postValue(false)
         RetromockUseCase.putRetromock(facturaDatabase){
             if(it.isEmpty()){

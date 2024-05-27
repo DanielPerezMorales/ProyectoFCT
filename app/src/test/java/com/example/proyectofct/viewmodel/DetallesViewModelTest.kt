@@ -33,12 +33,6 @@ class DetallesViewModelTest {
     private lateinit var detallesUseCase: DetallesUseCase
 
     @Mock
-    private lateinit var context: Context
-
-    @Mock
-    private lateinit var detallesObject: DetallesObject
-
-    @Mock
     private lateinit var detallesObserver: Observer<ModeloDetalles>
 
     private val testDispatcher = TestCoroutineDispatcher()
@@ -48,7 +42,7 @@ class DetallesViewModelTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        detallesViewModel = DetallesViewModel()
+        detallesViewModel = DetallesViewModel(detallesUseCase)
         detallesViewModel.detallesLiveData.observeForever(detallesObserver)
     }
 
@@ -62,13 +56,12 @@ class DetallesViewModelTest {
     fun `cargarDetalles() returns correct data`() = testScope.runBlockingTest {
         // Given
         val expectedDetalles = ModeloDetalles(cau = "CAU", solicitud = "solicitud", tipo = "TIpo", excedentes = "exc", potencia = "Potence")
-        `when`(detallesUseCase.obtenerDetalles(context)).thenReturn(expectedDetalles)
+        `when`(detallesUseCase.obtenerDetalles()).thenReturn(expectedDetalles)
 
         // When
-        detallesViewModel.cargarDetalles(context, detallesObject)
+        detallesViewModel.cargarDetalles()
 
         delay(100)
-        detallesObserver.onChanged(expectedDetalles)
 
 
         // Then

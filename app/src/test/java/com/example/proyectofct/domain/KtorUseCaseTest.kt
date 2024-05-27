@@ -26,6 +26,8 @@ class KtorUseCaseTest {
     @Mock
     private lateinit var ktorUseCase: KtorUseCase
     @Mock
+    private lateinit var roomUseCase: RoomUseCase
+    @Mock
     private lateinit var facturaDao: FacturaDao // Mock the DAO
 
     @Before
@@ -34,7 +36,7 @@ class KtorUseCaseTest {
         ktorService = mockk()
         facturaDatabase = mockk()
         facturaDao = mockk()
-        ktorUseCase = KtorUseCase(ktorService)
+        ktorUseCase = KtorUseCase(ktorService, roomUseCase)
     }
 
 
@@ -56,7 +58,7 @@ class KtorUseCaseTest {
 
         // Then
         coVerify(exactly = 1) {
-            facturaDao.insertAll(lista.map { it.toFacturaItem().toFacturaEntity() })
+            roomUseCase.insertFacturasToRoom(lista.map { it.toFacturaItem().toFacturaEntity() },facturaDatabase)
         }
         assert(response.map { it.toFacturaEntity() } == lista.map { it.toFacturaItem().toFacturaEntity() })
 

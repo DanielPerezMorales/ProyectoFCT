@@ -28,13 +28,12 @@ class DetallesUseCaseTest {
     @Test
     fun `obtenerDetalles() returns correct Modelo_Detalles`() = runBlocking {
         // Given
-        val context: Context = mockk()
         val expectedDetalles = ModeloDetalles(cau = "CAU", solicitud = "solicitud", tipo = "TIpo", excedentes = "exc", potencia = "Potence")
-        `when`(detallesObject.inicializar(context)).then { }
+        `when`(detallesObject.inicializar()).then { }
         `when`(detallesObject.obtenerInstancia()).thenReturn(expectedDetalles)
 
         // When
-        val actualDetalles = detallesUseCase.obtenerDetalles(context)
+        val actualDetalles = detallesUseCase.obtenerDetalles()
 
         // THen
         assertEquals(expectedDetalles, actualDetalles)

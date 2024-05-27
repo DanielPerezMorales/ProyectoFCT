@@ -31,7 +31,7 @@ class SignUpViewModelTest{
     @Before
     fun setUp(){
         MockitoAnnotations.initMocks(this)
-        viewModel = SignUpViewModel(firebaseAuth)
+        viewModel = SignUpViewModel(signUpUseCase)
         viewModel.signUpUseCase = signUpUseCase
         viewModel.signupResult.observeForever(observer)
     }

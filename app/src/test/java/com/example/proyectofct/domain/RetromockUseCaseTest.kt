@@ -1,5 +1,3 @@
-// File: /src/test/java/com/example/proyectofct/domain/RetromockUseCaseTest.kt
-
 package com.example.proyectofct.domain
 
 import android.content.Context
@@ -42,44 +40,49 @@ class RetromockUseCaseTest {
 
     @Before
     fun setUp() {
-        retromockUseCase = RetromockUseCase(roomUseCase) { mock }
+        retromockUseCase = RetromockUseCase(roomUseCase, mock)
     }
 
     @Test
-    fun `putRetromock should call deleteAllFacturasFromRoom and insertFacturasToRoom when facturasMock is not null`() = runTest(testDispatcher) {
-        var expectedResponse = emptyList<FacturaItem>()
-        val facturasMock = ModeloFactura(
-            "2", listOf(
-                FacturaItem( "Pagada", 100.0F, "07/12/2019"),
-                FacturaItem( "Pendiente de pago", 50.99F, "21/03/2020")
+    fun `putRetromock should call deleteAllFacturasFromRoom and insertFacturasToRoom when facturasMock is not null`() =
+        runTest(testDispatcher) {
+            var expectedResponse = emptyList<FacturaItem>()
+            val facturasMock = ModeloFactura(
+                "2", listOf(
+                    FacturaItem("Pagada", 100.0F, "07/12/2019"),
+                    FacturaItem("Pendiente de pago", 50.99F, "21/03/2020")
+                )
             )
-        )
 
-        `when`(mock.getFacturasMOCK()).thenReturn(facturasMock)
+            `when`(mock.getFacturasMOCK()).thenReturn(facturasMock)
 
-        retromockUseCase.putRetromock(context, appDatabase) {
-            expectedResponse = it
+            retromockUseCase.putRetromock(
+                appDatabase
+            ) {
+                expectedResponse = it
+            }
+
+            verify(roomUseCase).deleteAllFacturasFromRoom(appDatabase)
+            verify(roomUseCase).insertFacturasToRoom(
+                facturasMock.facturas.map { it.toFacturaEntity() },
+                appDatabase
+            )
+
+            assertEquals(facturasMock.facturas, expectedResponse)
         }
-
-        verify(roomUseCase).deleteAllFacturasFromRoom(appDatabase)
-        verify(roomUseCase).insertFacturasToRoom(
-            facturasMock.facturas.map { it.toFacturaEntity() },
-            appDatabase
-        )
-
-        assertEquals(facturasMock.facturas, expectedResponse)
-    }
 
     @Test
-    fun `putRetromock should call callback with empty list when facturasMock is null`() = runTest(testDispatcher) {
-        var expectedResponse = listOf<FacturaItem>()
+    fun `putRetromock should call callback with empty list when facturasMock is null`() =
+        runTest(testDispatcher) {
+            var expectedResponse = listOf<FacturaItem>()
 
-        `when`(mock.getFacturasMOCK()).thenReturn(null)
+            `when`(mock.getFacturasMOCK()).thenReturn(null)
 
-        retromockUseCase.putRetromock(context, appDatabase) {
-            expectedResponse = it
+            retromockUseCase.putRetromock(appDatabase) {
+                expectedResponse = it
+            }
+
+            assertEquals(emptyList<FacturaItem>(), expectedResponse)
         }
-
-        assertEquals(emptyList<FacturaItem>(), expectedResponse)
-    }
 }
+

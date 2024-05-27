@@ -33,7 +33,7 @@ class ForgotPasswordViewModelTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        viewModel = ForgotPasswordViewModel(firebaseAuth)
+        viewModel = ForgotPasswordViewModel(forgotUseCase)
         viewModel.fgUseCase = forgotUseCase
         viewModel.forgotPasswordResult.observeForever(observer)
     }

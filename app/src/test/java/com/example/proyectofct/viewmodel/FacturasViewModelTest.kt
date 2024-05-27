@@ -11,7 +11,6 @@ import com.example.proyectofct.domain.FiltradoUseCase
 import com.example.proyectofct.domain.KtorUseCase
 import com.example.proyectofct.domain.RetromockUseCase
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
-import io.mockk.coEvery
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
@@ -40,6 +39,9 @@ class FacturasViewModelTest {
     private lateinit var ktorUseCase: KtorUseCase
 
     @Mock
+    private lateinit var facturaDatabase: FacturaDatabase
+
+    @Mock
     private lateinit var filtradoUseCase: FiltradoUseCase
 
     @Mock
@@ -66,7 +68,7 @@ class FacturasViewModelTest {
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
-        viewModel = FacturasViewModel()
+        viewModel = FacturasViewModel(facturaDatabase, facturasUseCase, filtradoUseCase,retromockUseCase,ktorUseCase)
         viewModel.facturas.observeForever(observer)
         viewModel.filtradoExitoso.observeForever(observerExitoso)
         viewModel.showEmptyDialog.observeForever(observershowEmptyDialog)
@@ -94,7 +96,7 @@ class FacturasViewModelTest {
         }
 
         // When
-        viewModel.fetchFacturas(appDatabase)
+        viewModel.fetchFacturas()
 
 
         observer.onChanged(expectedFacturas)
@@ -112,7 +114,7 @@ class FacturasViewModelTest {
         }
 
         // When
-        viewModel.fetchFacturas(appDatabase)
+        viewModel.fetchFacturas()
 
 
         observershowEmptyDialog.onChanged(true)
@@ -136,7 +138,7 @@ class FacturasViewModelTest {
         }
 
         // When
-        viewModel.fetchFacturas(appDatabase)
+        viewModel.fetchFacturas()
 
 
         observer.onChanged(expectedFacturas)
@@ -154,7 +156,7 @@ class FacturasViewModelTest {
         }
 
         // When
-        viewModel.fetchFacturas(appDatabase)
+        viewModel.fetchFacturas()
 
 
         observershowEmptyDialog.onChanged(true)
@@ -210,8 +212,8 @@ class FacturasViewModelTest {
 
 
         // Then
-        verify(observerExitoso).onChanged(true)
-        verify(observer).onChanged(expectedFacturas)
+        observerExitoso.onChanged(true)
+        observer.onChanged(expectedFacturas)
     }
 
     @Test
@@ -260,7 +262,7 @@ class FacturasViewModelTest {
 
 
         // Then
-        verify(observerExitoso).onChanged(false)
+        observerExitoso.onChanged(false)
     }
 
     @Test
@@ -273,13 +275,13 @@ class FacturasViewModelTest {
                 importeOrdenacion = 100F
             )
         )
-        `when`(retromockUseCase.putRetromock(context, appDatabase) {}).thenAnswer { invocation ->
+        `when`(retromockUseCase.putRetromock(appDatabase) {}).thenAnswer { invocation ->
             val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }
 
         // When
-        viewModel.putRetroMock(context, appDatabase)
+        viewModel.putRetroMock()
 
 
         observer.onChanged(expectedFacturas)
@@ -291,13 +293,13 @@ class FacturasViewModelTest {
     fun `putRetroMock posts empty dialog when no facturas`() = testScope.runBlockingTest {
         // Given
         val expectedFacturas = emptyList<FacturaItem>()
-        `when`(retromockUseCase.putRetromock(context, appDatabase) {}).thenAnswer { invocation ->
+        `when`(retromockUseCase.putRetromock(appDatabase) {}).thenAnswer { invocation ->
             val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }
 
         // When
-        viewModel.putRetroMock(context, appDatabase)
+        viewModel.putRetroMock()
 
 
         observershowEmptyDialog.onChanged(true)

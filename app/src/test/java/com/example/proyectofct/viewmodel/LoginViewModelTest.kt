@@ -21,9 +21,6 @@ class LoginViewModelTest {
     private lateinit var loginUseCase: LoginUseCase
 
     @Mock
-    private lateinit var firebaseAuth: FirebaseAuth
-
-    @Mock
     private lateinit var observer: Observer<Pair<Boolean, String?>?>
 
     private lateinit var viewModel: LoginViewModel
@@ -31,7 +28,7 @@ class LoginViewModelTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        viewModel = LoginViewModel(firebaseAuth)
+        viewModel = LoginViewModel(loginUseCase)
         viewModel.loginUseCase = loginUseCase
         viewModel.loginResult.observeForever(observer)
     }

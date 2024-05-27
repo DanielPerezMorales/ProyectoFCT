@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    var loginUseCase: LoginUseCase
 ) : ViewModel() {
     private val _loginResult = MutableLiveData<Pair<Boolean, String?>?>()
     val loginResult: MutableLiveData<Pair<Boolean, String?>?>
