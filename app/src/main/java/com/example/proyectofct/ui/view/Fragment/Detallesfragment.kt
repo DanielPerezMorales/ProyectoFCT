@@ -14,8 +14,8 @@ import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@AndroidEntryPoint
-class Detallesfragment @Inject constructor(private val detallesObject : DetallesObject): Fragment() {
+
+class Detallesfragment @Inject constructor(): Fragment() {
 
     private lateinit var binding: FragmentDetallesFragmentBinding
     private val alert = Alert()

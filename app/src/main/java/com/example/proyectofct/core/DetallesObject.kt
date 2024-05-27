@@ -8,7 +8,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class DetallesObject @Inject constructor(private val servicioMock: Mock) {
     private var modeloDetalles: ModeloDetalles? = null
 

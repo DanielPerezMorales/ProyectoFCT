@@ -12,7 +12,6 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
 class Mock @Inject constructor(private val retromock: Retromock){
     fun getFacturasMOCK(): ModeloFactura? {
         val response = retromock.create(ApiService::class.java).getFacturasMock()

@@ -15,8 +15,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class PantallaPrincipalSmartSolar @Inject constructor(private val detallesfragment: Detallesfragment): AppCompatActivity() {
+class PantallaPrincipalSmartSolar : AppCompatActivity() {
     private lateinit var binding: ActivityPantallaPrincipalSmartSolarBinding
+    @Inject
+    lateinit var detallesfragment: Detallesfragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
