@@ -76,7 +76,7 @@ class FacturasViewModel @Inject constructor(
 
     fun putRetroMock() {
         _showEmptyDialog.postValue(false)
-        RetromockUseCase.putRetromock(facturaDatabase){
+        RetromockUseCase.putRetromock {
             if(it.isEmpty()){
                 _showEmptyDialog.postValue(true)
             } else {

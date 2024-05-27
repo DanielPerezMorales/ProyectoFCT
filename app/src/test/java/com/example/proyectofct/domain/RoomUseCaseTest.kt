@@ -23,7 +23,7 @@ class RoomUseCaseTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         facturaDatabase = mockk()
-        roomUseCase = RoomUseCase()
+        roomUseCase = RoomUseCase(facturaDatabase)
     }
 
     @Test
@@ -35,7 +35,7 @@ class RoomUseCaseTest {
         coEvery { facturaDatabase.getFactureDao() } returns facturaDao
 
         // When
-        roomUseCase.insertFacturasToRoom(listaEntity, facturaDatabase)
+        roomUseCase.insertFacturasToRoom(listaEntity)
 
         // Then
         coVerify(exactly = 1) { facturaDao.insertAll(listaEntity) }
@@ -48,7 +48,7 @@ class RoomUseCaseTest {
         coEvery { facturaDatabase.getFactureDao() } returns facturaDao
 
         // When
-        roomUseCase.deleteAllFacturasFromRoom(facturaDatabase)
+        roomUseCase.deleteAllFacturasFromRoom()
 
         // Then
         coVerify(exactly = 1) { facturaDao.deleteAllFacturas() }

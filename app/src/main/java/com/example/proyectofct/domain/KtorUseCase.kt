@@ -20,10 +20,9 @@ class KtorUseCase @Inject constructor(
             var lista = KtorService.getAllFacturas()?.map { it.toFacturaItem() }
             try {
                 if (lista != null) {
-                    roomUseCase.deleteAllFacturasFromRoom(appDatabase)
+                    roomUseCase.deleteAllFacturasFromRoom()
                     roomUseCase.insertFacturasToRoom(
-                        lista.map { it.toFacturaEntity() },
-                        appDatabase
+                        lista.map { it.toFacturaEntity() }
                     )
                 } else {
                     lista = emptyList()

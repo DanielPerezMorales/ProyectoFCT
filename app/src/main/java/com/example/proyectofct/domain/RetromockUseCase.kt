@@ -1,9 +1,5 @@
 package com.example.proyectofct.domain
 
-import android.content.Context
-import android.util.Log
-import co.infinum.retromock.Retromock
-import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.retrofit.model.FacturaItem
 import com.example.proyectofct.data.retrofit.model.toFacturaEntity
@@ -17,7 +13,6 @@ class RetromockUseCase@Inject constructor(
     private val mockFactory: Mock
 ) {
     fun putRetromock(
-        appDatabase: FacturaDatabase,
         callback: (List<FacturaItem>) -> Unit
     ) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -25,10 +20,9 @@ class RetromockUseCase@Inject constructor(
             val facturasMock = mockFactory.getFacturasMOCK()
             if (facturasMock != null) {
                 facturasList = facturasMock.facturas
-                roomUseCase.deleteAllFacturasFromRoom(appDatabase)
+                roomUseCase.deleteAllFacturasFromRoom()
                 roomUseCase.insertFacturasToRoom(
-                    facturasList.map { it.toFacturaEntity() },
-                    appDatabase
+                    facturasList.map { it.toFacturaEntity() }
                 )
             }
             callback(facturasList)

@@ -21,14 +21,17 @@ class KtorUseCaseTest {
 
     @Mock
     private lateinit var ktorService: KtorServiceClass
+
     @Mock
     private lateinit var facturaDatabase: FacturaDatabase
-    @Mock
-    private lateinit var ktorUseCase: KtorUseCase
+
     @Mock
     private lateinit var roomUseCase: RoomUseCase
+
     @Mock
     private lateinit var facturaDao: FacturaDao // Mock the DAO
+
+    private lateinit var ktorUseCase: KtorUseCase
 
     @Before
     fun setUp() {
@@ -36,9 +39,9 @@ class KtorUseCaseTest {
         ktorService = mockk()
         facturaDatabase = mockk()
         facturaDao = mockk()
-        ktorUseCase = KtorUseCase(ktorService, roomUseCase)
+        roomUseCase = mockk()
+        ktorUseCase = KtorUseCase(roomUseCase = roomUseCase, KtorService = ktorService)
     }
-
 
     @Test
     fun `fetchKtor when response is successful`() = runBlocking {
@@ -48,40 +51,45 @@ class KtorUseCaseTest {
             factura_item_model("Pendiente de pago", 50.99F, "21/03/2020")
         )
         // Given
-        coEvery { ktorService.getAllFacturas() } returns lista // Mocking null response
-        every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
-        coEvery { facturaDao.getAllFacturas() } returns emptyList()// Mocking null response
+        coEvery { ktorService.getAllFacturas() } returns lista
+        every { facturaDatabase.getFactureDao() } returns facturaDao
+        coEvery { roomUseCase.deleteAllFacturasFromRoom() } returns Unit
+        coEvery { roomUseCase.insertFacturasToRoom(any()) } returns Unit
+
         // When
-        ktorUseCase.fetchFacturasKtor(facturaDatabase){
-            response=it
+        ktorUseCase.fetchFacturasKtor(facturaDatabase) {
+            response = it
         }
 
         // Then
         coVerify(exactly = 1) {
-            roomUseCase.insertFacturasToRoom(lista.map { it.toFacturaItem().toFacturaEntity() },facturaDatabase)
+            roomUseCase.insertFacturasToRoom(lista.map { it.toFacturaItem().toFacturaEntity() })
         }
-        assert(response.map { it.toFacturaEntity() } == lista.map { it.toFacturaItem().toFacturaEntity() })
-
+        assert(response.map { it.toFacturaEntity() } == lista.map {
+            it.toFacturaItem().toFacturaEntity()
+        })
     }
 
     @Test
     fun `fetchKtor when response is not successful`() = runBlocking {
         var response: List<FacturaItem> = listOf()
-        val lista: List<factura_item_model> = listOf(
-        )
+        val lista: List<factura_item_model> = listOf()
+
         // Given
-        coEvery { ktorService.getAllFacturas() } returns emptyList() // Mocking null response
-        every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
-        coEvery { facturaDao.getAllFacturas() } returns emptyList()// Mocking null response
+        coEvery { ktorService.getAllFacturas() } returns emptyList()
+        every { facturaDatabase.getFactureDao() } returns facturaDao
+        coEvery { facturaDao.getAllFacturas() } returns emptyList()
+        coEvery { roomUseCase.deleteAllFacturasFromRoom() } returns Unit
+        coEvery { roomUseCase.insertFacturasToRoom(any()) } returns Unit
+
         // When
-        ktorUseCase.fetchFacturasKtor(facturaDatabase){
-            response=it
+        ktorUseCase.fetchFacturasKtor(facturaDatabase) {
+            response = it
         }
 
         // Then
         coVerify(exactly = 1) {
-            facturaDao.insertAll(lista.map { it.toFacturaItem().toFacturaEntity() })
+            roomUseCase.insertFacturasToRoom(emptyList())
         }
-
     }
 }

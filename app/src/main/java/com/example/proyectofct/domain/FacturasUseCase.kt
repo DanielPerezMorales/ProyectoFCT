@@ -21,10 +21,9 @@ class FacturasUseCase @Inject constructor(
             try {
                 if (response!!.isNotEmpty()) {
                     facturasList = response
-                    roomUseCase.deleteAllFacturasFromRoom(appDatabase)
+                    roomUseCase.deleteAllFacturasFromRoom()
                     roomUseCase.insertFacturasToRoom(
-                        facturasList.map { it.toFacturaEntity() },
-                        appDatabase
+                        facturasList.map { it.toFacturaEntity() }
                     )
                 } else {
                     facturasList =

@@ -275,7 +275,7 @@ class FacturasViewModelTest {
                 importeOrdenacion = 100F
             )
         )
-        `when`(retromockUseCase.putRetromock(appDatabase) {}).thenAnswer { invocation ->
+        `when`(retromockUseCase.putRetromock {}).thenAnswer { invocation ->
             val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }
@@ -293,7 +293,7 @@ class FacturasViewModelTest {
     fun `putRetroMock posts empty dialog when no facturas`() = testScope.runBlockingTest {
         // Given
         val expectedFacturas = emptyList<FacturaItem>()
-        `when`(retromockUseCase.putRetromock(appDatabase) {}).thenAnswer { invocation ->
+        `when`(retromockUseCase.putRetromock {}).thenAnswer { invocation ->
             val callback: (List<FacturaItem>?) -> Unit = invocation.getArgument(1)
             callback(expectedFacturas)
         }

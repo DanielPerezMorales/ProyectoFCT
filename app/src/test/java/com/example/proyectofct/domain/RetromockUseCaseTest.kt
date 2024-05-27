@@ -13,8 +13,6 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -56,16 +54,13 @@ class RetromockUseCaseTest {
 
             `when`(mock.getFacturasMOCK()).thenReturn(facturasMock)
 
-            retromockUseCase.putRetromock(
-                appDatabase
-            ) {
+            retromockUseCase.putRetromock {
                 expectedResponse = it
             }
 
-            verify(roomUseCase).deleteAllFacturasFromRoom(appDatabase)
+            verify(roomUseCase).deleteAllFacturasFromRoom()
             verify(roomUseCase).insertFacturasToRoom(
-                facturasMock.facturas.map { it.toFacturaEntity() },
-                appDatabase
+                facturasMock.facturas.map { it.toFacturaEntity() }
             )
 
             assertEquals(facturasMock.facturas, expectedResponse)
@@ -78,7 +73,7 @@ class RetromockUseCaseTest {
 
             `when`(mock.getFacturasMOCK()).thenReturn(null)
 
-            retromockUseCase.putRetromock(appDatabase) {
+            retromockUseCase.putRetromock {
                 expectedResponse = it
             }
 
