@@ -10,7 +10,6 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -38,6 +37,7 @@ class FacturasUseCaseTest {
         facturaService = mockk()
         facturaDatabase = mockk()
         facturaDao = mockk()
+        roomUseCase = mockk()
         facturasUseCase = FacturasUseCase(facturaService, roomUseCase)
     }
 
@@ -45,9 +45,9 @@ class FacturasUseCaseTest {
     fun `fetchFacturas when response is not successful`() = runBlocking {
         var lista: List<FacturaItem> = listOf()
         // Given
-        coEvery { facturaService.getFacturas() } returns emptyList() // Mocking null response
+        coEvery { facturaService.getFacturas() } returns emptyList() // Mocking empty response
         every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
-        coEvery { facturaDao.getAllFacturas() } returns emptyList()// Mocking null response
+        coEvery { facturaDao.getAllFacturas() } returns emptyList() // Mocking empty database response
 
         // When
         facturasUseCase(facturaDatabase) {
@@ -56,7 +56,6 @@ class FacturasUseCaseTest {
 
         // Then
         coVerify(exactly = 1) { facturaDao.getAllFacturas() }
-
     }
 
     @Test
@@ -67,9 +66,13 @@ class FacturasUseCaseTest {
             FacturaItem("Pendiente de pago", 50.99F, "21/03/2020")
         )
         // Given
-        coEvery { facturaService.getFacturas() } returns lista // Mocking null response
+        coEvery { facturaService.getFacturas() } returns lista // Mocking successful response
         every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
-        coEvery { facturaDao.getAllFacturas() } returns emptyList()// Mocking null response
+        coEvery { facturaDao.getAllFacturas() } returns emptyList() // Mocking empty database response
+
+        // Mock roomUseCase interactions
+        coEvery { roomUseCase.deleteAllFacturasFromRoom() } returns Unit
+        coEvery { roomUseCase.insertFacturasToRoom(any()) } returns Unit
 
         // When
         facturasUseCase(facturaDatabase) {
@@ -77,10 +80,8 @@ class FacturasUseCaseTest {
         }
 
         // Then
-        coVerify(exactly = 0) { facturaDao.deleteAllFacturas() }
-        coVerify(exactly = 1) { facturaDao.insertAll(lista.map { it.toFacturaEntity() }) }
+        coVerify(exactly = 1) { roomUseCase.deleteAllFacturasFromRoom() }
+        coVerify(exactly = 1) { roomUseCase.insertFacturasToRoom(lista.map { it.toFacturaEntity() }) }
         assert(response == lista)
-
     }
-
 }
