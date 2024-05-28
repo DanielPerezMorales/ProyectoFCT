@@ -27,21 +27,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
+import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-private val firebaseAuth = FirebaseAuth.getInstance()
 private val alert = Alert()
 
 @Composable
 fun FGIberdrola(
     navController: NavController?,
-    context: Context,
-    viewModel: ForgotPasswordViewModel
+    context: Context
 ) {
+    val viewModel: ForgotPasswordViewModel = hiltViewModel()
     BodyFG(navController, context, viewModel)
 }
 

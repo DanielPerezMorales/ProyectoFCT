@@ -90,6 +90,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     kapt(libs.hilt.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
     //Room
     implementation(libs.androidx.room.ktx)
     kapt(libs.androidx.room.compiler)

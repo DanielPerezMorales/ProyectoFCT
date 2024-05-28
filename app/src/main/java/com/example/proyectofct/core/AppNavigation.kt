@@ -19,13 +19,14 @@ import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
+import javax.inject.Inject
 
 @Composable
-fun AppNavigation(context: Context, loginviewModel:LoginViewModel, signUpViewModel: SignUpViewModel, forgotPasswordViewModel: ForgotPasswordViewModel, facturasViewModel: FacturasViewModel, detallesViewModel: DetallesViewModel) {
+fun AppNavigation(context: Context) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppScreens.Login.route) {
         composable(route = AppScreens.Login.route) {
-            LoginIberdrola(navController, context, loginviewModel)
+            LoginIberdrola(navController, context)
         }
         composable(
             route = AppScreens.Menu_principal.route + "/{email}" + "/{pass}" + "/{check}" + "/{date}",
@@ -43,16 +44,16 @@ fun AppNavigation(context: Context, loginviewModel:LoginViewModel, signUpViewMod
             Menu_principal(navController, email, pass, check, date)
         }
         composable(route = AppScreens.Registro.route) {
-            RegistroIberdrola(navController = navController, context, signUpViewModel)
+            RegistroIberdrola(navController = navController, context)
         }
         composable(route = AppScreens.FG.route) {
-            FGIberdrola(navController = navController, context = context, forgotPasswordViewModel)
+            FGIberdrola(navController = navController, context = context)
         }
         composable(route = AppScreens.Navegacion.route) {
             Navegacion(context = context)
         }
         composable(route = AppScreens.SmartSolar.route) {
-            SS_Pantalla(navController = navController, context, detallesViewModel)
+            SS_Pantalla(navController = navController, context)
         }
         composable(
             route = AppScreens.Facturas.route + "/{mock}" + "/{remoteConfig}" + "/{KTOR}",
@@ -70,7 +71,6 @@ fun AppNavigation(context: Context, loginviewModel:LoginViewModel, signUpViewMod
             FacturasIberdrola(
                 navController = navController,
                 context = context,
-                facturasViewModel,
                 it.arguments!!.getBoolean("mock"),
                 it.arguments!!.getBoolean("remoteConfig"),
                 it.arguments!!.getBoolean("KTOR")

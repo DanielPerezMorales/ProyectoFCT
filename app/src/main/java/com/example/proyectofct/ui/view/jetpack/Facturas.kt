@@ -54,6 +54,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.proyectofct.R
@@ -76,12 +77,12 @@ private val alert = Alert()
 fun FacturasIberdrola(
     navController: NavController?,
     context: Context?,
-    viewmodel: FacturasViewModel?,
     mock: Boolean,
     remoteConfig: Boolean,
-    KTOR: Boolean
+    ktor: Boolean
 ) {
-    BodyFacturas(navController, context, viewmodel, mock, remoteConfig, KTOR)
+    val viewmodel: FacturasViewModel = hiltViewModel()
+    BodyFacturas(navController, context, viewmodel, mock, remoteConfig, ktor)
 }
 
 @Composable
@@ -89,9 +90,9 @@ fun BodyFacturas(
     navController: NavController?,
     context: Context?,
     viewmodel: FacturasViewModel?,
-    boolean: Boolean, remoteConfig: Boolean, KTOR: Boolean
+    boolean: Boolean, remoteConfig: Boolean, ktor: Boolean
 ) {
-    Facturas(navController, context = context, viewmodel, boolean, remoteConfig, KTOR)
+    Facturas(navController, context = context, viewmodel, boolean, remoteConfig, ktor)
 }
 
 @SuppressLint(
@@ -104,7 +105,7 @@ fun Facturas(
     navController: NavController?,
     context: Context?,
     viewmodel: FacturasViewModel?,
-    boolean: Boolean, remoteConfig: Boolean, KTOR: Boolean
+    boolean: Boolean, remoteConfig: Boolean, ktor: Boolean
 ) {
     var facturas by remember { mutableStateOf<List<FacturaItem>>(emptyList()) }
     val isLoading = remember { mutableStateOf(true) }
@@ -524,7 +525,7 @@ fun Facturas(
             if (boolean) {
                 viewmodel?.putRetroMock()
             } else {
-                if (!KTOR) {
+                if (!ktor) {
                     viewmodel?.fetchFacturas()
                 } else {
                     viewmodel?.fecthFacturasKTOR()
@@ -686,6 +687,6 @@ fun PreviewFacturas() {
         navController = null, context = null, viewmodel = null,
         boolean = false,
         remoteConfig = true,
-        KTOR = false
+        ktor = false
     )
 }

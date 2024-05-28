@@ -48,6 +48,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.proyectofct.R
@@ -57,13 +58,14 @@ import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
-private val firebaseAuth = FirebaseAuth.getInstance()
 private val alert = Alert()
 private var isCheck = false
 
 @Composable
-fun LoginIberdrola(navController: NavController, context: Context, viewModel: LoginViewModel) {
+fun LoginIberdrola(navController: NavController, context: Context) {
+    val viewModel: LoginViewModel = hiltViewModel()
     val prefs = LocalContext.current.getSharedPreferences(
         LocalContext.current.getString(R.string.sheredPrefJetpack),
         Context.MODE_PRIVATE

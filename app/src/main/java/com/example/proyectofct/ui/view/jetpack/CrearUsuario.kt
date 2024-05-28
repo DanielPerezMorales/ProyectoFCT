@@ -35,6 +35,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.proyectofct.R
@@ -42,10 +43,10 @@ import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 import com.google.firebase.auth.FirebaseAuth
 
-private val firebaseAuth= FirebaseAuth.getInstance()
 private val alert= Alert()
 @Composable
-fun RegistroIberdrola(navController: NavController?, context: Context?, signUpViewModel: SignUpViewModel) {
+fun RegistroIberdrola(navController: NavController?, context: Context?) {
+    val signUpViewModel:SignUpViewModel = hiltViewModel()
     BodyRegistro(navController, context, signUpViewModel)
 }
 
