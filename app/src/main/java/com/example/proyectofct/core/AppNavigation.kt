@@ -14,12 +14,6 @@ import com.example.proyectofct.ui.view.jetpack.Menu_principal
 import com.example.proyectofct.ui.view.jetpack.Navegacion
 import com.example.proyectofct.ui.view.jetpack.RegistroIberdrola
 import com.example.proyectofct.ui.view.jetpack.SS_Pantalla
-import com.example.proyectofct.ui.viewmodel.DetallesViewModel
-import com.example.proyectofct.ui.viewmodel.FacturasViewModel
-import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
-import com.example.proyectofct.ui.viewmodel.LoginViewModel
-import com.example.proyectofct.ui.viewmodel.SignUpViewModel
-import javax.inject.Inject
 
 @Composable
 fun AppNavigation(context: Context) {

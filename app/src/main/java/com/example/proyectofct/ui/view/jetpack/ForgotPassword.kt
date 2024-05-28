@@ -10,8 +10,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Divider
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextField
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -32,8 +35,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
-import com.example.proyectofct.ui.viewmodel.SignUpViewModel
-import com.google.firebase.auth.FirebaseAuth
 
 private val alert = Alert()
 

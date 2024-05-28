@@ -17,6 +17,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.IconButton
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextField
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -41,7 +42,6 @@ import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
-import com.google.firebase.auth.FirebaseAuth
 
 private val alert= Alert()
 @Composable
