@@ -43,15 +43,14 @@ import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth= FirebaseAuth.getInstance()
-//private val viewModel = SignUpViewModel(firebaseAuth)
 private val alert= Alert()
 @Composable
-fun RegistroIberdrola(navController: NavController?, context: Context?) {
-    BodyRegistro(navController, context)
+fun RegistroIberdrola(navController: NavController?, context: Context?, signUpViewModel: SignUpViewModel) {
+    BodyRegistro(navController, context, signUpViewModel)
 }
 
 @Composable
-fun EditTextsRegistro(navController: NavController?, context: Context?) {
+fun EditTextsRegistro(navController: NavController?, context: Context?, signUpViewModel: SignUpViewModel) {
     var textEmail by remember { mutableStateOf("") }
     var textPassword by remember { mutableStateOf("") }
     Column(
@@ -68,7 +67,7 @@ fun EditTextsRegistro(navController: NavController?, context: Context?) {
         }
         Spacer(modifier = Modifier.height(10.dp))
         Spacer(modifier = Modifier.height(160.dp))
-        Button( textEmail, textPassword, navController, context!!)
+        Button( textEmail, textPassword, navController, context!!, signUpViewModel)
         Spacer(modifier = Modifier.height(5.dp))
         Linea()
         Spacer(modifier = Modifier.height(5.dp))
@@ -80,7 +79,7 @@ fun EditTextsRegistro(navController: NavController?, context: Context?) {
 private fun Button(
     email: String?,
     password: String?,
-    navController: NavController?, context: Context
+    navController: NavController?, context: Context, viewmodel: SignUpViewModel
 ) {
     Column(
         modifier = Modifier
@@ -91,9 +90,9 @@ private fun Button(
         Button(
             onClick = {
                 if (email != null && password != null) {
-                    /*viewModel.signUp(email,password)
+                    viewmodel.signUp(email,password)
 
-                    viewModel.signupResult.observe(context as LifecycleOwner) { result ->
+                    viewmodel.signupResult.observe(context as LifecycleOwner) { result ->
                         val (success, errorMessage) = result
                         if (success) {
                             navController?.navigate("menu_principal/${email}/${password}/false")
@@ -104,7 +103,7 @@ private fun Button(
                                 context
                             )
                         }
-                    }*/
+                    }
                 }
             },
             modifier = Modifier
@@ -118,10 +117,10 @@ private fun Button(
 }
 
 @Composable
-fun BodyRegistro(navController: NavController?, context:Context?) {
+fun BodyRegistro(navController: NavController?, context:Context?, signUpViewModel: SignUpViewModel) {
     Column(Modifier.background(Color.White)) {
         LogoIberdrola()
-        EditTextsRegistro(navController, context)
+        EditTextsRegistro(navController, context, signUpViewModel)
     }
 }
 
@@ -205,5 +204,5 @@ private fun EditTextWithEye(texto: String, onTextChange: (String) -> Unit) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewRegistro(){
-    RegistroIberdrola(null, null)
+    //RegistroIberdrola(null, null, null)
 }

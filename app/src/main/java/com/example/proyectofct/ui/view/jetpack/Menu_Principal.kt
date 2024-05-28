@@ -157,6 +157,7 @@ fun Body_menu(navController: NavController?) {
                     Context.MODE_PRIVATE
                 ).edit()
             prefs.clear()
+
             prefs.apply()
             FirebaseAuth.getInstance().signOut()
             navController?.navigate("login")

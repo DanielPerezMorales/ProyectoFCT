@@ -14,14 +14,18 @@ import com.example.proyectofct.ui.view.jetpack.Menu_principal
 import com.example.proyectofct.ui.view.jetpack.Navegacion
 import com.example.proyectofct.ui.view.jetpack.RegistroIberdrola
 import com.example.proyectofct.ui.view.jetpack.SS_Pantalla
+import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
+import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
+import com.example.proyectofct.ui.viewmodel.LoginViewModel
+import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 
 @Composable
-fun AppNavigation(context: Context) {
+fun AppNavigation(context: Context, loginviewModel:LoginViewModel, signUpViewModel: SignUpViewModel, forgotPasswordViewModel: ForgotPasswordViewModel, facturasViewModel: FacturasViewModel, detallesViewModel: DetallesViewModel) {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = AppScreens.Login.route) {
         composable(route = AppScreens.Login.route) {
-            LoginIberdrola(navController, context)
+            LoginIberdrola(navController, context, loginviewModel)
         }
         composable(
             route = AppScreens.Menu_principal.route + "/{email}" + "/{pass}" + "/{check}",
@@ -37,16 +41,16 @@ fun AppNavigation(context: Context) {
             Menu_principal(navController, email, pass, check)
         }
         composable(route = AppScreens.Registro.route) {
-            RegistroIberdrola(navController = navController, context)
+            RegistroIberdrola(navController = navController, context, signUpViewModel)
         }
         composable(route = AppScreens.FG.route) {
-            FGIberdrola(navController = navController, context = context)
+            FGIberdrola(navController = navController, context = context, forgotPasswordViewModel)
         }
         composable(route = AppScreens.Navegacion.route) {
             Navegacion(context = context)
         }
         composable(route = AppScreens.SmartSolar.route) {
-            SS_Pantalla(navController = navController, context)
+            SS_Pantalla(navController = navController, context, detallesViewModel)
         }
         composable(
             route = AppScreens.Facturas.route + "/{mock}" + "/{remoteConfig}" + "/{KTOR}",
@@ -64,7 +68,7 @@ fun AppNavigation(context: Context) {
             FacturasIberdrola(
                 navController = navController,
                 context = context,
-                null,
+                facturasViewModel,
                 it.arguments!!.getBoolean("mock"),
                 it.arguments!!.getBoolean("remoteConfig"),
                 it.arguments!!.getBoolean("KTOR")

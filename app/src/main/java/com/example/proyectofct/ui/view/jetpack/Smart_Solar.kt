@@ -32,21 +32,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun SS_Pantalla(navController: NavController?, context: Context?) {
-    SS_Body(navController, context)
+fun SS_Pantalla(navController: NavController?, context: Context?, viewModel: DetallesViewModel) {
+    SS_Body(navController, context, viewModel)
 }
 
 @Composable
-fun SS_Body(navController: NavController?, context: Context?) {
+fun SS_Body(navController: NavController?, context: Context?, viewModel: DetallesViewModel) {
     Column(Modifier.background(color = colorResource(id = com.example.proyectofct.R.color.white))) {
         ParteDeArriba(navController)
         Spacer(modifier = Modifier.height(10.dp))
         TextoGrande()
         Spacer(modifier = Modifier.height(10.dp))
-        TabScreen(context)
+        TabScreen(context, viewModel)
     }
 }
 
@@ -83,7 +84,7 @@ private fun TextoGrande() {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun TabScreen(context: Context?) {
+private fun TabScreen(context: Context?, viewModel: DetallesViewModel) {
     val scope = rememberCoroutineScope()
 
     val pagerState = rememberPagerState(pageCount = { Tabs.entries.size })
@@ -126,7 +127,7 @@ private fun TabScreen(context: Context?) {
                 when (selectedTabIndex.value) {
                     0 -> Instalacion()
                     1 -> Energia()
-                    2 -> context?.let { Detalles(it) }
+                    2 -> context?.let { Detalles(it, viewModel) }
                 }
             }
         }
@@ -147,5 +148,5 @@ enum class Tabs(
 @Preview(showSystemUi = true)
 @Composable
 fun Preview_SS() {
-    SS_Pantalla(null, null)
+    //SS_Pantalla(null, null)
 }

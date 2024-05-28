@@ -34,16 +34,23 @@ import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth = FirebaseAuth.getInstance()
-//private val viewModel = ForgotPasswordViewModel(firebaseAuth)
 private val alert = Alert()
 
 @Composable
-fun FGIberdrola(navController: NavController?, context: Context) {
-    BodyFG(navController, context)
+fun FGIberdrola(
+    navController: NavController?,
+    context: Context,
+    viewModel: ForgotPasswordViewModel
+) {
+    BodyFG(navController, context, viewModel)
 }
 
 @Composable
-fun EditTextsFG(navController: NavController?, context: Context) {
+fun EditTextsFG(
+    navController: NavController?,
+    context: Context,
+    viewModel: ForgotPasswordViewModel
+) {
     var textEmail by remember { mutableStateOf("") }
     Column(
         modifier = Modifier
@@ -54,7 +61,7 @@ fun EditTextsFG(navController: NavController?, context: Context) {
             textEmail = newText
         }
         Spacer(modifier = Modifier.height(230.dp))
-        Button(email = textEmail, navController = navController, context)
+        Button(email = textEmail, navController = navController, context, viewModel)
         Linea()
         Spacer(modifier = Modifier.height(5.dp))
         ButtonSecundario("Ir a inicio de sesion", navController, "login")
@@ -65,7 +72,7 @@ fun EditTextsFG(navController: NavController?, context: Context) {
 private fun Button(
     email: String?,
     navController: NavController?,
-    context:Context
+    context: Context, viewModel: ForgotPasswordViewModel
 ) {
     Column(
         modifier = Modifier
@@ -76,7 +83,7 @@ private fun Button(
         Button(
             onClick = {
                 if (email != null) {
-                    sendEmail(navController, context, email)
+                    sendEmail(navController, context, email, viewModel)
                 }
             },
             modifier = Modifier
@@ -90,10 +97,10 @@ private fun Button(
 }
 
 @Composable
-fun BodyFG(navController: NavController?, context: Context) {
+fun BodyFG(navController: NavController?, context: Context, viewModel: ForgotPasswordViewModel) {
     Column(Modifier.background(Color.White)) {
         LogoIberdrola()
-        EditTextsFG(navController, context)
+        EditTextsFG(navController, context, viewModel)
     }
 }
 
@@ -145,8 +152,13 @@ fun PreviewFG() {
     //FGIberdrola(null)
 }
 
-private fun sendEmail(navController: NavController?, context: Context, email: String) {
-    /*viewModel.sendEmail(email)
+private fun sendEmail(
+    navController: NavController?,
+    context: Context,
+    email: String,
+    viewModel: ForgotPasswordViewModel
+) {
+    viewModel.sendEmail(email)
 
     viewModel.forgotPasswordResult.observe(context as LifecycleOwner) { result ->
         val (success, errorMessage) = result
@@ -159,5 +171,5 @@ private fun sendEmail(navController: NavController?, context: Context, email: St
                 context
             )
         }
-    }*/
+    }
 }

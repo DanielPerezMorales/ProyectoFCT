@@ -55,12 +55,11 @@ import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 private val firebaseAuth = FirebaseAuth.getInstance()
-//private val viewModel = LoginViewModel by v
 private val alert = Alert()
 private var isCheck = false
 
 @Composable
-fun LoginIberdrola(navController: NavController, context: Context) {
+fun LoginIberdrola(navController: NavController, context: Context, viewModel: LoginViewModel) {
     val prefs = LocalContext.current.getSharedPreferences(
         LocalContext.current.getString(R.string.sheredPrefJetpack),
         Context.MODE_PRIVATE
@@ -68,9 +67,9 @@ fun LoginIberdrola(navController: NavController, context: Context) {
     val email = prefs.getString("email", null)
     val password = prefs.getString("password", null)
     if (email != null && password != null) {
-        login(email, password, navController, context)
+        login(email, password, navController, context, viewModel)
     }
-    Body(navController, context)
+    Body(navController, context, viewModel)
 }
 
 @Composable
@@ -100,7 +99,7 @@ fun LogoIberdrola() {
 }
 
 @Composable
-fun EditTexts(navController: NavController, context: Context) {
+fun EditTexts(navController: NavController, context: Context, viewModel: LoginViewModel) {
     var isChecked by remember { mutableStateOf(false) }
     var textEmail by remember { mutableStateOf("") }
     var textPassword by remember { mutableStateOf("") }
@@ -132,7 +131,7 @@ fun EditTexts(navController: NavController, context: Context) {
             modifier = Modifier.clickable { navController.navigate("FG") }
         )
         Spacer(modifier = Modifier.height(100.dp))
-        Button(textEmail, textPassword, navController, context)
+        Button(textEmail, textPassword, navController, context, viewModel)
         Spacer(modifier = Modifier.height(5.dp))
         Linea()
         Spacer(modifier = Modifier.height(5.dp))
@@ -145,7 +144,7 @@ private fun Button(
     email: String?,
     password: String?,
     navController: NavController?,
-    context: Context
+    context: Context, viewModel: LoginViewModel
 ) {
     Column(
         modifier = Modifier
@@ -157,7 +156,7 @@ private fun Button(
             onClick = {
                 if (email != null && password != null) {
                     if (navController != null) {
-                        login(email, password, navController, context)
+                        login(email, password, navController, context, viewModel)
                     }
                 }
             },
@@ -171,9 +170,15 @@ private fun Button(
     }
 }
 
-private fun login(email: String, password: String, navController: NavController, context: Context) {
-    //viewModel.login(email, password)
-/*
+private fun login(
+    email: String,
+    password: String,
+    navController: NavController,
+    context: Context,
+    viewModel: LoginViewModel
+) {
+    viewModel.login(email, password)
+
     viewModel.loginResult.observe(context as LifecycleOwner) { result ->
         result?.let {
             val (success, errorMessage) = result
@@ -192,7 +197,7 @@ private fun login(email: String, password: String, navController: NavController,
                 )
             }
         }
-    }*/
+    }
 }
 
 @Composable
@@ -288,10 +293,10 @@ private fun EditTextWithEye(texto: String, onTextChange: (String) -> Unit) {
 
 
 @Composable
-fun Body(navController: NavController, context: Context) {
+fun Body(navController: NavController, context: Context, viewModel: LoginViewModel) {
     Column(Modifier.background(Color.White)) {
         LogoIberdrola()
-        EditTexts(navController, context)
+        EditTexts(navController, context, viewModel)
     }
 }
 

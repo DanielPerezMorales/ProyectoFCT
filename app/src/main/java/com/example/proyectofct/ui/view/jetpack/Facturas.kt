@@ -81,7 +81,7 @@ fun FacturasIberdrola(
     remoteConfig: Boolean,
     KTOR: Boolean
 ) {
-    BodyFacturas(navController, context, null, mock, remoteConfig, KTOR)
+    BodyFacturas(navController, context, viewmodel, mock, remoteConfig, KTOR)
 }
 
 @Composable
@@ -91,7 +91,7 @@ fun BodyFacturas(
     viewmodel: FacturasViewModel?,
     boolean: Boolean, remoteConfig: Boolean, KTOR: Boolean
 ) {
-    Facturas(navController, context = context, null, boolean, remoteConfig, KTOR)
+    Facturas(navController, context = context, viewmodel, boolean, remoteConfig, KTOR)
 }
 
 @SuppressLint(
@@ -330,7 +330,7 @@ fun Facturas(
                         }
 
                         suspend fun apply(value: Float) {
-                            /*val lista: List<FacturaEntity> =
+                            val lista: List<FacturaEntity> =
                                 facturaModule.provideRoom(context!!).getFactureDao()
                                     .getAllFacturas()
                             val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
@@ -350,7 +350,7 @@ fun Facturas(
                                 listaCheck = listaCheck,
                                 lista,
                                 listadoFiltrado()
-                            )*/
+                            )
                         }
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -522,12 +522,12 @@ fun Facturas(
         facturas = emptyList()
         if (remoteConfig) {
             if (boolean) {
-                //viewmodel?.putRetroMock(context!!, facturaModule.provideRoom(context))
+                viewmodel?.putRetroMock()
             } else {
                 if (!KTOR) {
-                    //viewmodel?.fetchFacturas(facturaModule.provideRoom(context!!))
+                    viewmodel?.fetchFacturas()
                 } else {
-                    //viewmodel?.fecthFacturasKTOR(facturaModule.provideRoom(context!!))
+                    viewmodel?.fecthFacturasKTOR()
                 }
             }
         } else {

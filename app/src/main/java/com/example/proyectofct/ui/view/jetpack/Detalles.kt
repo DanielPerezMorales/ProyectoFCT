@@ -41,18 +41,18 @@ import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 private val alert = Alert()
 
 @Composable
-fun Detalles(context: Context) {
+fun Detalles(context: Context, viewModel: DetallesViewModel) {
     Column(
         Modifier
             .fillMaxHeight()
             .background(color = colorResource(id = R.color.white))
     ) {
-        Detalles_Body(context = context)
+        Detalles_Body(context = context, viewModel)
     }
 }
 
 @Composable
-private fun Detalles_Body(context: Context) {
+private fun Detalles_Body(context: Context, viewModel:DetallesViewModel) {
     Column(Modifier.padding(10.dp)) {
         var isLoading by remember { mutableStateOf(true) }
 
@@ -62,7 +62,7 @@ private fun Detalles_Body(context: Context) {
         var textExcedentes by remember { mutableStateOf("") }
         var textPotencia by remember { mutableStateOf("") }
 
-        /*viewModel.cargarDetalles(context, detallesObject)
+        viewModel.cargarDetalles()
 
         viewModel.detallesLiveData.observe(context as LifecycleOwner) { detalles ->
             textCAU = detalles.cau
@@ -72,7 +72,7 @@ private fun Detalles_Body(context: Context) {
             textPotencia = detalles.potencia
 
             isLoading = false
-        }*/
+        }
 
         if (isLoading) {
             EditText(stringResource(id = R.string.cau), textCAU, isLoading)
