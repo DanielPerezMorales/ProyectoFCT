@@ -75,12 +75,12 @@ fun Body_menu(navController: NavController?, date: String?) {
 
     Column(Modifier.background(Color.White)) {
         var isActive by remember { mutableStateOf(false) }
-        var KTOR by remember { mutableStateOf(false) }
+        var ktor by remember { mutableStateOf(false) }
         val context = LocalContext.current
         Titulo()
         Spacer(modifier = Modifier.height(20.dp))
         TextWithButton("Práctica 1") {
-            navController?.navigate("practica1/$isActive/$seeList/$KTOR")
+            navController?.navigate("practica1/$isActive/$seeList/$ktor")
         }
         TextWithButton("Práctica 2") {
             navController?.navigate("SS")
@@ -110,6 +110,7 @@ fun Body_menu(navController: NavController?, date: String?) {
                 isActive = it
                 if (isActive) {
                     Toast.makeText(context, "Mock activado", Toast.LENGTH_SHORT).show()
+                    ktor = false
                 } else {
                     Toast.makeText(context, "Mock desactivado", Toast.LENGTH_SHORT).show()
                 }
@@ -137,10 +138,11 @@ fun Body_menu(navController: NavController?, date: String?) {
                 )
             }
 
-            Switch(checked = KTOR, onCheckedChange = {
-                KTOR = it
-                if (KTOR) {
+            Switch(checked = ktor, onCheckedChange = {
+                ktor = it
+                if (ktor) {
                     Toast.makeText(context, "KTOR activado", Toast.LENGTH_SHORT).show()
+                    isActive = false
                 } else {
                     Toast.makeText(context, "KTOR desactivado", Toast.LENGTH_SHORT).show()
                 }
