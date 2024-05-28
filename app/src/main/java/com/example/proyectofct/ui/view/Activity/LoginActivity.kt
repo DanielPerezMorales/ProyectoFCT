@@ -30,7 +30,6 @@ import javax.inject.Inject
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
-
     @Inject
     lateinit var alert: Alert
     private var auth = false
@@ -71,7 +70,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun sessionActive() {
-        //binding.PB.visibility = View.VISIBLE
         val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE)
         val email = prefs.getString("email", null)
         val password = prefs.getString("password", null)
@@ -82,20 +80,19 @@ class LoginActivity : AppCompatActivity() {
         currentDate.set(Calendar.MINUTE, 0)
         currentDate.set(Calendar.SECOND, 0)
         currentDate.set(Calendar.MILLISECOND, 0)
-        val savedDate= formatter.parse(date!!)
-        if (savedDate >= currentDate.time) {
-            if (email != null && password != null) {
-                val intent = Intent(this, PaginaPrincipal::class.java)
-                intent.putExtra("email", email)
-                intent.putExtra("password", password)
-                intent.putExtra("date", date)
-                startActivity(intent)
+        val savedDate = formatter.parse(date!!)
+        if (savedDate != null) {
+            if (savedDate >= currentDate.time) {
+                if (email != null && password != null) {
+                    val intent = Intent(this, PaginaPrincipal::class.java)
+                    intent.putExtra("email", email)
+                    intent.putExtra("password", password)
+                    intent.putExtra("date", date)
+                    startActivity(intent)
+                }
             } else {
-                //binding.PB.visibility = View.GONE
+                Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
             }
-        } else {
-            //binding.PB.visibility = View.GONE
-            Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -123,7 +120,6 @@ class LoginActivity : AppCompatActivity() {
                         intent.putExtra("email", binding.etUsuario.text)
                         intent.putExtra("password", binding.etPassword.text)
                         startActivity(intent)
-
                     }
                 }).authenticate(promptInfo)
         } else {
@@ -209,6 +205,4 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

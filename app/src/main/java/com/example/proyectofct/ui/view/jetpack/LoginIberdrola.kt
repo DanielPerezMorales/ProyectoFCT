@@ -1,6 +1,7 @@
 package com.example.proyectofct.ui.view.jetpack
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -53,6 +54,9 @@ import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
 import com.google.firebase.auth.FirebaseAuth
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 private val firebaseAuth = FirebaseAuth.getInstance()
 private val alert = Alert()
@@ -64,11 +68,24 @@ fun LoginIberdrola(navController: NavController, context: Context, viewModel: Lo
         LocalContext.current.getString(R.string.sheredPrefJetpack),
         Context.MODE_PRIVATE
     )
+    val date = prefs.getString("date", "1970-01-01")
+    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    val currentDate = Calendar.getInstance()
+    currentDate.set(Calendar.HOUR_OF_DAY, 0)
+    currentDate.set(Calendar.MINUTE, 0)
+    currentDate.set(Calendar.SECOND, 0)
+    currentDate.set(Calendar.MILLISECOND, 0)
     val email = prefs.getString("email", null)
     val password = prefs.getString("password", null)
-    if (email != null && password != null) {
-        login(email, password, navController, context, viewModel)
+    val savedDate= formatter.parse(date!!)
+    if (savedDate >= currentDate.time) {
+        if (email != null && password != null) {
+            login(email, password, navController, context, viewModel)
+        }
+    } else {
+        Toast.makeText(context, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
     }
+
     Body(navController, context, viewModel)
 }
 
@@ -183,10 +200,12 @@ private fun login(
         result?.let {
             val (success, errorMessage) = result
             if (success) {
+                val formatter = SimpleDateFormat("yyyy-MM-dd")
+                val date: String = formatter.format(Calendar.getInstance().time)
                 if (isCheck) {
-                    navController.navigate("menu_principal/${email}/${password}/true")
+                    navController.navigate("menu_principal/${email}/${password}/true/${date}")
                 } else {
-                    navController.navigate("menu_principal/${email}/${password}/false")
+                    navController.navigate("menu_principal/${email}/${password}/false/${date}")
                 }
 
             } else {

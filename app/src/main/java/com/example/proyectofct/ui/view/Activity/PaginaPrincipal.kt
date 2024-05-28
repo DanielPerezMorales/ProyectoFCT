@@ -17,18 +17,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
-import io.ktor.client.plugins.logging.LogLevel
-import io.ktor.client.plugins.logging.Logging
-import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.bodyAsText
-import io.ktor.client.statement.readText
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import javax.crypto.SecretKey
@@ -93,15 +81,13 @@ class PaginaPrincipal : AppCompatActivity() {
         binding.ibLogOut.setOnClickListener {
             val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
             prefs.clear()
-            val date = bundle?.getString("date")
-            prefs.putString("date", date)
+            prefs.putString("date", bundle?.getString("date"))
             prefs.apply()
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        // Genera o carga la clave de cifrado
         secretKey = generateOrLoadSecretKey()
 
         val email = bundle?.getString("email")

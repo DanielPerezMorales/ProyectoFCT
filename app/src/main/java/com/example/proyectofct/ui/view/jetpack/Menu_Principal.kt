@@ -35,11 +35,12 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import java.util.Date
 
 
 @Composable
-fun Menu_principal(navController: NavController?, email: String?, pass: String?, check: Boolean?) {
-    Body_menu(navController)
+fun Menu_principal(navController: NavController?, email: String?, pass: String?, check: Boolean?, date: String?) {
+    Body_menu(navController, date)
     if (check == true) {
         val prefs = LocalContext.current.getSharedPreferences(
             LocalContext.current.getString(R.string.sheredPrefJetpack),
@@ -49,12 +50,13 @@ fun Menu_principal(navController: NavController?, email: String?, pass: String?,
         prefs.putString("email", email)
         prefs.putString("password", pass)
         prefs.putBoolean("check", check)
+        prefs.putString("date", date)
         prefs.apply()
     }
 }
 
 @Composable
-fun Body_menu(navController: NavController?) {
+fun Body_menu(navController: NavController?, date: String?) {
     var seeList by remember { mutableStateOf(true) }
     val configSettings: FirebaseRemoteConfigSettings = remoteConfigSettings {
         minimumFetchIntervalInSeconds = 0
@@ -157,7 +159,7 @@ fun Body_menu(navController: NavController?) {
                     Context.MODE_PRIVATE
                 ).edit()
             prefs.clear()
-
+            prefs.putString("date", date)
             prefs.apply()
             FirebaseAuth.getInstance().signOut()
             navController?.navigate("login")
@@ -247,5 +249,5 @@ private fun TextWithButtonSignOut(onClick: () -> Unit) {
 @Preview(showSystemUi = true)
 @Composable
 fun Preview_menu() {
-    Menu_principal(navController = null, email = "null", pass = "pass", check = false)
+    Menu_principal(navController = null, email = "null", pass = "pass", check = false, "1970-01-01")
 }

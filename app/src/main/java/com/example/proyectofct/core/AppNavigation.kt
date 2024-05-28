@@ -28,17 +28,19 @@ fun AppNavigation(context: Context, loginviewModel:LoginViewModel, signUpViewMod
             LoginIberdrola(navController, context, loginviewModel)
         }
         composable(
-            route = AppScreens.Menu_principal.route + "/{email}" + "/{pass}" + "/{check}",
+            route = AppScreens.Menu_principal.route + "/{email}" + "/{pass}" + "/{check}" + "/{date}",
             arguments = listOf(
                 navArgument("email") { type = NavType.StringType },
                 navArgument("pass") { type = NavType.StringType },
-                navArgument("check") { type = NavType.BoolType }
+                navArgument("check") { type = NavType.BoolType },
+                navArgument("date") { type = NavType.StringType }
             )
         ) { backStackEntry ->
             val email = backStackEntry.arguments?.getString("email")
             val pass = backStackEntry.arguments?.getString("pass")
             val check = backStackEntry.arguments?.getBoolean("check")
-            Menu_principal(navController, email, pass, check)
+            val date = backStackEntry.arguments?.getString("date")
+            Menu_principal(navController, email, pass, check, date)
         }
         composable(route = AppScreens.Registro.route) {
             RegistroIberdrola(navController = navController, context, signUpViewModel)
