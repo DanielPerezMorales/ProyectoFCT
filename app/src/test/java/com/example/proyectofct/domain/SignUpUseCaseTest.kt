@@ -99,7 +99,7 @@ class SignUpUseCaseTest {
         }
 
         // Then
-        assertEquals(false, capturedSuccess ?: false) // Use the Elvis operator to handle null case
+        assertEquals(false, capturedSuccess ?: false)
         assertEquals("Error desconocido al crear usuario.", capturedErrorMessage ?: "Error desconocido al crear usuario.")
     }
 

@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
+import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -26,11 +27,12 @@ import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class LoginActivity: AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
+
     @Inject
-    lateinit var alert : Alert
+    lateinit var alert: Alert
     private var auth = false
     private var canAuthenticate = false
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
@@ -61,7 +63,7 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-        binding.jetpack.setOnClickListener{
+        binding.jetpack.setOnClickListener {
             val intent = Intent(this, MainCompose::class.java)
             startActivity(intent)
         }
@@ -80,8 +82,9 @@ class LoginActivity: AppCompatActivity() {
         currentDate.set(Calendar.MINUTE, 0)
         currentDate.set(Calendar.SECOND, 0)
         currentDate.set(Calendar.MILLISECOND, 0)
-        if (email != null && password != null) {
-            if (date?.let { formatter.parse(it) }!! >= currentDate.time) {
+        val savedDate= formatter.parse(date!!)
+        if (savedDate >= currentDate.time) {
+            if (email != null && password != null) {
                 val intent = Intent(this, PaginaPrincipal::class.java)
                 intent.putExtra("email", email)
                 intent.putExtra("password", password)
@@ -89,10 +92,10 @@ class LoginActivity: AppCompatActivity() {
                 startActivity(intent)
             } else {
                 //binding.PB.visibility = View.GONE
-                Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
             }
         } else {
             //binding.PB.visibility = View.GONE
+            Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -151,11 +154,13 @@ class LoginActivity: AppCompatActivity() {
                     binding.etPassword.setSelection(binding.etPassword.text.length)
                     true
                 }
+
                 MotionEvent.ACTION_UP -> {
                     binding.etPassword.inputType = 129
                     binding.etPassword.setSelection(binding.etPassword.text.length)
                     true
                 }
+
                 else -> false
             }
         }

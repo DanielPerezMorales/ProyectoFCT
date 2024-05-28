@@ -27,7 +27,7 @@ class FacturasUseCaseTest {
     private lateinit var roomUseCase: RoomUseCase
 
     @Mock
-    private lateinit var facturaDao: FacturaDao // Mock the DAO
+    private lateinit var facturaDao: FacturaDao
 
     lateinit var facturasUseCase: FacturasUseCase
 
@@ -45,9 +45,9 @@ class FacturasUseCaseTest {
     fun `fetchFacturas when response is not successful`() = runBlocking {
         var lista: List<FacturaItem> = listOf()
         // Given
-        coEvery { facturaService.getFacturas() } returns emptyList() // Mocking empty response
-        every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
-        coEvery { facturaDao.getAllFacturas() } returns emptyList() // Mocking empty database response
+        coEvery { facturaService.getFacturas() } returns emptyList()
+        every { facturaDatabase.getFactureDao() } returns facturaDao
+        coEvery { facturaDao.getAllFacturas() } returns emptyList()
 
         // When
         facturasUseCase(facturaDatabase) {
@@ -66,9 +66,9 @@ class FacturasUseCaseTest {
             FacturaItem("Pendiente de pago", 50.99F, "21/03/2020")
         )
         // Given
-        coEvery { facturaService.getFacturas() } returns lista // Mocking successful response
-        every { facturaDatabase.getFactureDao() } returns facturaDao // Mocking the DAO
-        coEvery { facturaDao.getAllFacturas() } returns emptyList() // Mocking empty database response
+        coEvery { facturaService.getFacturas() } returns lista
+        every { facturaDatabase.getFactureDao() } returns facturaDao
+        coEvery { facturaDao.getAllFacturas() } returns emptyList()
 
         // Mock roomUseCase interactions
         coEvery { roomUseCase.deleteAllFacturasFromRoom() } returns Unit

@@ -46,6 +46,7 @@ class PaginaPrincipal : AppCompatActivity() {
             setUpRemoteConfig()
         }
         enableEdgeToEdge()
+        val bundle = intent.extras
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -90,9 +91,10 @@ class PaginaPrincipal : AppCompatActivity() {
         }
 
         binding.ibLogOut.setOnClickListener {
-            val prefs =
-                getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
+            val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
             prefs.clear()
+            val date = bundle?.getString("date")
+            prefs.putString("date", date)
             prefs.apply()
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, LoginActivity::class.java)
@@ -102,7 +104,6 @@ class PaginaPrincipal : AppCompatActivity() {
         // Genera o carga la clave de cifrado
         secretKey = generateOrLoadSecretKey()
 
-        val bundle = intent.extras
         val email = bundle?.getString("email")
         val password = bundle?.getString("password")
         val check = bundle?.getBoolean("check")

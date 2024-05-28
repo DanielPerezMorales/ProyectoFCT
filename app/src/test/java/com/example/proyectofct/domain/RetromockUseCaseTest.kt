@@ -21,12 +21,6 @@ import org.mockito.junit.MockitoJUnitRunner
 class RetromockUseCaseTest {
 
     @org.mockito.Mock
-    private lateinit var context: Context
-
-    @org.mockito.Mock
-    private lateinit var appDatabase: FacturaDatabase
-
-    @org.mockito.Mock
     private lateinit var mock: Mock
 
     @org.mockito.Mock

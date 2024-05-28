@@ -23,9 +23,6 @@ class ForgotPasswordViewModelTest {
     private lateinit var forgotUseCase:ForgotPasswordUseCase
 
     @Mock
-    private lateinit var firebaseAuth: FirebaseAuth
-
-    @Mock
     private lateinit var observer: Observer<Pair<Boolean, String?>>
 
     private lateinit var viewModel: ForgotPasswordViewModel

@@ -29,7 +29,7 @@ class KtorUseCaseTest {
     private lateinit var roomUseCase: RoomUseCase
 
     @Mock
-    private lateinit var facturaDao: FacturaDao // Mock the DAO
+    private lateinit var facturaDao: FacturaDao
 
     private lateinit var ktorUseCase: KtorUseCase
 

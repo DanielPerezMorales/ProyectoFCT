@@ -48,9 +48,6 @@ class FacturasViewModelTest {
     private lateinit var retromockUseCase: RetromockUseCase
 
     @Mock
-    private lateinit var context: Context
-
-    @Mock
     lateinit var appDatabase: FacturaDatabase
 
     @Mock
