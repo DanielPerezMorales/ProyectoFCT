@@ -1,4 +1,4 @@
-package com.example.proyectofct.data.retrofit
+package com.example.proyectofct.di
 
 import android.content.Context
 import co.infinum.retromock.Retromock
