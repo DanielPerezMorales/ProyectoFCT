@@ -11,6 +11,7 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,10 +23,12 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Divider
+import androidx.compose.material.IconButton
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.MaterialTheme
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -34,16 +37,20 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.NavController
+import com.example.proyectofct.R
 
 private const val LINK_IBERDROLA = "https://www.iberdrola.es"
 
 @Composable
-fun Navegacion(context: Context?) {
+fun Navegacion(context: Context?, navController:NavController?) {
     var url by remember { mutableStateOf("") }
     val openBrowser =
         rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -61,6 +68,23 @@ fun Navegacion(context: Context?) {
             .padding(16.dp),
         verticalArrangement = Arrangement.Top
     ) {
+        TopAppBar(
+            backgroundColor = colorResource(id = R.color.transparente),
+            elevation = 0.dp
+        ) {
+            IconButton(onClick = { navController?.popBackStack() }) {
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_arrow_back_ios_new_24),
+                    contentDescription = null
+                )
+            }
+            Text(
+                text = stringResource(id = R.string.atras), fontSize = 20.sp,
+                color = colorResource(
+                    id = R.color.color_consumo
+                )
+            )
+        }
         Text(
             text = stringResource(id = com.example.proyectofct.R.string.TV_Navegacion),
             style = MaterialTheme.typography.h5,
@@ -140,5 +164,5 @@ fun LikeWebView(url: String) {
 @Preview(showSystemUi = true)
 @Composable
 fun PreviewNavegacion() {
-    Navegacion(null)
+    Navegacion(null, null)
 }

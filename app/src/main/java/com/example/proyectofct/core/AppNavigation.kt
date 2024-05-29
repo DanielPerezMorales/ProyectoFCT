@@ -44,7 +44,7 @@ fun AppNavigation(context: Context) {
             FGIberdrola(navController = navController, context = context)
         }
         composable(route = AppScreens.Navegacion.route) {
-            Navegacion(context = context)
+            Navegacion(context = context, navController)
         }
         composable(route = AppScreens.SmartSolar.route) {
             SS_Pantalla(navController = navController, context)

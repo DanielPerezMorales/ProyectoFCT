@@ -34,5 +34,7 @@ class ActivityNavegacion : AppCompatActivity() {
         binding.botonWebView.setOnClickListener {
             binding.WB.loadUrl(linkIberdrolaWeb)
         }
+
+        binding.ibBack.setOnClickListener{ onBackPressedDispatcher.onBackPressed() }
     }
 }
