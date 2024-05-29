@@ -32,7 +32,7 @@ class PantallaPrincipalSmartSolar : AppCompatActivity() {
 
         createTab()
 
-        binding.ibBack.setOnClickListener { onBackPressed() }
+        binding.ibBack.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
 
     private fun createTab() {

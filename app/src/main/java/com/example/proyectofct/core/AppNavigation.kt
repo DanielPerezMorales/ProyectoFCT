@@ -23,7 +23,7 @@ fun AppNavigation(context: Context) {
             LoginIberdrola(navController, context)
         }
         composable(
-            route = AppScreens.Menu_principal.route + "/{email}" + "/{pass}" + "/{check}" + "/{date}",
+            route = AppScreens.Menuprincipal.route + "/{email}" + "/{pass}" + "/{check}" + "/{date}",
             arguments = listOf(
                 navArgument("email") { type = NavType.StringType },
                 navArgument("pass") { type = NavType.StringType },

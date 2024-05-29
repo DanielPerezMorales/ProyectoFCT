@@ -1,5 +1,6 @@
 package com.example.proyectofct.ui.view.jetpack
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -25,6 +26,7 @@ import androidx.compose.material.Divider
 import androidx.compose.material.IconButton
 //noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextField
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -54,11 +56,9 @@ import androidx.navigation.NavController
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.ui.viewmodel.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import javax.inject.Inject
 
 private val alert = Alert()
 private var isCheck = false
@@ -80,12 +80,14 @@ fun LoginIberdrola(navController: NavController, context: Context) {
     val email = prefs.getString("email", null)
     val password = prefs.getString("password", null)
     val savedDate= formatter.parse(date!!)
-    if (savedDate >= currentDate.time) {
-        if (email != null && password != null) {
-            login(email, password, navController, context, viewModel)
+    if (savedDate != null) {
+        if (savedDate >= currentDate.time) {
+            if (email != null && password != null) {
+                login(email, password, navController, context, viewModel)
+            }
+        } else {
+            Toast.makeText(context, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
         }
-    } else {
-        Toast.makeText(context, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
     }
 
     Body(navController, context, viewModel)
@@ -189,6 +191,7 @@ private fun Button(
     }
 }
 
+@SuppressLint("SimpleDateFormat")
 private fun login(
     email: String,
     password: String,

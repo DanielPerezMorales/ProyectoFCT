@@ -18,9 +18,7 @@ class FiltradoUseCase @Inject constructor(){
                 when (listaFiltrados.size) {
                     1 -> {
                         if (listaFiltrados[0] == "Fechas") {
-                            val fechaDentroRango = if ((i.fecha >= fechaInicio && i.fecha <= fechaFin)) {
-                                    true
-                                } else { false }
+                            val fechaDentroRango = (i.fecha >= fechaInicio && i.fecha <= fechaFin)
 
                             if (precio != 0.0F) {
                                 if (precio >= i.precio && fechaDentroRango) { listaReturn.add(i) }

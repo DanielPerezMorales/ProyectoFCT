@@ -1,9 +1,7 @@
 package com.example.proyectofct.viewmodel
 
-import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.example.proyectofct.core.DetallesObject
 import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import com.example.proyectofct.domain.DetallesUseCase
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel

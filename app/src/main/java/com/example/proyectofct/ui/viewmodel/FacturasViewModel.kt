@@ -23,8 +23,8 @@ class FacturasViewModel @Inject constructor(
     private val facturaDatabase: FacturaDatabase,
     private val facturasUseCase: FacturasUseCase,
     private val filtradoUseCase : FiltradoUseCase,
-    private val RetromockUseCase : RetromockUseCase,
-    private val KtorUseCase : KtorUseCase
+    private val retromockUseCase : RetromockUseCase,
+    private val ktorUseCase : KtorUseCase
 ): ViewModel() {
     private val _facturas = MutableLiveData<List<FacturaItem>?>()
     val facturas: MutableLiveData<List<FacturaItem>?> get() = _facturas
@@ -46,7 +46,7 @@ class FacturasViewModel @Inject constructor(
 
     fun fecthFacturasKTOR(){
         _showEmptyDialog.postValue(false)
-        KtorUseCase.fetchFacturasKtor(facturaDatabase){facturasList ->
+        ktorUseCase.fetchFacturasKtor(facturaDatabase){ facturasList ->
             if(facturasList.isEmpty()){
                 _showEmptyDialog.postValue(true)
             } else {
@@ -76,7 +76,7 @@ class FacturasViewModel @Inject constructor(
 
     fun putRetroMock() {
         _showEmptyDialog.postValue(false)
-        RetromockUseCase.putRetromock {
+        retromockUseCase.putRetromock {
             if(it.isEmpty()){
                 _showEmptyDialog.postValue(true)
             } else {

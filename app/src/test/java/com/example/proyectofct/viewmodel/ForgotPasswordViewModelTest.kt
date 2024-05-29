@@ -3,10 +3,7 @@ package com.example.proyectofct.viewmodel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.proyectofct.domain.ForgotPasswordUseCase
-import com.example.proyectofct.domain.LoginUseCase
 import com.example.proyectofct.ui.viewmodel.ForgotPasswordViewModel
-import com.example.proyectofct.ui.viewmodel.LoginViewModel
-import com.google.firebase.auth.FirebaseAuth
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

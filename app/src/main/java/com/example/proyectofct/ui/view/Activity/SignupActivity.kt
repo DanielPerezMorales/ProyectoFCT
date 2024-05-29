@@ -14,7 +14,6 @@ import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivitySignupBinding
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

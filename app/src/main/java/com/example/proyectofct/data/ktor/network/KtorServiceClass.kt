@@ -2,7 +2,7 @@ package com.example.proyectofct.data.ktor.network
 
 import android.util.Log
 import com.example.proyectofct.data.ktor.HTTPRoutes
-import com.example.proyectofct.data.ktor.model.factura_item_model
+import com.example.proyectofct.data.ktor.model.FacturaItemModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
@@ -41,8 +41,8 @@ class KtorServiceClass @Inject constructor() : KtorService{
         }
     }
 
-    override suspend fun getAllFacturas(): List<factura_item_model>? {
-        var facturas: List<factura_item_model>? = null
+    override suspend fun getAllFacturas(): List<FacturaItemModel>? {
+        var facturas: List<FacturaItemModel>? = null
         withContext(Dispatchers.IO) {
             try {
                 facturas = client.get(HTTPRoutes.BASE_URL).body()

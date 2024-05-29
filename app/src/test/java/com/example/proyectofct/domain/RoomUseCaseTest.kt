@@ -17,7 +17,7 @@ class RoomUseCaseTest {
     @Mock
     private lateinit var facturaDatabase: FacturaDatabase
 
-    lateinit var roomUseCase: RoomUseCase
+    private lateinit var roomUseCase: RoomUseCase
 
     @Before
     fun setUp() {
@@ -30,7 +30,7 @@ class RoomUseCaseTest {
     fun insertFacturasToRoom() = runBlocking {
         // Given
         val facturaDao = mockk<FacturaDao>()
-        var lista: List<FacturaItem> = listOf(FacturaItem("Pagada", 100.0F, "07/12/2019"), FacturaItem("Pendiente de pago",50.99F, "21/03/2020"))
+        val lista: List<FacturaItem> = listOf(FacturaItem("Pagada", 100.0F, "07/12/2019"), FacturaItem("Pendiente de pago",50.99F, "21/03/2020"))
         val listaEntity=lista.map { it.toFacturaEntity() }
         coEvery { facturaDatabase.getFactureDao() } returns facturaDao
 

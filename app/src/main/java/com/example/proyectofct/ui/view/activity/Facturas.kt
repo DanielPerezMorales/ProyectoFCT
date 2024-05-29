@@ -25,8 +25,9 @@ import javax.inject.Inject
 class Facturas : AppCompatActivity() {
     private lateinit var binding: ActivityFacturasBinding
     private lateinit var adapter: FacturaAdapterRV
+
     @Inject
-    lateinit var alert : Alert
+    lateinit var alert: Alert
     private val facturaViewModel: FacturasViewModel by viewModels()
     private var ktor = false
 
@@ -69,7 +70,7 @@ class Facturas : AppCompatActivity() {
 
 
         binding.ibBack.setOnClickListener {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
 
         showListFilter()
@@ -78,13 +79,13 @@ class Facturas : AppCompatActivity() {
     private fun mock() {
         binding.PB.isVisible = true
         facturaViewModel.putRetroMock()
-        facturaViewModel.showEmptyDialog.observe(this) {
+        facturaViewModel.showEmptyDialog.observe(this) { it ->
             if (it) {
                 alert.showAlertYesOrNo(
                     "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
                     this
-                ) { onBackPressed() }
+                ) { onBackPressedDispatcher.onBackPressed() }
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
                     facturas?.let {
@@ -115,13 +116,13 @@ class Facturas : AppCompatActivity() {
         } else {
             facturaViewModel.fetchFacturas()
         }
-        facturaViewModel.showEmptyDialog.observe(this) {
+        facturaViewModel.showEmptyDialog.observe(this) { it ->
             if (it) {
                 alert.showAlertYesOrNo(
                     "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
                     this
-                ) { onBackPressed() }
+                ) { onBackPressedDispatcher.onBackPressed() }
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
                     facturas?.let {

@@ -5,18 +5,18 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class factura_model(
+data class FacturaModel(
     val numFacturas: String,
-    val facturas: List<factura_item_model>
+    val facturas: List<FacturaItemModel>
 )
 
 @Serializable
-data class factura_item_model(
+data class FacturaItemModel(
     val descEstado: String,
     val importeOrdenacion: Float,
     val fecha: String
 )
 
-fun factura_item_model.toFacturaItem(): FacturaItem {
+fun FacturaItemModel.toFacturaItem(): FacturaItem {
     return FacturaItem(descEstado, importeOrdenacion, fecha)
 }

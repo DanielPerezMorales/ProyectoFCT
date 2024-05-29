@@ -16,10 +16,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Button
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.ButtonDefaults
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Divider
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.MaterialTheme
+//noinspection UsingMaterialAndMaterial3Libraries
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue

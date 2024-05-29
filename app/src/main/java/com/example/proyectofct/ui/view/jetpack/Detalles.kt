@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.LifecycleOwner
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
-import com.example.proyectofct.core.DetallesObject
 import com.example.proyectofct.ui.viewmodel.DetallesViewModel
 
 

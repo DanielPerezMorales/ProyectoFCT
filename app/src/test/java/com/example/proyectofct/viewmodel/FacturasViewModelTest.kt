@@ -1,6 +1,5 @@
 package com.example.proyectofct.viewmodel
 
-import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.example.proyectofct.data.database.FacturaDatabase

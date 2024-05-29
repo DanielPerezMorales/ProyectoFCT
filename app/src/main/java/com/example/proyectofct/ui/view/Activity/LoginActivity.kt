@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.InputType.TYPE_CLASS_TEXT
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge

@@ -1,7 +1,6 @@
 package com.example.proyectofct.data.retrofit.network
 
 import android.util.Log
-import com.example.proyectofct.data.retrofit.RetrofitHelper
 import com.example.proyectofct.data.retrofit.model.FacturaItem
 import com.example.proyectofct.data.retrofit.model.ModeloFactura
 import retrofit2.Retrofit

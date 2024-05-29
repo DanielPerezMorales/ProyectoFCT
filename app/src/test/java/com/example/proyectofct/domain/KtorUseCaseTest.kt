@@ -40,7 +40,7 @@ class KtorUseCaseTest {
         facturaDatabase = mockk()
         facturaDao = mockk()
         roomUseCase = mockk()
-        ktorUseCase = KtorUseCase(roomUseCase = roomUseCase, KtorService = ktorService)
+        ktorUseCase = KtorUseCase(roomUseCase = roomUseCase, ktorServiceClass = ktorService)
     }
 
     @Test

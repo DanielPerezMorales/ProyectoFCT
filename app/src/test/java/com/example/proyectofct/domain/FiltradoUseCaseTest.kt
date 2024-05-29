@@ -12,7 +12,7 @@ import java.util.*
 
 class FiltradoUseCaseTest {
 
-    lateinit var filtradoUseCase: FiltradoUseCase
+    private lateinit var filtradoUseCase: FiltradoUseCase
 
     @Before
     fun setUp() {
@@ -50,7 +50,7 @@ class FiltradoUseCaseTest {
         val precio = 60F
         val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
         val fechaInicio = "20/01/2020"
-        val fechaFin: String = "20/05/2020"
+        val fechaFin = "20/05/2020"
         val fechaInicioDate = formatoFecha.parse(fechaInicio)
         val fechaFinDate = formatoFecha.parse(fechaFin)
         val listaCheck = listOf("")
