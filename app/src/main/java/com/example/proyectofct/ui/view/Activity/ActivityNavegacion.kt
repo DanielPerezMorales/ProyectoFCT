@@ -1,5 +1,6 @@
 package com.example.proyectofct.ui.view.Activity
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -10,9 +11,11 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofct.R
 import com.example.proyectofct.databinding.ActivityNavegacionBinding
 
+
 class ActivityNavegacion : AppCompatActivity() {
     private lateinit var binding:ActivityNavegacionBinding
-    private val linkIberdrolaWeb="https://www.iberdrola.es"
+    private val linkIberdrolaWeb="https://www.iberdrola.com/"
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
