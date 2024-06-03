@@ -190,6 +190,7 @@ class FiltrarFacturasFragment : Fragment() {
     private fun delete() {
         binding.btnCalendarDesde.setText(R.string.dia_mes_anio)
         binding.btnCalendarHasta.setText(R.string.dia_mes_anio)
+        binding.volumeRange.setValues(0F)
         binding.ChckPagadas.isChecked = false
         binding.ChckPendientesDePago.isChecked = false
         binding.ChckAnuladas.isChecked = false

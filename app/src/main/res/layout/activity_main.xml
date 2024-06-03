@@ -185,7 +185,8 @@
             android:id="@+id/SW_KTOR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16sp" />
+            android:layout_margin="16sp"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
     </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider
