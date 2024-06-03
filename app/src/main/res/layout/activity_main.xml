@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".ui.view.Activity.PaginaPrincipal">
 
     <TextView
@@ -152,7 +152,7 @@
             android:id="@+id/SW_Mock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16sp"/>
+            android:layout_margin="16sp" />
     </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider
@@ -185,7 +185,7 @@
             android:id="@+id/SW_KTOR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16sp"/>
+            android:layout_margin="16sp" />
     </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider
@@ -193,39 +193,47 @@
         android:layout_height="1dp"
         android:layout_marginVertical="8dp" />
 
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="165sp" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp" />
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10sp"
             android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10sp"
-                android:padding="10sp"
-                android:text="@string/cerrar_sesi_n"
-                android:textSize="20sp" />
-        </LinearLayout>
-        <ImageButton
-            android:id="@+id/ibLogOut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10sp"
-            android:background="@color/white"
-            app:srcCompat="@drawable/baseline_exit_to_app_24" />
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10sp"
+                    android:padding="10sp"
+                    android:text="@string/cerrar_sesi_n"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/ibLogOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10sp"
+                android:background="@color/white"
+                app:srcCompat="@drawable/baseline_exit_to_app_24" />
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
 
