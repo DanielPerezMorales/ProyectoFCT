@@ -64,6 +64,9 @@ class LoginActivity : AppCompatActivity() {
         binding.jetpack.setOnClickListener {
             val intent = Intent(this, MainCompose::class.java)
             startActivity(intent)
+            /*
+            BOTON PARA APP EN JETPACK COMPOSE 100% FUNCIONAL
+            */
         }
         sessionActive()
     }
