@@ -53,7 +53,7 @@ class FiltrarFacturasFragment : Fragment() {
             vp.visibility = View.GONE
         }
 
-        CoroutineScope(Dispatchers.IO).launch { putMax() }
+        CoroutineScope(Dispatchers.IO).launch { putValues() }
 
         binding.volumeRange.addOnChangeListener { _, value, _ ->
             putMaxSeleccionadoAndPrecio(value)
@@ -74,18 +74,25 @@ class FiltrarFacturasFragment : Fragment() {
 
 
     @SuppressLint("SetTextI18n")
-    private suspend fun putMax() {
+    private suspend fun putValues() {
         val max: Float? = putMaxValue(
+            facturaDatabase.getFactureDao().getAllFacturas()
+        )
+        val min: Float? = putMinValue(
             facturaDatabase.getFactureDao().getAllFacturas()
         )
         if (max != null) {
             binding.TVMaxPrecio.text = max.toString()
+            binding.TVMinPrecio.text = min.toString()
         } else {
             binding.TVMaxPrecio.text = "100"
+            binding.TVMinPrecio.text = "0"
         }
 
-        if (max != null) {
+        if (max != null && min != null) {
             binding.volumeRange.valueTo = (max.toInt() + 1).toFloat()
+            binding.volumeRange.valueFrom = (min.toInt() + 1).toFloat()
+            binding.volumeRange.setValues((min.toInt() + 1).toFloat())
             binding.volumeRange.stepSize = 1F
         }
     }
@@ -132,6 +139,20 @@ class FiltrarFacturasFragment : Fragment() {
             }
         }
         return max
+    }
+
+    private fun putMinValue(lista: List<FacturaEntity>): Float? {
+        var min: Float? = null
+        for (i in lista) {
+            if (min != null) {
+                if (min >= i.precio) {
+                    min = i.precio
+                }
+            } else {
+                min = i.precio
+            }
+        }
+        return min
     }
 
     private fun selectDate() {
