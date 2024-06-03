@@ -85,7 +85,7 @@ class Facturas : AppCompatActivity() {
                     "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
                     this
-                ) { onBackPressedDispatcher.onBackPressed() }
+                , { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
                     facturas?.let {
@@ -122,7 +122,7 @@ class Facturas : AppCompatActivity() {
                     "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
                     this
-                ) { onBackPressedDispatcher.onBackPressed() }
+                    , { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
                     facturas?.let {

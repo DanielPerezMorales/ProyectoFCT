@@ -28,7 +28,7 @@ class Alert @Inject constructor(){
         dialog.show()
     }
 
-    fun showAlertYesOrNo(titulo: String, mensaje: String, cont: Context, yesAction: () -> Unit) {
+    fun showAlertYesOrNo(titulo: String, mensaje: String, cont: Context, yesAction: () -> Unit, noAction: () -> Unit) {
         val builder = AlertDialog.Builder(cont)
         builder.setTitle(titulo)
         builder.setMessage(mensaje)
@@ -38,14 +38,11 @@ class Alert @Inject constructor(){
         }
 
         builder.setPositiveButton("No") { _, _ ->
+            noAction()
         }
 
         val dialog: AlertDialog = builder.create()
         dialog.show()
-
-        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener {
-            dialog.dismiss()
-        }
     }
 
     fun showPopNative(cont: Detallesfragment) {

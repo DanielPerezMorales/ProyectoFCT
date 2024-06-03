@@ -14,7 +14,6 @@ import com.example.proyectofct.core.DatePickerFragment
 import com.example.proyectofct.data.database.FacturaDatabase
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.databinding.FragmentFiltrarFacturasBinding
-import com.example.proyectofct.di.RoomModule
 import com.example.proyectofct.ui.viewmodel.FacturasViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -26,6 +25,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FiltrarFacturasFragment : Fragment() {
     private var precio: Float = 0.0f
+    private var preciomin: Float? = 0.0f
     @Inject
     lateinit var facturaDatabase: FacturaDatabase
     private val facturaViewModel: FacturasViewModel by activityViewModels()
@@ -64,7 +64,7 @@ class FiltrarFacturasFragment : Fragment() {
             alert.showAlertYesOrNo("Borrado",
                 "¿Seguro que quieres borrar el filtrado?",
                 requireContext()
-            ) { delete() }
+            , yesAction = { delete() }, noAction = {})
         }
         binding.btnAplicar.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch { apply(value = precio) }
@@ -78,21 +78,21 @@ class FiltrarFacturasFragment : Fragment() {
         val max: Float? = putMaxValue(
             facturaDatabase.getFactureDao().getAllFacturas()
         )
-        val min: Float? = putMinValue(
+        preciomin = putMinValue(
             facturaDatabase.getFactureDao().getAllFacturas()
         )
         if (max != null) {
             binding.TVMaxPrecio.text = max.toString()
-            binding.TVMinPrecio.text = min.toString()
+            binding.TVMinPrecio.text = preciomin.toString()
         } else {
             binding.TVMaxPrecio.text = "100"
             binding.TVMinPrecio.text = "0"
         }
 
-        if (max != null && min != null) {
+        if (max != null && preciomin != null) {
             binding.volumeRange.valueTo = (max.toInt() + 1).toFloat()
-            binding.volumeRange.valueFrom = (min.toInt() + 1).toFloat()
-            binding.volumeRange.setValues((min.toInt() + 1).toFloat())
+            binding.volumeRange.valueFrom = (preciomin!!.toInt() + 1).toFloat()
+            binding.volumeRange.setValues((preciomin!!.toInt() + 1).toFloat())
             binding.volumeRange.stepSize = 1F
         }
     }
@@ -211,7 +211,7 @@ class FiltrarFacturasFragment : Fragment() {
     private fun delete() {
         binding.btnCalendarDesde.setText(R.string.dia_mes_anio)
         binding.btnCalendarHasta.setText(R.string.dia_mes_anio)
-        binding.volumeRange.setValues(0.0F)
+        binding.volumeRange.setValues(((preciomin?.toInt() ?: 0) + 1).toFloat())
         binding.ChckPagadas.isChecked = false
         binding.ChckPendientesDePago.isChecked = false
         binding.ChckAnuladas.isChecked = false

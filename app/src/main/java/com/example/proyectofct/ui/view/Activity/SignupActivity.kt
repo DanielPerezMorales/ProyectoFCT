@@ -15,18 +15,20 @@ import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivitySignupBinding
 import com.example.proyectofct.ui.viewmodel.SignUpViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
     @Inject
-    lateinit var alert : Alert
+    lateinit var alert: Alert
     private val viewModel: SignUpViewModel by viewModels()
-    private lateinit var binding:ActivitySignupBinding
+    private lateinit var binding: ActivitySignupBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding=ActivitySignupBinding.inflate(layoutInflater)
+        binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.signup_layout)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -39,6 +41,7 @@ class SignupActivity : AppCompatActivity() {
         seePassword()
     }
 
+    @SuppressLint("SimpleDateFormat")
     private fun createUser() {
         binding.btnCrearUsuario.setOnClickListener {
             val email = binding.etEmail.text.toString()
@@ -50,8 +53,18 @@ class SignupActivity : AppCompatActivity() {
         viewModel.signupResult.observe(this) { result ->
             val (success, errorMessage) = result
             if (success) {
-                val intent = Intent(this, PaginaPrincipal::class.java)
-                startActivity(intent)
+                alert.showAlertYesOrNo("Usuario Creado", "¿Quieres dejar la sesión activa?", this, {
+                    val intent = Intent(this, PaginaPrincipal::class.java)
+                    intent.putExtra("email", binding.etEmail.text.toString())
+                    intent.putExtra("password", binding.etPassword.text.toString())
+                    val formatter = SimpleDateFormat("yyyy-MM-dd")
+                    intent.putExtra("date", formatter.format(Calendar.getInstance().time))
+                    intent.putExtra("check", true)
+                    startActivity(intent)
+                }, noAction = {
+                    val intent = Intent(this, PaginaPrincipal::class.java)
+                    startActivity(intent)
+                })
             } else {
                 alert.showAlert(
                     "Error",
@@ -63,14 +76,14 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun changeToLogin() {
-        binding.btnInicio.setOnClickListener{
-            val intent= Intent(this, LoginActivity::class.java)
+        binding.btnInicio.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun seePassword(){
+    private fun seePassword() {
         binding.ojoInformacion.setOnTouchListener { _, motionEvent ->
             when (motionEvent.action) {
                 MotionEvent.ACTION_DOWN -> {
@@ -78,11 +91,13 @@ class SignupActivity : AppCompatActivity() {
                     binding.etPassword.setSelection(binding.etPassword.text.length)
                     true
                 }
+
                 MotionEvent.ACTION_UP -> {
                     binding.etPassword.inputType = 129
                     binding.etPassword.setSelection(binding.etPassword.text.length)
                     true
                 }
+
                 else -> false
             }
         }
