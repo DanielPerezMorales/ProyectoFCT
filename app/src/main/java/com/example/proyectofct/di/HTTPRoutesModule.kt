@@ -10,5 +10,5 @@ import javax.inject.Singleton
 object HTTPRoutesModule {
     @Singleton
     @Provides
-    fun provideURL() = "http://172.16.216.74:8080/facturas"
+    fun provideURL() = "http://172.16.219.14:8080/facturas"
 }
