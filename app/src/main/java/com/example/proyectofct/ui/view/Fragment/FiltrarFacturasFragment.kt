@@ -25,7 +25,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class FiltrarFacturasFragment : Fragment() {
     private var precio: Float = 0.0f
-    private var preciomin: Float? = 0.0f
     @Inject
     lateinit var facturaDatabase: FacturaDatabase
     private val facturaViewModel: FacturasViewModel by activityViewModels()
@@ -78,21 +77,15 @@ class FiltrarFacturasFragment : Fragment() {
         val max: Float? = putMaxValue(
             facturaDatabase.getFactureDao().getAllFacturas()
         )
-        preciomin = putMinValue(
-            facturaDatabase.getFactureDao().getAllFacturas()
-        )
         if (max != null) {
             binding.TVMaxPrecio.text = max.toString()
-            binding.TVMinPrecio.text = preciomin.toString()
         } else {
             binding.TVMaxPrecio.text = "100"
             binding.TVMinPrecio.text = "0"
         }
 
-        if (max != null && preciomin != null) {
+        if (max != null) {
             binding.volumeRange.valueTo = (max.toInt() + 1).toFloat()
-            binding.volumeRange.valueFrom = (preciomin!!.toInt() + 1).toFloat()
-            binding.volumeRange.setValues((preciomin!!.toInt() + 1).toFloat())
             binding.volumeRange.stepSize = 1F
         }
     }
@@ -139,20 +132,6 @@ class FiltrarFacturasFragment : Fragment() {
             }
         }
         return max
-    }
-
-    private fun putMinValue(lista: List<FacturaEntity>): Float? {
-        var min: Float? = null
-        for (i in lista) {
-            if (min != null) {
-                if (min >= i.precio) {
-                    min = i.precio
-                }
-            } else {
-                min = i.precio
-            }
-        }
-        return min
     }
 
     private fun selectDate() {
@@ -211,7 +190,6 @@ class FiltrarFacturasFragment : Fragment() {
     private fun delete() {
         binding.btnCalendarDesde.setText(R.string.dia_mes_anio)
         binding.btnCalendarHasta.setText(R.string.dia_mes_anio)
-        binding.volumeRange.setValues(((preciomin?.toInt() ?: 0) + 1).toFloat())
         binding.ChckPagadas.isChecked = false
         binding.ChckPendientesDePago.isChecked = false
         binding.ChckAnuladas.isChecked = false

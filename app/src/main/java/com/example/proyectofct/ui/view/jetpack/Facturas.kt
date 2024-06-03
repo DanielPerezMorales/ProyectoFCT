@@ -122,15 +122,12 @@ fun Facturas(
     var isCheckedPlanDePago by remember { mutableStateOf(false) }
     var isCheckedAnuladas by remember { mutableStateOf(false) }
     var isCheckedCuotaFija by remember { mutableStateOf(false) }
-    var preciomin = 0.0f
+    val preciomin = 0.0f
     var preciomax = 0.0f
     CoroutineScope(Dispatchers.IO).launch {
         preciomax = putMaxValue(
             facturaModule.provideRoom(context!!).getFactureDao().getAllFacturas()
         ) ?: 100F
-        preciomin = putMinValue(
-            facturaModule.provideRoom(context).getFactureDao().getAllFacturas()
-        ) ?: 0F
     }
 
     Column(
@@ -680,20 +677,6 @@ private fun putMaxValue(lista: List<FacturaEntity>): Float? {
         }
     }
     return max
-}
-
-private fun putMinValue(lista: List<FacturaEntity>): Float? {
-    var min: Float? = null
-    for (i in lista) {
-        if (min != null) {
-            if (min >= i.precio) {
-                min = i.precio
-            }
-        } else {
-            min = i.precio
-        }
-    }
-    return min
 }
 
 
