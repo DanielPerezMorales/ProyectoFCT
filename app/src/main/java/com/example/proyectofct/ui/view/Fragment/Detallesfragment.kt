@@ -19,7 +19,6 @@ class Detallesfragment @Inject constructor(private val alert : Alert): Fragment(
 
     private lateinit var binding: FragmentDetallesFragmentBinding
 
-    // ViewModel
     private val viewModel: DetallesViewModel by activityViewModels()
 
     override fun onCreateView(

@@ -67,20 +67,34 @@
     <string name="hint_ForgotPassword">Escribe el email al cuál quieres reestablecer su contraseña</string>
     <string name="enviar">Enviar</string>
     <string name="si_ya_te_has_acordado">Si ya te has acordado</string>
+
+    <!-- Pantalla Navegación -->
     <string name="navegacion">Navegación</string>
     <string name="abrir_navegador_externo">Abrir Navegador externo</string>
     <string name="abrir_webview">Abrir Webview</string>
     <string name="TV_Navegacion">Desde una aplicación Android, se puede acceder a páginas webs, mediante el navegador externo o mediante Webviews</string>
+
+    <!-- Pantalla Principal -->
     <string name="activar_mock">Activar Mock</string>
     <string name="activar_ktor">Activar KTOR</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Pantalla Smart Solar -->
     <string name="estado_solicitud_autoconsumo">Estado solicitud autoconsumo</string>
+
+    <!-- Pantalla PopUp Nativo -->
     <string name="el_tiempo_estimado_de_activaci_n_de_tu_autoconsumo_es_de_1_a_2_meses_ste_variar_en_funci_n_de_tu_comunidad_aut_noma_y_distribuidora">El tiempo estimado de activación de tu autoconsumo es de 1 a 2 meses, éste variará en función de tu comunidad autónoma y distribuidora</string>
+
+    <!-- Pantalla Filtrado -->
     <string name="aceptar">Aceptar</string>
     <string name="valorTVMin">0</string>
 
+    <!-- SheredPreferences -->
     <string name="sheredPref">com.example.proyectofct.PREFERENCE_FILE_KEY</string>
     <string name="sheredPrefJetpack">com.example.proyectofct.PREFERENCE_FILE_KEY_JETPACK</string>
+
+    <!-- Pantalla Principal -->
     <string name="cerrar_sesi_n">Cerrar sesión</string>
+
+    <!-- Pantalla Filtrado -->
     <string name="_0">"    0€"</string>
 </resources>
