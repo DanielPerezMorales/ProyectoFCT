@@ -1,6 +1,7 @@
 package com.example.proyectofct.data.retrofit.network
 
 import co.infinum.retromock.meta.Mock
+import co.infinum.retromock.meta.MockCircular
 import co.infinum.retromock.meta.MockRandom
 import co.infinum.retromock.meta.MockResponse
 import com.example.proyectofct.data.retrofit.model.ModeloDetalles
@@ -14,7 +15,7 @@ interface ApiService {
     suspend fun getAllFacturas(): Response<ModeloFactura>
 
     @Mock
-    @MockRandom
+    @MockCircular
     @MockResponse(body = "facturas.json")
     @MockResponse(body = "facturas2.json")
     @MockResponse(body = "facturas3.json")
