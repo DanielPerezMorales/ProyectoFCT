@@ -14,8 +14,7 @@ import com.example.proyectofct.databinding.ActivityNavegacionBinding
 
 class ActivityNavegacion : AppCompatActivity() {
     private lateinit var binding:ActivityNavegacionBinding
-    private val linkIberdrolaWeb="https://www.iberdrola.com"
-    @SuppressLint("SetJavaScriptEnabled")
+    private val linkIberdrolaWeb="https://www.iberdrola.es"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,6 +25,8 @@ class ActivityNavegacion : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        binding.WB.settings.allowContentAccess
 
         binding.botonWeb.setOnClickListener {
             val link=Uri.parse(linkIberdrolaWeb)
