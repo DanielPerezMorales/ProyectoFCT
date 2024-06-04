@@ -1,6 +1,7 @@
 package com.example.proyectofct.data.ktor.network
 
 import android.util.Log
+import com.example.proyectofct.core.URL
 import com.example.proyectofct.data.ktor.model.FacturaItemModel
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -21,7 +22,9 @@ import kotlinx.serialization.json.Json
 import javax.inject.Inject
 
 
-class KtorServiceClass @Inject constructor(private val url: String) : KtorService {
+class KtorServiceClass @Inject constructor(
+    @URL private val url: String
+) : KtorService {
     private val client = HttpClient(Android) {
         install(ContentNegotiation) {
             json(Json {

@@ -9,12 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.proyectofct.R
+import com.example.proyectofct.core.LINK
 import com.example.proyectofct.databinding.ActivityNavegacionBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
-class ActivityNavegacion : AppCompatActivity() {
+@AndroidEntryPoint
+class ActivityNavegacion: AppCompatActivity() {
     private lateinit var binding:ActivityNavegacionBinding
-    private val linkIberdrolaWeb="https://www.iberdrola.es"
+    @Inject
+    @LINK lateinit var linkIberdrolaWeb:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,6 +40,7 @@ class ActivityNavegacion : AppCompatActivity() {
         }
 
         binding.botonWebView.setOnClickListener {
+            binding.WB.clearCache(true)
             binding.WB.loadUrl(linkIberdrolaWeb)
         }
 
