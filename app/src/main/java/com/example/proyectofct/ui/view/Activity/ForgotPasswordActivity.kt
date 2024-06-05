@@ -43,7 +43,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             fgViewModel.sendEmail(email)
         }
 
-        fgViewModel.forgotPasswordResult.observe(this, Observer { result ->
+        fgViewModel.forgotPasswordResult.observe(this) { result ->
             val (success, errorMessage) = result
             if (success) {
                 val intent = Intent(this, LoginActivity::class.java)
@@ -56,7 +56,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
                     this
                 )
             }
-        })
+        }
     }
 
     private fun comeBackToLogin() {

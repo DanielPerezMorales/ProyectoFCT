@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="15sp"
-            android:paddingBottom="8sp">
+            android:paddingBottom="10sp">
 
             <TextView
                 android:id="@+id/TVfechaFactura"

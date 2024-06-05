@@ -45,8 +45,6 @@ class FiltrarFacturasFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ibCloseWindow.setOnClickListener {
-            delete()
-            CoroutineScope(Dispatchers.IO).launch { apply(precio) }
             requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
             val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
             vp.visibility = View.GONE
