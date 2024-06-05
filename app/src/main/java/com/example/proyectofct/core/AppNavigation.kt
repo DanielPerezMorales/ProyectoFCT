@@ -2,11 +2,13 @@ package com.example.proyectofct.core
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.proyectofct.R
 import com.example.proyectofct.ui.view.jetpack.FGIberdrola
 import com.example.proyectofct.ui.view.jetpack.FacturasIberdrola
 import com.example.proyectofct.ui.view.jetpack.LoginIberdrola
@@ -23,18 +25,18 @@ fun AppNavigation(context: Context) {
             LoginIberdrola(navController, context)
         }
         composable(
-            route = AppScreens.Menuprincipal.route + "/{email}" + "/{pass}" + "/{check}" + "/{date}",
+            route = AppScreens.Menuprincipal.route + "/{email}" + "/{password}" + "/{check}" + "/{date}",
             arguments = listOf(
                 navArgument("email") { type = NavType.StringType },
-                navArgument("pass") { type = NavType.StringType },
+                navArgument("password") { type = NavType.StringType },
                 navArgument("check") { type = NavType.BoolType },
                 navArgument("date") { type = NavType.StringType }
             )
         ) { backStackEntry ->
-            val email = backStackEntry.arguments?.getString("email")
-            val pass = backStackEntry.arguments?.getString("pass")
-            val check = backStackEntry.arguments?.getBoolean("check")
-            val date = backStackEntry.arguments?.getString("date")
+            val email = backStackEntry.arguments?.getString(stringResource(R.string.email))
+            val pass = backStackEntry.arguments?.getString(stringResource(R.string.password))
+            val check = backStackEntry.arguments?.getBoolean(stringResource(R.string.check))
+            val date = backStackEntry.arguments?.getString(stringResource(R.string.date))
             Menu_principal(navController, email, pass, check, date)
         }
         composable(route = AppScreens.Registro.route) {
@@ -65,9 +67,9 @@ fun AppNavigation(context: Context) {
             FacturasIberdrola(
                 navController = navController,
                 context = context,
-                it.arguments!!.getBoolean("mock"),
-                it.arguments!!.getBoolean("remoteConfig"),
-                it.arguments!!.getBoolean("KTOR")
+                it.arguments!!.getBoolean(stringResource(R.string.mock)),
+                it.arguments!!.getBoolean(stringResource(R.string.remoteconfig)),
+                it.arguments!!.getBoolean(stringResource(R.string.ktor))
             )
         }
 

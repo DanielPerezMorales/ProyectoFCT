@@ -1,6 +1,8 @@
 package com.example.proyectofct.core
 
+import android.content.Context
 import android.util.Log
+import com.example.proyectofct.R
 import com.example.proyectofct.data.mock.Mock
 import com.example.proyectofct.data.retrofit.model.ModeloDetalles
 import kotlinx.coroutines.Dispatchers
@@ -9,7 +11,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DetallesObject @Inject constructor(private val servicioMock: Mock) {
+class DetallesObject @Inject constructor(
+    private val servicioMock: Mock,
+    private val contexto: Context
+) {
     private var modeloDetalles: ModeloDetalles? = null
 
     fun inicializar() {
@@ -19,10 +24,6 @@ class DetallesObject @Inject constructor(private val servicioMock: Mock) {
     private suspend fun obtenerDatos(): ModeloDetalles? {
         return withContext(Dispatchers.IO) {
             val facturasMock: ModeloDetalles? = servicioMock.getDetallesMOCK()
-            Log.i("kjdekj", "$facturasMock")
-            if (facturasMock != null) {
-                Log.i("TAG", "DATOS INTRODUCIDOS POR MOCK")
-            }
             facturasMock
         }
     }
@@ -31,6 +32,12 @@ class DetallesObject @Inject constructor(private val servicioMock: Mock) {
         if (modeloDetalles == null) {
             modeloDetalles = obtenerDatos()
         }
-        return modeloDetalles ?: ModeloDetalles("", "", "", "", "")
+        return modeloDetalles ?: ModeloDetalles(
+            contexto.getString(R.string.espacio_vacio),
+            contexto.getString(R.string.espacio_vacio),
+            contexto.getString(R.string.espacio_vacio),
+            contexto.getString(R.string.espacio_vacio),
+            contexto.getString(R.string.espacio_vacio)
+        )
     }
 }

@@ -170,5 +170,9 @@
     <string name="IP_KTOR">http://172.16.219.14:8080/facturas</string>
     <string name="linkIberdrola">https://www.iberdrola.es</string>
     <string name="linkretrofit">https://viewnextandroid4.wiremockapi.cloud/</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="s">Sí</string>
+    <string name="no">No</string>
+    <string name="remoteconfig">remoteConfig</string>
 
 </resources>
