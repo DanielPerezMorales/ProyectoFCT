@@ -18,9 +18,10 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ForgotPasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityForgotPasswordBinding
-    private val fgViewModel:ForgotPasswordViewModel by viewModels()
+    private val fgViewModel: ForgotPasswordViewModel by viewModels()
+
     @Inject
-    lateinit var alert : Alert
+    lateinit var alert: Alert
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -57,9 +58,11 @@ class ForgotPasswordActivity : AppCompatActivity() {
         })
     }
 
-    private fun comeBackToLogin(){
-        binding.btnInicio.setOnClickListener{
-            onBackPressedDispatcher.onBackPressed()
+    private fun comeBackToLogin() {
+        binding.btnInicio.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
     }
 }
