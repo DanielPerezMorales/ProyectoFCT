@@ -60,6 +60,7 @@ class SignupActivity : AppCompatActivity() {
                     val formatter = SimpleDateFormat("yyyy-MM-dd")
                     intent.putExtra("date", formatter.format(Calendar.getInstance().time))
                     intent.putExtra("check", true)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     startActivity(intent)
                 }, noAction = {
                     val intent = Intent(this, PaginaPrincipal::class.java)

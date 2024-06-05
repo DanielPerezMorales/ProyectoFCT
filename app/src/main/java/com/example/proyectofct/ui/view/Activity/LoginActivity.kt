@@ -90,6 +90,7 @@ class LoginActivity : AppCompatActivity() {
                     intent.putExtra("email", email)
                     intent.putExtra("password", password)
                     intent.putExtra("date", date)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
             } else {
@@ -121,6 +122,7 @@ class LoginActivity : AppCompatActivity() {
                         val intent = Intent(this@LoginActivity, PaginaPrincipal::class.java)
                         intent.putExtra("email", binding.etUsuario.text)
                         intent.putExtra("password", binding.etPassword.text)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                     }
                 }).authenticate(promptInfo)
@@ -182,6 +184,7 @@ class LoginActivity : AppCompatActivity() {
                         val formatter = SimpleDateFormat("yyyy-MM-dd")
                         intent.putExtra("date", formatter.format(Calendar.getInstance().time))
                         intent.putExtra("check", true)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
 
                         binding.etUsuario.setText("")
@@ -189,6 +192,7 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         val intent = Intent(this, PaginaPrincipal::class.java)
                         intent.putExtra("check", false)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
 
                         binding.etUsuario.setText("")
