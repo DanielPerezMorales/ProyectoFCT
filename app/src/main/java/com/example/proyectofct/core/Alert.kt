@@ -9,14 +9,12 @@ import com.example.proyectofct.R
 import com.example.proyectofct.ui.view.Fragment.Detallesfragment
 import javax.inject.Inject
 
-class Alert @Inject constructor(
-    private val contexto:Context
-){
+class Alert @Inject constructor(){
     fun showAlert(titulo: String,mensaje: String, cont: Context) {
         val builder = AlertDialog.Builder(cont)
         builder.setTitle(titulo)
         builder.setMessage(mensaje)
-        builder.setPositiveButton(contexto.getString(R.string.aceptar), null)
+        builder.setPositiveButton("Aceptar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
@@ -25,7 +23,7 @@ class Alert @Inject constructor(
         val builder = AlertDialog.Builder(cont)
         builder.setTitle(titulo)
         builder.setMessage(mensaje)
-        builder.setPositiveButton(contexto.getString(R.string.cerrar), null)
+        builder.setPositiveButton("Cerrar", null)
         val dialog: AlertDialog = builder.create()
         dialog.show()
     }
@@ -35,11 +33,11 @@ class Alert @Inject constructor(
         builder.setTitle(titulo)
         builder.setMessage(mensaje)
 
-        builder.setNegativeButton(contexto.getString(R.string.s)) { _, _ ->
+        builder.setNegativeButton("Sí") { _, _ ->
             yesAction()
         }
 
-        builder.setPositiveButton(contexto.getString(R.string.no)) { _, _ ->
+        builder.setPositiveButton("No") { _, _ ->
             noAction()
         }
 

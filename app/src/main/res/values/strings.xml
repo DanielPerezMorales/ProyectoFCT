@@ -172,9 +172,6 @@
     <string name="linkretrofit">https://viewnextandroid4.wiremockapi.cloud/</string>
 
     <!-- Core -->
-    <string name="cerrar">Cerrar</string>
-    <string name="s">Sí</string>
-    <string name="no">No</string>
     <string name="remoteconfig">remoteConfig</string>
 
 </resources>

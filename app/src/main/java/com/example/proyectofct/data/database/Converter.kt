@@ -4,13 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import androidx.room.TypeConverter
 import com.example.proyectofct.R
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Date
 import javax.inject.Inject
 
-class Converter @Inject constructor(private val contexto:Context){
+class Converter {
     @SuppressLint("SimpleDateFormat")
-    private val formatoFecha = SimpleDateFormat(contexto.getString(R.string.pattern_date))
+    private val formatoFecha = SimpleDateFormat("yyyy-MM-dd")
 
     @TypeConverter
     fun desdeString(fechaString: String?): Date? {
