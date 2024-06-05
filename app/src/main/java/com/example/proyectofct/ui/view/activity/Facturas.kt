@@ -56,7 +56,10 @@ class Facturas : AppCompatActivity() {
                         initUI(false)
                     }
                 } else {
-                    alert.showAlert("ERROR", "AHORA MISMO NO SE PUEDE VER", this)
+                    alert.showAlertYesOrNo(
+                        "Error",
+                        "En este momento no esta disponible esta acción. ¿Quieres salir de esta página?",
+                        this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
                 }
             }
         }
@@ -84,8 +87,7 @@ class Facturas : AppCompatActivity() {
                 alert.showAlertYesOrNo(
                     "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
-                    this
-                , { onBackPressedDispatcher.onBackPressed() }, noAction = {})
+                    this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
                     facturas?.let {
@@ -121,8 +123,7 @@ class Facturas : AppCompatActivity() {
                 alert.showAlertYesOrNo(
                     "Error",
                     "No hay nada para mostrar. ¿Quieres salir de esta página?",
-                    this
-                    , { onBackPressedDispatcher.onBackPressed() }, noAction = {})
+                    this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
                     facturas?.let {
