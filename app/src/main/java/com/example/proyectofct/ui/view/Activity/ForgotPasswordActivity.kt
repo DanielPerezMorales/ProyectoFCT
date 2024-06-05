@@ -51,8 +51,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 startActivity(intent)
             } else {
                 alert.showAlert(
-                    "Error",
-                    errorMessage ?: "Error desconocido al enviar el email.",
+                    getString(R.string.error),
+                    errorMessage ?: getString(R.string.fgError),
                     this
                 )
             }

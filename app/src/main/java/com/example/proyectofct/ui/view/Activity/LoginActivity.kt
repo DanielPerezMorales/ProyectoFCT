@@ -73,10 +73,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun sessionActive() {
         val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE)
-        val email = prefs.getString("email", null)
-        val password = prefs.getString("password", null)
-        val date = prefs.getString("date", "1970-01-01")
-        val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val email = prefs.getString(getString(R.string.email), null)
+        val password = prefs.getString(getString(R.string.password), null)
+        val date = prefs.getString(getString(R.string.date), getString(R.string.defaulr_date))
+        val formatter = SimpleDateFormat(getString(R.string.pattern_date), Locale.getDefault())
         val currentDate = Calendar.getInstance()
         currentDate.set(Calendar.HOUR_OF_DAY, 0)
         currentDate.set(Calendar.MINUTE, 0)
@@ -87,14 +87,14 @@ class LoginActivity : AppCompatActivity() {
             if (savedDate >= currentDate.time) {
                 if (email != null && password != null) {
                     val intent = Intent(this, PaginaPrincipal::class.java)
-                    intent.putExtra("email", email)
-                    intent.putExtra("password", password)
-                    intent.putExtra("date", date)
+                    intent.putExtra(getString(R.string.email), email)
+                    intent.putExtra(getString(R.string.password), password)
+                    intent.putExtra(getString(R.string.date), date)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }
             } else {
-                Toast.makeText(this, "La sesión ha caducado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.la_sesi_n_ha_caducado), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -104,8 +104,8 @@ class LoginActivity : AppCompatActivity() {
                 .canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL) == BiometricManager.BIOMETRIC_SUCCESS
         ) {
             canAuthenticate = true
-            promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle("Autenticación biométrica")
-                .setSubtitle("Autenticate utilizando el sensor biométrico")
+            promptInfo = BiometricPrompt.PromptInfo.Builder().setTitle(getString(R.string.autenticaci_n_biom_trica))
+                .setSubtitle(getString(R.string.label_autenticacion_biometrica))
                 .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG or BiometricManager.Authenticators.DEVICE_CREDENTIAL)
                 .build()
         }
@@ -120,8 +120,8 @@ class LoginActivity : AppCompatActivity() {
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
                         super.onAuthenticationSucceeded(result)
                         val intent = Intent(this@LoginActivity, PaginaPrincipal::class.java)
-                        intent.putExtra("email", binding.etUsuario.text)
-                        intent.putExtra("password", binding.etPassword.text)
+                        intent.putExtra(getString(R.string.email), binding.etUsuario.text)
+                        intent.putExtra(getString(R.string.password), binding.etPassword.text)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
                     }
@@ -179,19 +179,19 @@ class LoginActivity : AppCompatActivity() {
                 if (success) {
                     if (check) {
                         val intent = Intent(this, PaginaPrincipal::class.java)
-                        intent.putExtra("email", email)
-                        intent.putExtra("password", password)
-                        val formatter = SimpleDateFormat("yyyy-MM-dd")
-                        intent.putExtra("date", formatter.format(Calendar.getInstance().time))
-                        intent.putExtra("check", true)
+                        intent.putExtra(getString(R.string.email), email)
+                        intent.putExtra(getString(R.string.password), password)
+                        val formatter = SimpleDateFormat(getString(R.string.pattern_date))
+                        intent.putExtra(getString(R.string.date), formatter.format(Calendar.getInstance().time))
+                        intent.putExtra(getString(R.string.check), true)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
 
-                        binding.etUsuario.setText("")
-                        binding.etPassword.setText("")
+                        binding.etUsuario.setText(getString(R.string.espacio_vacio))
+                        binding.etPassword.setText(getString(R.string.espacio_vacio))
                     } else {
                         val intent = Intent(this, PaginaPrincipal::class.java)
-                        intent.putExtra("check", false)
+                        intent.putExtra(getString(R.string.check), false)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
 
@@ -200,8 +200,8 @@ class LoginActivity : AppCompatActivity() {
                     }
                 } else {
                     alert.showAlert(
-                        "Error",
-                        errorMessage ?: "Error desconocido al iniciar sesión.",
+                        getString(R.string.error),
+                        errorMessage ?: getString(R.string.error_desconocido_al_iniciar_sesi_n),
                         this
                     )
 

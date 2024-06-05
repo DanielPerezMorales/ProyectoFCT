@@ -97,4 +97,69 @@
 
     <!-- Pantalla Filtrado -->
     <string name="_0">"    0€"</string>
+
+    <!-- Pantalla Filtrado -->
+    <string name="espacio_vacio" />
+
+    <!-- Pantalla Facturas -->
+    <string name="error">Error</string>
+    <string name="label_remotrcongif_vistadoFacturaFalse">En este momento no esta disponible esta acción. ¿Quieres salir de esta página?</string>
+    <string name="label_nohayNadaParaMostrar">No hay nada para mostrar. ¿Quieres salir de esta página?</string>
+    <string name="informacion">Información</string>
+    <string name="infomracion_text">Esta funcionalidad aún no está disponible</string>
+
+    <!-- Pantalla FG -->
+    <string name="fgError">Error desconocido al enviar el email.</string>
+
+    <!-- Pantalla Login -->
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="date">date</string>
+    <string name="defaulr_date">1970-01-01</string>
+    <string name="pattern_date">yyyy-MM-dd</string>
+    <string name="la_sesi_n_ha_caducado">La sesión ha caducado</string>
+    <string name="autenticaci_n_biom_trica">Autenticación biométrica</string>
+    <string name="label_autenticacion_biometrica">Autenticate utilizando el sensor biométrico</string>
+    <string name="check">check</string>
+    <string name="error_desconocido_al_iniciar_sesi_n">Error desconocido al iniciar sesión.</string>
+
+    <!-- Pantalla PaginaPrincipal -->
+    <string name="themeapplied">themeApplied</string>
+    <string name="mock">Mock</string>
+    <string name="ktor">KTOR</string>
+    <string name="mock_activado">Mock activado</string>
+    <string name="mock_desactivado">Mock desactivado</string>
+    <string name="ktor_activado">KTOR activado</string>
+    <string name="ktor_desactivado">KTOR desactivado</string>
+    <string name="aes">AES</string>
+    <string name="visualizacion_listadofacturas">Visualizacion_ListadoFacturas</string>
+    <string name="cambiodevalores">CambioDeValores</string>
+
+    <!-- Pantalla SS -->
+    <string name="mi_instalaci_n">Mi instalación</string>
+    <string name="energ_a">Energía</string>
+    <string name="detalles">Detalles</string>
+
+    <!-- Pantalla SignUp -->
+    <string name="usuario_creado">Usuario Creado</string>
+    <string name="quieres_dejar_la_sesi_n_activa">¿Quieres dejar la sesión activa?</string>
+    <string name="error_desconocido_al_crear_usuario">Error desconocido al crear usuario.</string>
+
+    <!-- Pantalla Filtrado -->
+    <string name="borrado">Borrado</string>
+    <string name="seguro_que_quieres_borrar_el_filtrado">¿Seguro que quieres borrar el filtrado?</string>
+    <string name="_100">100</string>
+    <string name="cero">0</string>
+    <string name="parameter">"    %1$s€"</string>
+    <string name="no_hay_facturas_que_cumplan_estos_requisitos">No hay facturas que cumplan estos requisitos</string>
+    <string name="desde">Desde</string>
+    <string name="date_picker">DATE_PICKER</string>
+    <string name="hasta">Hasta</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="fechas">Fechas</string>
+    <string name="fecha1">0%1$s/0%2$s/%3$s</string>
+    <string name="fecha2">%1$s/0%2$s/%3$s</string>
+    <string name="fecha3">0%1$s/%2$s/%3$s</string>
+    <string name="fecha4">%1$s/%2$s/%3$s</string>
+
 </resources>

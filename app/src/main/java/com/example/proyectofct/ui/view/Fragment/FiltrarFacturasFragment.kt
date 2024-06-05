@@ -58,8 +58,9 @@ class FiltrarFacturasFragment : Fragment() {
 
         selectDate()
         binding.btnEliminarFiltro.setOnClickListener {
-            alert.showAlertYesOrNo("Borrado",
-                "¿Seguro que quieres borrar el filtrado?",
+            alert.showAlertYesOrNo(
+                getString(R.string.borrado),
+                getString(R.string.seguro_que_quieres_borrar_el_filtrado),
                 requireContext()
             , yesAction = { delete() }, noAction = {})
         }
@@ -78,8 +79,8 @@ class FiltrarFacturasFragment : Fragment() {
         if (max != null) {
             binding.TVMaxPrecio.text = max.toString()
         } else {
-            binding.TVMaxPrecio.text = "100"
-            binding.TVMinPrecio.text = "0"
+            binding.TVMaxPrecio.text = getString(R.string._100)
+            binding.TVMinPrecio.text = getString(R.string.cero)
         }
 
         if (max != null) {
@@ -90,7 +91,7 @@ class FiltrarFacturasFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun putMaxSeleccionadoAndPrecio(value: Float) {
-        binding.TVMaxPrecioSeleccionado.text = "    $value€"
+        binding.TVMaxPrecioSeleccionado.text = getString(R.string.parameter, value.toString())
         precio = value
     }
 
@@ -106,8 +107,8 @@ class FiltrarFacturasFragment : Fragment() {
             } else {
                 if (filtradoRealizado) {
                     alert.showAlert(
-                        "ERROR",
-                        "No hay facturas que cumplan estos requisitos",
+                        getString(R.string.error),
+                        getString(R.string.no_hay_facturas_que_cumplan_estos_requisitos),
                         requireContext()
                     )
                 }
@@ -138,48 +139,48 @@ class FiltrarFacturasFragment : Fragment() {
 
         binding.btnCalendarDesde.setOnClickListener {
             fechaDesde = DatePickerFragment { year, month, day ->
-                mostrarResultado(year, month, day, "Desde")
+                mostrarResultado(year, month, day, getString(R.string.desde))
             }
-            fechaDesde!!.show(childFragmentManager, "DATE_PICKER")
+            fechaDesde!!.show(childFragmentManager, getString(R.string.date_picker))
         }
 
         binding.btnCalendarHasta.setOnClickListener {
             fechaHasta = DatePickerFragment { year, month, day ->
-                mostrarResultado(year, month, day, "Hasta")
+                mostrarResultado(year, month, day, getString(R.string.hasta))
             }
-            fechaHasta!!.show(childFragmentManager, "DATE_PICKER")
+            fechaHasta!!.show(childFragmentManager, getString(R.string.date_picker))
         }
     }
 
 
     @SuppressLint("SetTextI18n")
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
-        if (boton == "Desde") {
+        if (boton == getString(R.string.desde)) {
             if (month + 1 < 10) {
                 if (day < 10) {
-                    binding.btnCalendarDesde.text = "0$day/0${month + 1}/$year"
+                    binding.btnCalendarDesde.text = getString(R.string.fecha1, day.toString(), (month + 1).toString(), year.toString())
                 } else {
-                    binding.btnCalendarDesde.text = "$day/0${month + 1}/$year"
+                    binding.btnCalendarDesde.text = getString(R.string.fecha2, day.toString(), (month + 1).toString(), year.toString())
                 }
             } else {
                 if (day < 10) {
-                    binding.btnCalendarDesde.text = "0$day/${month + 1}/$year"
+                    binding.btnCalendarDesde.text = getString(R.string.fecha3, day.toString(), (month + 1).toString(), year.toString())
                 } else {
-                    binding.btnCalendarDesde.text = "$day/${month + 1}/$year"
+                    binding.btnCalendarDesde.text = getString(R.string.fecha4, day.toString(), (month + 1).toString(), year.toString())
                 }
             }
         } else {
             if (month + 1 < 10) {
                 if (day < 10) {
-                    binding.btnCalendarHasta.text = "0$day/0${month + 1}/$year"
+                    binding.btnCalendarHasta.text = getString(R.string.fecha1, day.toString(), (month + 1).toString(), year.toString())
                 } else {
-                    binding.btnCalendarHasta.text = "$day/0${month + 1}/$year"
+                    binding.btnCalendarHasta.text = getString(R.string.fecha2, day.toString(), (month + 1).toString(), year.toString())
                 }
             } else {
                 if (day < 10) {
-                    binding.btnCalendarHasta.text = "0$day/${month + 1}/$year"
+                    binding.btnCalendarHasta.text = getString(R.string.fecha3, day.toString(), (month + 1).toString(), year.toString())
                 } else {
-                    binding.btnCalendarHasta.text = "$day/${month + 1}/$year"
+                    binding.btnCalendarHasta.text = getString(R.string.fecha4, day.toString(), (month + 1).toString(), year.toString())
                 }
             }
         }
@@ -202,14 +203,14 @@ class FiltrarFacturasFragment : Fragment() {
         if (isAdded && activity != null) {
             val lista: List<FacturaEntity> =
                 facturaDatabase.getFactureDao().getAllFacturas()
-            val formatoFecha = SimpleDateFormat("dd/MM/yyyy")
+            val formatoFecha = SimpleDateFormat(getString(R.string.pattern_date))
             val fechaInicioText = binding.btnCalendarDesde.text.toString()
             val fechaFinText = binding.btnCalendarHasta.text.toString()
             val listaCheck: MutableList<String> = checkBox()
             val fechaInicio =
-                if (fechaInicioText != "dia/mes/año") formatoFecha.parse(fechaInicioText) else null
+                if (fechaInicioText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaInicioText) else null
             val fechaFin =
-                if (fechaFinText != "dia/mes/año") formatoFecha.parse(fechaFinText) else null
+                if (fechaFinText != getString(R.string.dia_mes_anio)) formatoFecha.parse(fechaFinText) else null
             facturaViewModel.filtrado(
                 precio = value,
                 fechaInicio = fechaInicio,
@@ -247,13 +248,13 @@ class FiltrarFacturasFragment : Fragment() {
         val entrees: MutableList<String> = mutableListOf()
         if (isAdded && activity != null) {
             if (checkBox().isNotEmpty()) {
-                entrees.add("CheckBox")
+                entrees.add(getString(R.string.checkbox))
             }
             if (binding.btnCalendarDesde.text != getString(R.string.dia_mes_anio) && binding.btnCalendarDesde.text != getString(
                     R.string.dia_mes_anio
                 )
             ) {
-                entrees.add("Fechas")
+                entrees.add(getString(R.string.fechas))
             }
         }
         return entrees

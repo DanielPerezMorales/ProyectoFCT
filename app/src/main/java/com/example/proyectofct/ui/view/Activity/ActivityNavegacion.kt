@@ -33,7 +33,7 @@ class ActivityNavegacion: AppCompatActivity() {
 
         binding.botonWeb.setOnClickListener {
             val link=Uri.parse(linkIberdrolaWeb)
-            binding.WB.loadUrl("")
+            binding.WB.loadUrl(R.string.espacio_vacio.toString())
             val intent= Intent(Intent.ACTION_VIEW, link)
             startActivity(intent)
         }

@@ -45,20 +45,20 @@ class Facturas : AppCompatActivity() {
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
                 val visualizarListado =
-                    Firebase.remoteConfig.getBoolean("Visualizacion_ListadoFacturas")
+                    Firebase.remoteConfig.getBoolean(getString(R.string.visualizacion_listadofacturas))
                 if (visualizarListado) {
-                    if (bundle?.getBoolean("Mock") == true) {
+                    if (bundle?.getBoolean(getString(R.string.mock)) == true) {
                         initUI(true)
                     } else {
-                        if (bundle?.getBoolean("KTOR") == true) {
+                        if (bundle?.getBoolean(getString(R.string.ktor)) == true) {
                             ktor = true
                         }
                         initUI(false)
                     }
                 } else {
                     alert.showAlertYesOrNo(
-                        "Error",
-                        "En este momento no esta disponible esta acción. ¿Quieres salir de esta página?",
+                        getString(R.string.error),
+                        getString(R.string.label_remotrcongif_vistadoFacturaFalse),
                         this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
                 }
             }
@@ -85,8 +85,8 @@ class Facturas : AppCompatActivity() {
         facturaViewModel.showEmptyDialog.observe(this) { it ->
             if (it) {
                 alert.showAlertYesOrNo(
-                    "Error",
-                    "No hay nada para mostrar. ¿Quieres salir de esta página?",
+                    getString(R.string.error),
+                    getString(R.string.label_nohayNadaParaMostrar),
                     this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
@@ -121,8 +121,8 @@ class Facturas : AppCompatActivity() {
         facturaViewModel.showEmptyDialog.observe(this) { it ->
             if (it) {
                 alert.showAlertYesOrNo(
-                    "Error",
-                    "No hay nada para mostrar. ¿Quieres salir de esta página?",
+                    getString(R.string.error),
+                    getString(R.string.label_nohayNadaParaMostrar),
                     this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
@@ -136,7 +136,7 @@ class Facturas : AppCompatActivity() {
     }
 
     private fun showInformation() {
-        alert.showAlertInformation("Información", "Esta funcionalidad aún no está disponible", this)
+        alert.showAlertInformation(getString(R.string.informacion), getString(R.string.infomracion_text), this)
     }
 
     private fun showListFilter() {
