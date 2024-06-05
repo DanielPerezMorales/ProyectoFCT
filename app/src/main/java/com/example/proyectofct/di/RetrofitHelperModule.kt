@@ -2,6 +2,7 @@ package com.example.proyectofct.di
 
 import android.content.Context
 import co.infinum.retromock.Retromock
+import com.example.proyectofct.R
 import com.example.proyectofct.core.ResourceBodyFactory
 import dagger.Module
 import dagger.Provides
@@ -18,8 +19,9 @@ import javax.inject.Singleton
 object RetrofitHelperModule {
     @Singleton
     @Provides
-    fun getRetrofit(): Retrofit {
-        return Retrofit.Builder().baseUrl("https://viewnextandroid4.wiremockapi.cloud/").addConverterFactory(GsonConverterFactory.create()).build()
+    fun getRetrofit(context: Context): Retrofit {
+        return Retrofit.Builder().baseUrl(context.getString(R.string.linkretrofit))
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 
     @Provides
@@ -31,7 +33,8 @@ object RetrofitHelperModule {
     @Singleton
     @Provides
     fun getRetromock(context: Context): Retromock {
-        val retrofit = getRetrofit()
-        return Retromock.Builder().retrofit(retrofit).defaultBodyFactory(ResourceBodyFactory(context)).build()
+        val retrofit = getRetrofit(context)
+        return Retromock.Builder().retrofit(retrofit)
+            .defaultBodyFactory(ResourceBodyFactory(context)).build()
     }
 }

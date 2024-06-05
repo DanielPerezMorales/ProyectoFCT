@@ -1,5 +1,7 @@
 package com.example.proyectofct.domain
 
+import android.content.Context
+import com.example.proyectofct.R
 import com.example.proyectofct.data.database.entities.FacturaEntity
 import com.example.proyectofct.data.database.entities.toFacturaItem
 import com.example.proyectofct.data.retrofit.model.FacturaItem
@@ -9,7 +11,9 @@ import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
 
-class FiltradoUseCase @Inject constructor(){
+class FiltradoUseCase @Inject constructor(
+    private val contexto:Context
+){
     fun filtrado(precio: Float, fechaInicio: Date?, fechaFin: Date?, listaCheck: List<String>, lista: List<FacturaEntity>, listaFiltrados: List<String>, callback: (List<FacturaItem>) -> Unit
     ) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -17,7 +21,7 @@ class FiltradoUseCase @Inject constructor(){
             for (i in lista) {
                 when (listaFiltrados.size) {
                     1 -> {
-                        if (listaFiltrados[0] == "Fechas") {
+                        if (listaFiltrados[0] == contexto.getString(R.string.fechas)) {
                             val fechaDentroRango = (i.fecha >= fechaInicio && i.fecha <= fechaFin)
 
                             if (precio != 0.0F) {

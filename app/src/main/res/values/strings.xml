@@ -162,4 +162,13 @@
     <string name="fecha3">0%1$s/%2$s/%3$s</string>
     <string name="fecha4">%1$s/%2$s/%3$s</string>
 
+    <!-- Casos de uso -->
+    <string name="por_favor_ingresa_tu_correo_electr_nico">Por favor, ingresa tu correo electrónico</string>
+    <string name="por_favor_ingresa_tu_correo_electr_nico_y_contrase_a">Por favor, ingresa tu correo electrónico y contraseña.</string>
+
+    <!-- Modulos -->
+    <string name="IP_KTOR">http://172.16.219.14:8080/facturas</string>
+    <string name="linkIberdrola">https://www.iberdrola.es</string>
+    <string name="linkretrofit">https://viewnextandroid4.wiremockapi.cloud/</string>
+
 </resources>
