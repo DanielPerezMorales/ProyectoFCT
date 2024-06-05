@@ -48,16 +48,8 @@ class KtorServiceClass @Inject constructor(
         withContext(Dispatchers.IO) {
             try {
                 facturas = client.get(url).body()
-                Log.i("KTOR", "$facturas")
-            } catch (e: ClientRequestException) {
-                // Esto captura errores 4xx
-                println("ClientRequestException: ${e.response.status}")
-            } catch (e: ServerResponseException) {
-                // Esto captura errores 5xx
-                println("ServerResponseException: ${e.response.status}")
             } catch (e: Exception) {
-                // Esto captura cualquier otro tipo de excepción
-                println("Exception: ${e.message}")
+                println(e.message)
             }
         }
         return facturas

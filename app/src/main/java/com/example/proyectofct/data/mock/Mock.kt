@@ -14,8 +14,6 @@ class Mock @Inject constructor(private val retromock: Retromock){
         if (!response.isCanceled) {
             val myresponseMock: Response<ModeloFactura?> =response.execute()
             return myresponseMock.body()
-        } else {
-            Log.i("PRUEBA", "NO FUNCNIONA")
         }
         return null
     }
@@ -25,8 +23,6 @@ class Mock @Inject constructor(private val retromock: Retromock){
         if (!response.isCanceled) {
             val myresponseMock: Response<ModeloDetalles?> =response.execute()
             return myresponseMock.body()
-        } else {
-            Log.i("PRUEBA", "NO FUNCNIONA")
         }
         return null
     }

@@ -15,8 +15,6 @@ class FacturaService @Inject constructor(
         if (response.isSuccessful) {
             val myResponse: ModeloFactura? = response.body()
             if (myResponse != null) { return myResponse.facturas }
-        } else {
-            Log.i("PRUEBA", "NO FUNCNIONA")
         }
         return null
     }
