@@ -173,5 +173,6 @@
 
     <!-- Core -->
     <string name="remoteconfig">remoteConfig</string>
+    <string name="fecha_filtro">dd/MM/yyyy</string>
 
 </resources>
