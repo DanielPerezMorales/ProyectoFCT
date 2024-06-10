@@ -1,7 +1,9 @@
 package com.example.proyectofct.ui.view.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,7 +18,7 @@ class MainCompose : ComponentActivity() {
         setContent{
             ProyectoFCTTheme {
                 androidx.compose.material.Surface(color = androidx.compose.material.MaterialTheme.colors.background) {
-                    AppNavigation(this)
+                    AppNavigationWithBackHandler(this)
                 }
             }
         }
@@ -28,5 +30,16 @@ class MainCompose : ComponentActivity() {
 fun GreetingPreview() {
     ProyectoFCTTheme {
         //AppNavigation()
+    }
+}
+
+@Composable
+fun AppNavigationWithBackHandler(activity: ComponentActivity) {
+    AppNavigation(activity)
+    BackHandler {
+        val intent = Intent(activity, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        activity.startActivity(intent)
+        activity.finish()
     }
 }

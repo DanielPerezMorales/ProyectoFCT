@@ -72,6 +72,5 @@ fun AppNavigation(context: Context) {
                 it.arguments!!.getBoolean(stringResource(R.string.ktor))
             )
         }
-
     }
 }

@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
     private var canAuthenticate = false
     private lateinit var promptInfo: BiometricPrompt.PromptInfo
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityLoginBinding.inflate(layoutInflater)
