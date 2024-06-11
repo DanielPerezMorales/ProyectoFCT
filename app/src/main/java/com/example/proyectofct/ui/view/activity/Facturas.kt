@@ -1,5 +1,6 @@
 package com.example.proyectofct.ui.view.Activity
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -64,11 +65,15 @@ class Facturas : AppCompatActivity() {
             }
         }
 
+        val prefs = getSharedPreferences(getString(R.string.sheredPrefStats), Context.MODE_PRIVATE).edit()
+        prefs.clear()
+        prefs.apply()
+
         binding.ibFilter.setOnClickListener {
-            binding.VP.visibility = View.VISIBLE
             val adapter = ViewPagerAdapter(supportFragmentManager)
             adapter.addFragment(FiltrarFacturasFragment())
             binding.VP.adapter = adapter
+            binding.VP.visibility = View.VISIBLE
         }
 
 
@@ -136,7 +141,11 @@ class Facturas : AppCompatActivity() {
     }
 
     private fun showInformation() {
-        alert.showAlertInformation(getString(R.string.informacion), getString(R.string.infomracion_text), this)
+        alert.showAlertInformation(
+            getString(R.string.informacion),
+            getString(R.string.infomracion_text),
+            this
+        )
     }
 
     private fun showListFilter() {

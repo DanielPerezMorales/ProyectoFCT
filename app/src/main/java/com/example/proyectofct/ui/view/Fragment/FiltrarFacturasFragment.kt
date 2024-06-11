@@ -1,6 +1,7 @@
 package com.example.proyectofct.ui.view.Fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,9 +48,7 @@ class FiltrarFacturasFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.ibCloseWindow.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-            val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
-            vp.visibility = View.GONE
+            closeFilter()
         }
 
         CoroutineScope(Dispatchers.IO).launch { putValues() }
@@ -67,14 +66,13 @@ class FiltrarFacturasFragment : Fragment() {
         }
         binding.btnAplicar.setOnClickListener {
             val dates = checkDates()
-            if (dates){
+            if (dates) {
                 CoroutineScope(Dispatchers.IO).launch { apply(value = precio) }
             }
-
         }
         comprobar()
+        checkStats()
     }
-
 
     @SuppressLint("SetTextI18n")
     private suspend fun putValues() {
@@ -103,10 +101,7 @@ class FiltrarFacturasFragment : Fragment() {
     private fun comprobar() {
         facturaViewModel.filtradoExitoso.observe(viewLifecycleOwner) { exitoso ->
             if (exitoso) {
-                requireActivity().supportFragmentManager.beginTransaction()
-                    .remove(this).commit()
-                val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
-                vp.visibility = View.GONE
+                closeFilter()
                 facturaViewModel.putAgainOnFalse()
                 filtradoRealizado = false
             } else {
@@ -116,13 +111,19 @@ class FiltrarFacturasFragment : Fragment() {
                         getString(R.string.no_hay_facturas_que_cumplan_estos_requisitos),
                         requireContext()
                     )
+                    delete()
                 }
                 filtradoRealizado = false
-                delete()
             }
         }
     }
 
+    private fun closeFilter() {
+        saveFilterStats()
+        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        val vp = requireActivity().findViewById<ViewPager>(R.id.VP)
+        vp.visibility = View.GONE
+    }
 
     private fun putMaxValue(lista: List<FacturaEntity>): Float? {
         var max: Float? = null
@@ -156,7 +157,6 @@ class FiltrarFacturasFragment : Fragment() {
             fechaHasta!!.show(childFragmentManager, getString(R.string.date_picker))
         }
     }
-
 
     @SuppressLint("SetTextI18n")
     private fun mostrarResultado(year: Int, month: Int, day: Int, boton: String) {
@@ -327,5 +327,34 @@ class FiltrarFacturasFragment : Fragment() {
         } else {
             return true
         }
+    }
+
+    private fun saveFilterStats() {
+        val prefs = requireActivity().getSharedPreferences(
+            getString(R.string.sheredPrefStats),
+            Context.MODE_PRIVATE
+        ).edit()
+        prefs.clear()
+        prefs.putString("Fecha_desde", binding.btnCalendarDesde.text.toString())
+        prefs.putString("Fecha_hasta", binding.btnCalendarHasta.text.toString())
+        prefs.putFloat("Precio", precio)
+        prefs.putBoolean("Check_Pagadas", binding.ChckPagadas.isChecked)
+        prefs.putBoolean("Check_Anuladas", binding.ChckAnuladas.isChecked)
+        prefs.putBoolean("Check_PlanDePago", binding.ChckPlanDePago.isChecked)
+        prefs.putBoolean("Check_Pendiente", binding.ChckPendientesDePago.isChecked)
+        prefs.putBoolean("Check_CuotaFija", binding.ChckCuotaFija.isChecked)
+        prefs.apply()
+    }
+
+    private fun checkStats() {
+        val prefs = requireActivity().getSharedPreferences(getString(R.string.sheredPrefStats), Context.MODE_PRIVATE)
+        binding.btnCalendarDesde.text = prefs.getString("Fecha_desde", getString(R.string.dia_mes_anio))
+        binding.btnCalendarHasta.text = prefs.getString("Fecha_hasta", getString(R.string.dia_mes_anio))
+        binding.volumeRange.setValues(prefs.getFloat("Precio", 0.0F))
+        binding.ChckPagadas.isChecked = prefs.getBoolean("Check_Pagadas", false)
+        binding.ChckAnuladas.isChecked = prefs.getBoolean("Check_Anuladas", false)
+        binding.ChckPendientesDePago.isChecked = prefs.getBoolean("Check_Pendiente", false)
+        binding.ChckPlanDePago.isChecked = prefs.getBoolean("Check_PlanDePago", false)
+        binding.ChckCuotaFija.isChecked = prefs.getBoolean("Check_CuotaFija", false)
     }
 }
