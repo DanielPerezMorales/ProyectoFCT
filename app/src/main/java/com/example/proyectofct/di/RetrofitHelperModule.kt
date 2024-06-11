@@ -20,7 +20,7 @@ object RetrofitHelperModule {
     @Singleton
     @Provides
     fun getRetrofit(context: Context): Retrofit {
-        return Retrofit.Builder().baseUrl(context.getString(R.string.linkretrofit))
+        return Retrofit.Builder().baseUrl(context.getString(R.string.Modulos_linkretrofit))
             .addConverterFactory(GsonConverterFactory.create()).build()
     }
 

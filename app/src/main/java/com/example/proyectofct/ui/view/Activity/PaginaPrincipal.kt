@@ -27,7 +27,7 @@ class PaginaPrincipal : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) {
-            themeApplied = savedInstanceState.getBoolean(getString(R.string.themeapplied), false)
+            themeApplied = savedInstanceState.getBoolean(getString(R.string.PaginaPrincipal_themeapplied), false)
             applyThemeIfNeeded()
         } else {
             setUpRemoteConfig()
@@ -44,8 +44,8 @@ class PaginaPrincipal : AppCompatActivity() {
 
         binding.ibPractica1.setOnClickListener {
             val intent = Intent(this, Facturas::class.java)
-            intent.putExtra(getString(R.string.mock), binding.SWMock.isChecked)
-            intent.putExtra(getString(R.string.ktor), binding.SWKTOR.isChecked)
+            intent.putExtra(getString(R.string.PaginaPrincipal_mock), binding.SWMock.isChecked)
+            intent.putExtra(getString(R.string.PaginaPrincipal_ktor), binding.SWKTOR.isChecked)
             startActivity(intent)
         }
 
@@ -61,26 +61,26 @@ class PaginaPrincipal : AppCompatActivity() {
 
         binding.SWMock.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                Toast.makeText(this, getString(R.string.mock_activado), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.PaginaPrincipal_mock_activado), Toast.LENGTH_SHORT).show()
                 binding.SWKTOR.isChecked = false
             } else {
-                Toast.makeText(this, getString(R.string.mock_desactivado), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.PaginaPrincipal_mock_desactivado), Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.SWKTOR.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                Toast.makeText(this, getString(R.string.ktor_activado), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.PaginaPrincipal_ktor_activado), Toast.LENGTH_SHORT).show()
                 binding.SWMock.isChecked = false
             } else {
-                Toast.makeText(this, getString(R.string.ktor_desactivado), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.PaginaPrincipal_ktor_desactivado), Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.ibLogOut.setOnClickListener {
             val prefs = getSharedPreferences(getString(R.string.sheredPref), Context.MODE_PRIVATE).edit()
             prefs.clear()
-            prefs.putString(getString(R.string.date), bundle?.getString(getString(R.string.date)))
+            prefs.putString(getString(R.string.Login_date), bundle?.getString(getString(R.string.Login_date)))
             prefs.apply()
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, LoginActivity::class.java)
@@ -90,10 +90,10 @@ class PaginaPrincipal : AppCompatActivity() {
 
         secretKey = generateOrLoadSecretKey()
 
-        val email = bundle?.getString(getString(R.string.email))
-        val password = bundle?.getString(getString(R.string.password))
-        val check = bundle?.getBoolean(getString(R.string.check))
-        val date = bundle?.getString(getString(R.string.date))
+        val email = bundle?.getString(getString(R.string.Login_email))
+        val password = bundle?.getString(getString(R.string.Login_password))
+        val check = bundle?.getBoolean(getString(R.string.Login_check))
+        val date = bundle?.getString(getString(R.string.Login_date))
 
         // Cifra y guarda los datos en SharedPreferences
         val encryptedEmail = encryptData(email ?: getString(R.string.espacio_vacio))
@@ -105,29 +105,29 @@ class PaginaPrincipal : AppCompatActivity() {
                 Context.MODE_PRIVATE
             ).edit()
             prefs.clear()
-            prefs.putString(getString(R.string.email), encryptedEmail)
-            prefs.putString(getString(R.string.password), encryptedPassword)
-            prefs.putString(getString(R.string.date), date)
+            prefs.putString(getString(R.string.Login_email), encryptedEmail)
+            prefs.putString(getString(R.string.Login_password), encryptedPassword)
+            prefs.putString(getString(R.string.Login_date), date)
             prefs.apply()
         }
     }
 
     private fun generateOrLoadSecretKey(): SecretKey {
-        val keyGenerator = KeyGenerator.getInstance(getString(R.string.aes))
+        val keyGenerator = KeyGenerator.getInstance(getString(R.string.PaginaPrincipal_aes))
         keyGenerator.init(256)
         return keyGenerator.generateKey()
     }
 
     @SuppressLint("GetInstance")
     private fun encryptData(data: String): String {
-        val cipher = Cipher.getInstance(getString(R.string.aes))
+        val cipher = Cipher.getInstance(getString(R.string.PaginaPrincipal_aes))
         cipher.init(Cipher.ENCRYPT_MODE, secretKey)
         val encryptedBytes = cipher.doFinal(data.toByteArray())
         return android.util.Base64.encodeToString(encryptedBytes, android.util.Base64.DEFAULT)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putBoolean(getString(R.string.themeapplied), themeApplied)
+        outState.putBoolean(getString(R.string.PaginaPrincipal_themeapplied), themeApplied)
         super.onSaveInstanceState(outState)
     }
 
@@ -138,12 +138,12 @@ class PaginaPrincipal : AppCompatActivity() {
         val firebaseConfig = Firebase.remoteConfig
         firebaseConfig.setConfigSettingsAsync(configSettings)
         firebaseConfig.setDefaultsAsync(
-            mapOf(getString(R.string.visualizacion_listadofacturas) to true,
-                getString(R.string.cambiodevalores) to false)
+            mapOf(getString(R.string.PaginaPrincipal_visualizacion_listadofacturas) to true,
+                getString(R.string.PaginaPrincipal_cambiodevalores) to false)
         )
         firebaseConfig.fetchAndActivate().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                val cambioDeValores = firebaseConfig.getBoolean(getString(R.string.cambiodevalores))
+                val cambioDeValores = firebaseConfig.getBoolean(getString(R.string.PaginaPrincipal_cambiodevalores))
                 if (cambioDeValores && !themeApplied) {
                     setTheme(R.style.Theme_ProyectoFCT_2_0)
                     themeApplied = true
@@ -155,7 +155,7 @@ class PaginaPrincipal : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        themeApplied = savedInstanceState.getBoolean(getString(R.string.themeapplied), false)
+        themeApplied = savedInstanceState.getBoolean(getString(R.string.PaginaPrincipal_themeapplied), false)
         applyThemeIfNeeded()
     }
 

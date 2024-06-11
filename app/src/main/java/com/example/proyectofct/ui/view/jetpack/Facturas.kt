@@ -111,7 +111,7 @@ fun Facturas(
     val isLoading = remember { mutableStateOf(true) }
     val isFiltredOpen = remember { mutableStateOf(false) }
     var selectedDate by remember { mutableStateOf(Triple(0, 0, 0)) }
-    val stringnormla = stringResource(id = R.string.dia_mes_anio)
+    val stringnormla = stringResource(id = R.string.Filtrado_dia_mes_anio)
     var isDatePickerDialogVisible by remember { mutableStateOf(false) }
     var isBotonDesde by remember { mutableStateOf(false) }
     var desdeFecha by remember { mutableStateOf(stringnormla) }
@@ -160,27 +160,27 @@ fun Facturas(
                             .padding(horizontal = 20.dp)
                     ) {
                         Text(
-                            text = stringResource(id = R.string.filtrar_facturas),
+                            text = stringResource(id = R.string.Filtrado_filtrar_facturas),
                             fontSize = 35.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(vertical = 10.dp)
                         )
                         Text(
-                            text = stringResource(id = R.string.fecha_emision),
+                            text = stringResource(id = R.string.Filtrado_fecha_emision),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(vertical = 14.dp)
                         )
                         Row {
                             Text(
-                                text = stringResource(id = R.string.filtrado_facturas_desde),
+                                text = stringResource(id = R.string.Filtrado_facturas_desde),
                                 color = colorResource(id = R.color.gris),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(vertical = 10.dp)
                             )
                             Text(
-                                text = stringResource(id = R.string.filtrado_facturas_hasta),
+                                text = stringResource(id = R.string.Filtrado_facturas_hasta),
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = colorResource(id = R.color.gris),
@@ -224,7 +224,7 @@ fun Facturas(
                         Divider(color = Color.Gray, thickness = 1.dp)
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            text = stringResource(id = R.string.por_un_importe),
+                            text = stringResource(id = R.string.Filtrado_por_un_importe),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(vertical = 10.dp)
@@ -260,7 +260,7 @@ fun Facturas(
                         Divider(color = Color.Gray, thickness = 1.dp)
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = stringResource(id = R.string.por_estado),
+                            text = stringResource(id = R.string.Filtrado_por_estado),
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             modifier = Modifier.padding(vertical = 10.dp)
@@ -384,7 +384,7 @@ fun Facturas(
                                 contentPadding = PaddingValues(16.dp)
                             ) {
                                 Text(
-                                    text = stringResource(id = R.string.btn_filtrar),
+                                    text = stringResource(id = R.string.Filtrado_btn_filtrar),
                                     color = Color.White
                                 )
                             }
@@ -410,7 +410,7 @@ fun Facturas(
                                 contentPadding = PaddingValues(16.dp)
                             ) {
                                 Text(
-                                    text = stringResource(id = R.string.eliminar),
+                                    text = stringResource(id = R.string.Filtrado_eliminar),
                                     color = Color.Black
                                 )
                             }
@@ -454,7 +454,7 @@ fun Facturas(
                 elevation = 0.dp,
                 title = {
                     Text(
-                        text = stringResource(id = R.string.consumo),
+                        text = stringResource(id = R.string.Facturas_Consumo),
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = colorResource(id = R.color.color_consumo),
@@ -483,7 +483,7 @@ fun Facturas(
             Spacer(modifier = Modifier.height(20.dp))
         }
         Text(
-            text = stringResource(id = R.string.facturas),
+            text = stringResource(id = R.string.Facturas_TVfacturas),
             fontSize = 40.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Black,

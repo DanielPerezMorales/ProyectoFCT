@@ -74,35 +74,35 @@ private fun Detalles_Body(context: Context, viewModel:DetallesViewModel) {
         }
 
         if (isLoading) {
-            EditText(stringResource(id = R.string.cau), textCAU, isLoading)
+            EditText(stringResource(id = R.string.FGDet_cau), textCAU, isLoading)
             EditTextWithButton(
-                stringResource(id = R.string.estado_solicitud),
+                stringResource(id = R.string.FGDet_estado_solicitud),
                 textEstado,
                 isLoading,
                 context
             )
-            EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo, isLoading)
+            EditText(stringResource(id = R.string.FGDet_tipo_autoconsumo), textTipo, isLoading)
             EditText(
-                stringResource(id = R.string.comprobacion_de_excedentes),
+                stringResource(id = R.string.FGDet_comprobacion_de_excedentes),
                 textExcedentes,
                 isLoading
             )
-            EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia, isLoading)
+            EditText(stringResource(id = R.string.FGDet_potencia_de_instalacion), textPotencia, isLoading)
         } else {
-            EditText(stringResource(id = R.string.cau), textCAU, isLoading)
+            EditText(stringResource(id = R.string.FGDet_cau), textCAU, isLoading)
             EditTextWithButton(
-                stringResource(id = R.string.estado_solicitud),
+                stringResource(id = R.string.FGDet_estado_solicitud),
                 textEstado,
                 isLoading,
                 context
             )
-            EditText(stringResource(id = R.string.tipo_autoconsumo), textTipo, isLoading)
+            EditText(stringResource(id = R.string.FGDet_tipo_autoconsumo), textTipo, isLoading)
             EditText(
-                stringResource(id = R.string.comprobacion_de_excedentes),
+                stringResource(id = R.string.FGDet_comprobacion_de_excedentes),
                 textExcedentes,
                 isLoading
             )
-            EditText(stringResource(id = R.string.potencia_de_instalacion), textPotencia, isLoading)
+            EditText(stringResource(id = R.string.FGDet_potencia_de_instalacion), textPotencia, isLoading)
         }
     }
 }

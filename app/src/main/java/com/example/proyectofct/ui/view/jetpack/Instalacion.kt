@@ -35,17 +35,17 @@ fun Instalacion() {
 private fun Instalacion_Body() {
     Column (Modifier.background(color = colorResource(id = com.example.proyectofct.R.color.white))){
         Text(
-            text = stringResource(id = com.example.proyectofct.R.string.TV_mi_instalación),
+            text = stringResource(id = com.example.proyectofct.R.string.FGInst_TV_mi_instalación),
             Modifier.padding(15.dp)
         )
         Spacer(modifier = Modifier.height(20.dp))
         Row (Modifier.padding(15.dp)){
             Text(
-                text = stringResource(id = com.example.proyectofct.R.string.autoconsumo) + " "
+                text = stringResource(id = com.example.proyectofct.R.string.FGInst_autoconsumo) + " "
             )
             Text(
                 text = stringResource(
-                    id = com.example.proyectofct.R.string.porcentaje_autoconsumo
+                    id = com.example.proyectofct.R.string.FGInst_porcentaje_autoconsumo
                 ), fontWeight = FontWeight.Bold
             )
         }

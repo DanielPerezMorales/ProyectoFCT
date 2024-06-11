@@ -33,10 +33,10 @@ fun AppNavigation(context: Context) {
                 navArgument("date") { type = NavType.StringType }
             )
         ) { backStackEntry ->
-            val email = backStackEntry.arguments?.getString(stringResource(R.string.email))
-            val pass = backStackEntry.arguments?.getString(stringResource(R.string.password))
-            val check = backStackEntry.arguments?.getBoolean(stringResource(R.string.check))
-            val date = backStackEntry.arguments?.getString(stringResource(R.string.date))
+            val email = backStackEntry.arguments?.getString(stringResource(R.string.Login_email))
+            val pass = backStackEntry.arguments?.getString(stringResource(R.string.Login_password))
+            val check = backStackEntry.arguments?.getBoolean(stringResource(R.string.Login_check))
+            val date = backStackEntry.arguments?.getString(stringResource(R.string.Login_date))
             Menu_principal(navController, email, pass, check, date)
         }
         composable(route = AppScreens.Registro.route) {
@@ -67,9 +67,9 @@ fun AppNavigation(context: Context) {
             FacturasIberdrola(
                 navController = navController,
                 context = context,
-                it.arguments!!.getBoolean(stringResource(R.string.mock)),
-                it.arguments!!.getBoolean(stringResource(R.string.remoteconfig)),
-                it.arguments!!.getBoolean(stringResource(R.string.ktor))
+                it.arguments!!.getBoolean(stringResource(R.string.PaginaPrincipal_mock)),
+                it.arguments!!.getBoolean(stringResource(R.string.Core_remoteconfig)),
+                it.arguments!!.getBoolean(stringResource(R.string.PaginaPrincipal_ktor))
             )
         }
     }

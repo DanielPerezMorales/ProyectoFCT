@@ -11,7 +11,7 @@ class SignUpUseCase @Inject constructor(
 ) {
     fun login(email: String, password: String, callback: (Boolean, String?) -> Unit) {
         if (email.isBlank() || password.isBlank()) {
-            callback(false, contexto.getString(R.string.por_favor_ingresa_tu_correo_electr_nico_y_contrase_a))
+            callback(false, contexto.getString(R.string.UseCase_por_favor_ingresa_tu_correo_electr_nico_y_contrase_a))
             return
         } else {
             firebaseAuth.createUserWithEmailAndPassword(email, password)
@@ -19,7 +19,7 @@ class SignUpUseCase @Inject constructor(
                     if (task.isSuccessful) {
                         callback(true, null)
                     } else {
-                        val errorMessage = contexto.getString(R.string.error_desconocido_al_crear_usuario)
+                        val errorMessage = contexto.getString(R.string.SignUp_error_desconocido_al_crear_usuario)
                         callback(false, errorMessage)
                     }
                 }

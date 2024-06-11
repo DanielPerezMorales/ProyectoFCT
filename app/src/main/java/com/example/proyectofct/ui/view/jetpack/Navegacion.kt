@@ -81,14 +81,14 @@ fun Navegacion(context: Context?, navController:NavController?) {
                 )
             }
             Text(
-                text = stringResource(id = R.string.atras), fontSize = 20.sp,
+                text = stringResource(id = R.string.SS_atras), fontSize = 20.sp,
                 color = colorResource(
                     id = R.color.color_consumo
                 )
             )
         }
         Text(
-            text = stringResource(id = com.example.proyectofct.R.string.TV_Navegacion),
+            text = stringResource(id = com.example.proyectofct.R.string.Nav_TV_Navegacion),
             style = MaterialTheme.typography.h5,
             modifier = Modifier.padding(10.dp),
             textAlign = TextAlign.Center
@@ -119,7 +119,7 @@ fun Navegacion(context: Context?, navController:NavController?) {
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = com.example.proyectofct.R.color.color_consumo))
             ) {
                 Text(
-                    text = stringResource(id = com.example.proyectofct.R.string.abrir_navegador_externo),
+                    text = stringResource(id = com.example.proyectofct.R.string.Nav_abrir_navegador_externo),
                     color = Color.White
                 )
             }
@@ -134,7 +134,7 @@ fun Navegacion(context: Context?, navController:NavController?) {
                 colors = ButtonDefaults.buttonColors(backgroundColor = colorResource(id = com.example.proyectofct.R.color.color_consumo))
             ) {
                 Text(
-                    text = stringResource(id = com.example.proyectofct.R.string.abrir_webview),
+                    text = stringResource(id = com.example.proyectofct.R.string.Nav_abrir_webview),
                     color = Color.White
                 )
             }

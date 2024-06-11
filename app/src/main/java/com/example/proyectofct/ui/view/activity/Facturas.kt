@@ -46,12 +46,12 @@ class Facturas : AppCompatActivity() {
         Firebase.remoteConfig.fetchAndActivate().addOnCompleteListener {
             if (it.isSuccessful) {
                 val visualizarListado =
-                    Firebase.remoteConfig.getBoolean(getString(R.string.visualizacion_listadofacturas))
+                    Firebase.remoteConfig.getBoolean(getString(R.string.PaginaPrincipal_visualizacion_listadofacturas))
                 if (visualizarListado) {
-                    if (bundle?.getBoolean(getString(R.string.mock)) == true) {
+                    if (bundle?.getBoolean(getString(R.string.PaginaPrincipal_mock)) == true) {
                         initUI(true)
                     } else {
-                        if (bundle?.getBoolean(getString(R.string.ktor)) == true) {
+                        if (bundle?.getBoolean(getString(R.string.PaginaPrincipal_ktor)) == true) {
                             ktor = true
                         }
                         initUI(false)
@@ -59,7 +59,7 @@ class Facturas : AppCompatActivity() {
                 } else {
                     alert.showAlertYesOrNo(
                         getString(R.string.error),
-                        getString(R.string.label_remotrcongif_vistadoFacturaFalse),
+                        getString(R.string.Facturas_label_remotrcongif_vistadoFacturaFalse),
                         this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
                 }
             }
@@ -91,7 +91,7 @@ class Facturas : AppCompatActivity() {
             if (it) {
                 alert.showAlertYesOrNo(
                     getString(R.string.error),
-                    getString(R.string.label_nohayNadaParaMostrar),
+                    getString(R.string.Facturas_label_nohayNadaParaMostrar),
                     this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
@@ -127,7 +127,7 @@ class Facturas : AppCompatActivity() {
             if (it) {
                 alert.showAlertYesOrNo(
                     getString(R.string.error),
-                    getString(R.string.label_nohayNadaParaMostrar),
+                    getString(R.string.Facturas_label_nohayNadaParaMostrar),
                     this, { onBackPressedDispatcher.onBackPressed() }, noAction = {})
             } else {
                 facturaViewModel.facturas.observe(this) { facturas ->
@@ -142,8 +142,8 @@ class Facturas : AppCompatActivity() {
 
     private fun showInformation() {
         alert.showAlertInformation(
-            getString(R.string.informacion),
-            getString(R.string.infomracion_text),
+            getString(R.string.Facturas_informacion),
+            getString(R.string.Facturas_infomracion_text),
             this
         )
     }

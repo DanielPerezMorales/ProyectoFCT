@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="140sp"
             android:textSize="15sp"
-            android:hint="@string/introduzca_un_email" />
+            android:hint="@string/SignUp_introduzca_un_email" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textSize="15sp"
-                android:hint="@string/introduzca_una_contrasena" />
+                android:hint="@string/SignUp_introduzca_una_contrasena" />
 
             <ImageButton
                 android:id="@+id/ojo_informacion"
@@ -59,7 +59,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="140sp"
             android:backgroundTint="@color/color_consumo"
-            android:text="@string/registrarte" />
+            android:text="@string/Login_registrarte" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 android:gravity="center"
                 android:textColor="@color/gris"
                 android:background="@color/white"
-                android:text="@string/si_ya_tienes_una_cuenta_creada" />
+                android:text="@string/SignUp_si_ya_tienes_una_cuenta_creada" />
         </FrameLayout>
 
         <Button
@@ -89,6 +89,6 @@
             android:layout_gravity="center"
             android:background="@drawable/boton_disenio"
             android:textColor="@color/color_consumo"
-            android:text="@string/ir_al_inicio_de_sesi_n" />
+            android:text="@string/SignUpAndFG_ir_al_inicio_de_sesi_n" />
     </LinearLayout>
 </LinearLayout>

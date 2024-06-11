@@ -11,7 +11,7 @@ class ForgotPasswordUseCase @Inject constructor(
 ) {
     fun sendEmail(email: String, callback: (Boolean, String?) -> Unit) {
         if (email.isBlank()) {
-            callback(false, contexto.getString(R.string.por_favor_ingresa_tu_correo_electr_nico))
+            callback(false, contexto.getString(R.string.UseCase_por_favor_ingresa_tu_correo_electr_nico))
             return
         } else {
             firebaseAuth.sendPasswordResetEmail(email)
@@ -19,7 +19,7 @@ class ForgotPasswordUseCase @Inject constructor(
                     if (task.isSuccessful) {
                         callback(true, null)
                     } else {
-                        val errorMessage = contexto.getString(R.string.fgError)
+                        val errorMessage = contexto.getString(R.string.FG_Error)
                         callback(false, errorMessage)
                     }
                 }

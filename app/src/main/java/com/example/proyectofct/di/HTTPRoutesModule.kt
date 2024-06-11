@@ -8,7 +8,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
 import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
@@ -16,10 +15,10 @@ object HTTPRoutesModule {
     @URL
     @Singleton
     @Provides
-    fun provideURL(context: Context) = context.getString(R.string.IP_KTOR)
+    fun provideURL(context: Context) = context.getString(R.string.Modulos_IP_KTOR)
 
     @LINK
     @Singleton
     @Provides
-    fun provideLINK(context: Context) = context.getString(R.string.linkIberdrola)
+    fun provideLINK(context: Context) = context.getString(R.string.Modulos_linkIberdrola)
 }

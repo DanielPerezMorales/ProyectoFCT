@@ -15,7 +15,7 @@
         android:layout_marginHorizontal="15sp"
         android:layout_marginTop="75sp"
         android:layout_marginBottom="30sp"
-        android:text="@string/practicas_android"
+        android:text="@string/PaginaPrincipal_practicas_android"
         android:textSize="25sp" />
 
     <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
-                android:text="@string/tvpractica1"
+                android:text="@string/PaginaPrincipal_tvpractica1"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
-                android:text="@string/tvpractica2"
+                android:text="@string/PaginaPrincipal_tvpractica2"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
-                android:text="@string/navegacion"
+                android:text="@string/Nav_navegacion"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
-                android:text="@string/activar_mock"
+                android:text="@string/PaginaPrincipal_activar_mock"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10sp"
                 android:padding="10sp"
-                android:text="@string/activar_ktor"
+                android:text="@string/PaginaPrincipal_activar_ktor"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -222,7 +222,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10sp"
                     android:padding="10sp"
-                    android:text="@string/cerrar_sesi_n"
+                    android:text="@string/PaginaPrincipal_cerrar_sesi_n"
                     android:textSize="20sp" />
             </LinearLayout>
 

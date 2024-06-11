@@ -45,7 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="@string/consumo"
+                android:text="@string/Facturas_Consumo"
                 android:textSize="20sp" />
 
             <ImageButton
@@ -70,7 +70,7 @@
             android:id="@+id/TVFacturas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/facturas"
+            android:text="@string/Facturas_TVfacturas"
             android:textColor="@color/black"
             android:layout_marginBottom="30sp"
             android:textSize="40sp"

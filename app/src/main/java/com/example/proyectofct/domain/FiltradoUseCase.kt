@@ -21,7 +21,7 @@ class FiltradoUseCase @Inject constructor(
             for (i in lista) {
                 when (listaFiltrados.size) {
                     1 -> {
-                        if (listaFiltrados[0] == contexto.getString(R.string.fechas)) {
+                        if (listaFiltrados[0] == contexto.getString(R.string.Filtrado_fechas)) {
                             val fechaDentroRango = (i.fecha >= fechaInicio && i.fecha <= fechaFin)
 
                             if (precio != 0.0F) {

@@ -53,14 +53,14 @@ class SignupActivity : AppCompatActivity() {
         viewModel.signupResult.observe(this) { result ->
             val (success, errorMessage) = result
             if (success) {
-                alert.showAlertYesOrNo(getString(R.string.usuario_creado),
-                    getString(R.string.quieres_dejar_la_sesi_n_activa), this, {
+                alert.showAlertYesOrNo(getString(R.string.SignUp_usuario_creado),
+                    getString(R.string.SignUp_quieres_dejar_la_sesi_n_activa), this, {
                     val intent = Intent(this, PaginaPrincipal::class.java)
-                    intent.putExtra(getString(R.string.email), binding.etEmail.text.toString())
-                    intent.putExtra(getString(R.string.password), binding.etPassword.text.toString())
-                    val formatter = SimpleDateFormat(getString(R.string.pattern_date))
-                    intent.putExtra(getString(R.string.date), formatter.format(Calendar.getInstance().time))
-                    intent.putExtra(getString(R.string.check), true)
+                    intent.putExtra(getString(R.string.Login_email), binding.etEmail.text.toString())
+                    intent.putExtra(getString(R.string.Login_password), binding.etPassword.text.toString())
+                    val formatter = SimpleDateFormat(getString(R.string.Login_pattern_date))
+                    intent.putExtra(getString(R.string.Login_date), formatter.format(Calendar.getInstance().time))
+                    intent.putExtra(getString(R.string.Login_check), true)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
                 }, noAction = {
@@ -71,7 +71,7 @@ class SignupActivity : AppCompatActivity() {
             } else {
                 alert.showAlert(
                     getString(R.string.error),
-                    errorMessage ?: getString(R.string.error_desconocido_al_crear_usuario),
+                    errorMessage ?: getString(R.string.SignUp_error_desconocido_al_crear_usuario),
                     this
                 )
             }

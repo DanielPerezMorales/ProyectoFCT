@@ -2,91 +2,91 @@
     <string name="app_name">ProyectoFCT_Iberdrola</string>
 
     <!-- Pantalla Principal -->
-    <string name="tvpractica1">Práctica 1</string>
-    <string name="tvpractica2">Práctica 2</string>
-    <string name="practicas_android">Prácticas Android</string>
+    <string name="PaginaPrincipal_tvpractica1">Práctica 1</string>
+    <string name="PaginaPrincipal_tvpractica2">Práctica 2</string>
+    <string name="PaginaPrincipal_practicas_android">Prácticas Android</string>
 
     <!-- Pantalla Facturas -->
-    <string name="facturas">Facturas</string>
-    <string name="consumo">Consumo</string>
+    <string name="Facturas_TVfacturas">Facturas</string>
+    <string name="Facturas_Consumo">Consumo</string>
 
     <!-- Pantalla Filtrar Facturas -->
-    <string name="filtrar_facturas">Filtrar facturas</string>
-    <string name="fecha_emision">Con fecha de emisión</string>
-    <string name="filtrado_facturas_desde">Desde:</string>
-    <string name="filtrado_facturas_hasta">Hasta:</string>
-    <string name="por_un_importe">Por un importe</string>
-    <string name="por_estado">Por estado</string>
-    <string name="pagadas_check">Pagada</string>
-    <string name="anuladas_check">Anulada</string>
-    <string name="cuota_fija_check">Cuota Fija</string>
-    <string name="pendientes_de_pago_check">Pendiente de pago</string>
-    <string name="plan_de_pago_check">Plan de pago</string>
-    <string name="btn_filtrar">Aplicar</string>
-    <string name="eliminar">Eliminar</string>
-    <string name="dia_mes_anio">dia/mes/año</string>
+    <string name="Filtrado_filtrar_facturas">Filtrar facturas</string>
+    <string name="Filtrado_fecha_emision">Con fecha de emisión</string>
+    <string name="Filtrado_facturas_desde">Desde:</string>
+    <string name="Filtrado_facturas_hasta">Hasta:</string>
+    <string name="Filtrado_por_un_importe">Por un importe</string>
+    <string name="Filtrado_por_estado">Por estado</string>
+    <string name="Filtrado_pagadas_check">Pagada</string>
+    <string name="Filtrado_anuladas_check">Anulada</string>
+    <string name="Filtrado_cuota_fija_check">Cuota Fija</string>
+    <string name="Filtrado_pendientes_de_pago_check">Pendiente de pago</string>
+    <string name="Filtrado_plan_de_pago_check">Plan de pago</string>
+    <string name="Filtrado_btn_filtrar">Aplicar</string>
+    <string name="Filtrado_eliminar">Eliminar</string>
+    <string name="Filtrado_dia_mes_anio">dia/mes/año</string>
 
     <!-- Pantalla Smart Solar -->
-    <string name="atras">Atras</string>
-    <string name="smart_solar">Smart Solar</string>
-    <string name="mi_instalacion_tab">Mi instalación</string>
-    <string name="Energia_tab">Energía</string>
-    <string name="detalles_tab">Detalles</string>
+    <string name="SS_atras">Atras</string>
+    <string name="SS_smart_solar">Smart Solar</string>
+    <string name="SS_mi_instalacion_tab">Mi instalación</string>
+    <string name="SS_Energia_tab">Energía</string>
+    <string name="SS_detalles_tab">Detalles</string>
 
     <!-- Pantalla Fragment Mi instalacion -->
-    <string name="TV_mi_instalación">Aquí tienes los datos de tu instalación fotovoltaica en tiempo real</string>
-    <string name="autoconsumo">Autoconsumo:</string>
-    <string name="porcentaje_autoconsumo">92%</string>
+    <string name="FGInst_TV_mi_instalación">Aquí tienes los datos de tu instalación fotovoltaica en tiempo real</string>
+    <string name="FGInst_autoconsumo">Autoconsumo:</string>
+    <string name="FGInst_porcentaje_autoconsumo">92%</string>
 
     <!-- Pantalla Fragment Energia -->
-    <string name="TV_Energia">Estamos trabajando en mejorar la App. Tus paneles solares siguen produciendo, en breve podrás seguir viendo tu producción solar. Sentimos las molestias</string>
+    <string name="FGEnergia_TV_Energia">Estamos trabajando en mejorar la App. Tus paneles solares siguen produciendo, en breve podrás seguir viendo tu producción solar. Sentimos las molestias</string>
 
     <!-- Pantalla Fragment Detalles -->
-    <string name="cau">CAU (Código Autoconsumo)</string>
-    <string name="estado_solicitud">Estado solicitud alta autoconsumidor</string>
-    <string name="tipo_autoconsumo">Tipo autoconsumo</string>
-    <string name="comprobacion_de_excedentes">Comprobación de excedentes</string>
-    <string name="potencia_de_instalacion">Potencia de instalación</string>
+    <string name="FGDet_cau">CAU (Código Autoconsumo)</string>
+    <string name="FGDet_estado_solicitud">Estado solicitud alta autoconsumidor</string>
+    <string name="FGDet_tipo_autoconsumo">Tipo autoconsumo</string>
+    <string name="FGDet_comprobacion_de_excedentes">Comprobación de excedentes</string>
+    <string name="FGDet_potencia_de_instalacion">Potencia de instalación</string>
 
     <!-- Pantalla Login -->
-    <string name="he_olvidado_mis_datos"><u>He olvidado mis datos</u></string>
-    <string name="registrarte">Registrarte</string>
-    <string name="tambi_n_puedes">También puedes</string>
-    <string name="recordar_contrase_a">Recordar contraseña</string>
-    <string name="contrase_a">Contraseña</string>
-    <string name="usuario">Usuario</string>
-    <string name="entrar">Entrar</string>
+    <string name="Login_he_olvidado_mis_datos"><u>He olvidado mis datos</u></string>
+    <string name="Login_registrarte">Registrarte</string>
+    <string name="Login_tambi_n_puedes">También puedes</string>
+    <string name="Login_recordar_contrase_a">Recordar contraseña</string>
+    <string name="Login_contrase_a">Contraseña</string>
+    <string name="Login_usuario">Usuario</string>
+    <string name="Login_entrar">Entrar</string>
 
     <!-- Pantalla SignUp -->
-    <string name="introduzca_un_email">Introduzca un email</string>
-    <string name="introduzca_una_contrasena">Introduzca una contraseña</string>
-    <string name="ir_al_inicio_de_sesi_n">Ir al inicio de sesión</string>
-    <string name="si_ya_tienes_una_cuenta_creada">Si ya tienes una cuenta creada</string>
+    <string name="SignUp_introduzca_un_email">Introduzca un email</string>
+    <string name="SignUp_introduzca_una_contrasena">Introduzca una contraseña</string>
+    <string name="SignUpAndFG_ir_al_inicio_de_sesi_n">Ir al inicio de sesión</string>
+    <string name="SignUp_si_ya_tienes_una_cuenta_creada">Si ya tienes una cuenta creada</string>
 
     <!-- Pantalla ForgotPassword -->
-    <string name="hint_ForgotPassword">Escribe el email al cuál quieres reestablecer su contraseña</string>
-    <string name="enviar">Enviar</string>
-    <string name="si_ya_te_has_acordado">Si ya te has acordado</string>
+    <string name="FG_hint_ForgotPassword">Escribe el email al cuál quieres reestablecer su contraseña</string>
+    <string name="FG_enviar">Enviar</string>
+    <string name="FG_si_ya_te_has_acordado">Si ya te has acordado</string>
 
     <!-- Pantalla Navegación -->
-    <string name="navegacion">Navegación</string>
-    <string name="abrir_navegador_externo">Abrir Navegador externo</string>
-    <string name="abrir_webview">Abrir Webview</string>
-    <string name="TV_Navegacion">Desde una aplicación Android, se puede acceder a páginas webs, mediante el navegador externo o mediante Webviews</string>
+    <string name="Nav_navegacion">Navegación</string>
+    <string name="Nav_abrir_navegador_externo">Abrir Navegador externo</string>
+    <string name="Nav_abrir_webview">Abrir Webview</string>
+    <string name="Nav_TV_Navegacion">Desde una aplicación Android, se puede acceder a páginas webs, mediante el navegador externo o mediante Webviews</string>
 
     <!-- Pantalla Principal -->
-    <string name="activar_mock">Activar Mock</string>
-    <string name="activar_ktor">Activar KTOR</string>
+    <string name="PaginaPrincipal_activar_mock">Activar Mock</string>
+    <string name="PaginaPrincipal_activar_ktor">Activar KTOR</string>
 
     <!-- Pantalla Smart Solar -->
-    <string name="estado_solicitud_autoconsumo">Estado solicitud autoconsumo</string>
+    <string name="SS_estado_solicitud_autoconsumo">Estado solicitud autoconsumo</string>
 
     <!-- Pantalla PopUp Nativo -->
-    <string name="el_tiempo_estimado_de_activaci_n_de_tu_autoconsumo_es_de_1_a_2_meses_ste_variar_en_funci_n_de_tu_comunidad_aut_noma_y_distribuidora">El tiempo estimado de activación de tu autoconsumo es de 1 a 2 meses, éste variará en función de tu comunidad autónoma y distribuidora</string>
+    <string name="PopUp_TVTiempo">El tiempo estimado de activación de tu autoconsumo es de 1 a 2 meses, éste variará en función de tu comunidad autónoma y distribuidora</string>
 
     <!-- Pantalla Filtrado -->
     <string name="aceptar">Aceptar</string>
-    <string name="valorTVMin">0</string>
+    <string name="Filtrado_valorTVMin">0</string>
 
     <!-- SheredPreferences -->
     <string name="sheredPref">com.example.proyectofct.PREFERENCE_FILE_KEY</string>
@@ -94,86 +94,86 @@
     <string name="sheredPrefStats">com.example.proyectofct.PREFERENCE_FILE_KEY_STATS</string>
 
     <!-- Pantalla Principal -->
-    <string name="cerrar_sesi_n">Cerrar sesión</string>
+    <string name="PaginaPrincipal_cerrar_sesi_n">Cerrar sesión</string>
 
     <!-- Pantalla Filtrado -->
-    <string name="_0">"    0€"</string>
+    <string name="Filtrado_0">"    0€"</string>
 
     <!-- Pantalla Filtrado -->
     <string name="espacio_vacio" />
 
     <!-- Pantalla Facturas -->
     <string name="error">Error</string>
-    <string name="label_remotrcongif_vistadoFacturaFalse">En este momento no esta disponible esta acción. ¿Quieres salir de esta página?</string>
-    <string name="label_nohayNadaParaMostrar">No hay nada para mostrar. ¿Quieres salir de esta página?</string>
-    <string name="informacion">Información</string>
-    <string name="infomracion_text">Esta funcionalidad aún no está disponible</string>
+    <string name="Facturas_label_remotrcongif_vistadoFacturaFalse">En este momento no esta disponible esta acción. ¿Quieres salir de esta página?</string>
+    <string name="Facturas_label_nohayNadaParaMostrar">No hay nada para mostrar. ¿Quieres salir de esta página?</string>
+    <string name="Facturas_informacion">Información</string>
+    <string name="Facturas_infomracion_text">Esta funcionalidad aún no está disponible</string>
 
     <!-- Pantalla FG -->
-    <string name="fgError">Error desconocido al enviar el email.</string>
+    <string name="FG_Error">Error desconocido al enviar el email.</string>
 
     <!-- Pantalla Login -->
-    <string name="email">email</string>
-    <string name="password">password</string>
-    <string name="date">date</string>
-    <string name="defaulr_date">1970-01-01</string>
-    <string name="pattern_date">yyyy-MM-dd</string>
-    <string name="la_sesi_n_ha_caducado">La sesión ha caducado</string>
-    <string name="autenticaci_n_biom_trica">Autenticación biométrica</string>
-    <string name="label_autenticacion_biometrica">Autenticate utilizando el sensor biométrico</string>
-    <string name="check">check</string>
-    <string name="error_desconocido_al_iniciar_sesi_n">Error desconocido al iniciar sesión.</string>
+    <string name="Login_email">email</string>
+    <string name="Login_password">password</string>
+    <string name="Login_date">date</string>
+    <string name="Login_defaulr_date">1970-01-01</string>
+    <string name="Login_pattern_date">yyyy-MM-dd</string>
+    <string name="Login_la_sesi_n_ha_caducado">La sesión ha caducado</string>
+    <string name="Login_autenticaci_n_biom_trica">Autenticación biométrica</string>
+    <string name="Login_label_autenticacion_biometrica">Autenticate utilizando el sensor biométrico</string>
+    <string name="Login_check">check</string>
+    <string name="Login_error_desconocido_al_iniciar_sesi_n">Error desconocido al iniciar sesión.</string>
 
     <!-- Pantalla PaginaPrincipal -->
-    <string name="themeapplied">themeApplied</string>
-    <string name="mock">Mock</string>
-    <string name="ktor">KTOR</string>
-    <string name="mock_activado">Mock activado</string>
-    <string name="mock_desactivado">Mock desactivado</string>
-    <string name="ktor_activado">KTOR activado</string>
-    <string name="ktor_desactivado">KTOR desactivado</string>
-    <string name="aes">AES</string>
-    <string name="visualizacion_listadofacturas">Visualizacion_ListadoFacturas</string>
-    <string name="cambiodevalores">CambioDeValores</string>
+    <string name="PaginaPrincipal_themeapplied">themeApplied</string>
+    <string name="PaginaPrincipal_mock">Mock</string>
+    <string name="PaginaPrincipal_ktor">KTOR</string>
+    <string name="PaginaPrincipal_mock_activado">Mock activado</string>
+    <string name="PaginaPrincipal_mock_desactivado">Mock desactivado</string>
+    <string name="PaginaPrincipal_ktor_activado">KTOR activado</string>
+    <string name="PaginaPrincipal_ktor_desactivado">KTOR desactivado</string>
+    <string name="PaginaPrincipal_aes">AES</string>
+    <string name="PaginaPrincipal_visualizacion_listadofacturas">Visualizacion_ListadoFacturas</string>
+    <string name="PaginaPrincipal_cambiodevalores">CambioDeValores</string>
 
     <!-- Pantalla SS -->
-    <string name="mi_instalaci_n">Mi instalación</string>
-    <string name="energ_a">Energía</string>
-    <string name="detalles">Detalles</string>
+    <string name="SS_mi_instalaci_n">Mi instalación</string>
+    <string name="SS_energ_a">Energía</string>
+    <string name="SS_detalles">Detalles</string>
 
     <!-- Pantalla SignUp -->
-    <string name="usuario_creado">Usuario Creado</string>
-    <string name="quieres_dejar_la_sesi_n_activa">¿Quieres dejar la sesión activa?</string>
-    <string name="error_desconocido_al_crear_usuario">Error desconocido al crear usuario.</string>
+    <string name="SignUp_usuario_creado">Usuario Creado</string>
+    <string name="SignUp_quieres_dejar_la_sesi_n_activa">¿Quieres dejar la sesión activa?</string>
+    <string name="SignUp_error_desconocido_al_crear_usuario">Error desconocido al crear usuario.</string>
 
     <!-- Pantalla Filtrado -->
-    <string name="borrado">Borrado</string>
-    <string name="seguro_que_quieres_borrar_el_filtrado">¿Seguro que quieres borrar el filtrado?</string>
-    <string name="_100">100</string>
-    <string name="cero">0</string>
-    <string name="parameter">"    %1$s€"</string>
-    <string name="no_hay_facturas_que_cumplan_estos_requisitos">No hay facturas que cumplan estos requisitos</string>
-    <string name="desde">Desde</string>
-    <string name="date_picker">DATE_PICKER</string>
-    <string name="hasta">Hasta</string>
-    <string name="checkbox">CheckBox</string>
-    <string name="fechas">Fechas</string>
-    <string name="fecha1">0%1$s/0%2$s/%3$s</string>
-    <string name="fecha2">%1$s/0%2$s/%3$s</string>
-    <string name="fecha3">0%1$s/%2$s/%3$s</string>
-    <string name="fecha4">%1$s/%2$s/%3$s</string>
+    <string name="Filtrado_borrado">Borrado</string>
+    <string name="Filtrado_seguro_que_quieres_borrar_el_filtrado">¿Seguro que quieres borrar el filtrado?</string>
+    <string name="Filtrado_100">100</string>
+    <string name="Filtrado_cero">0</string>
+    <string name="Filtrado_parameter">"    %1$s€"</string>
+    <string name="Filtrado_no_hay_facturas_que_cumplan_estos_requisitos">No hay facturas que cumplan estos requisitos</string>
+    <string name="Filtrado_desde">Desde</string>
+    <string name="Filtrado_date_picker">DATE_PICKER</string>
+    <string name="Filtrado_hasta">Hasta</string>
+    <string name="Filtrado_checkbox">CheckBox</string>
+    <string name="Filtrado_fechas">Fechas</string>
+    <string name="Filtrado_fecha1">0%1$s/0%2$s/%3$s</string>
+    <string name="Filtrado_fecha2">%1$s/0%2$s/%3$s</string>
+    <string name="Filtrado_fecha3">0%1$s/%2$s/%3$s</string>
+    <string name="Filtrado_fecha4">%1$s/%2$s/%3$s</string>
 
     <!-- Casos de uso -->
-    <string name="por_favor_ingresa_tu_correo_electr_nico">Por favor, ingresa tu correo electrónico</string>
-    <string name="por_favor_ingresa_tu_correo_electr_nico_y_contrase_a">Por favor, ingresa tu correo electrónico y contraseña.</string>
+    <string name="UseCase_por_favor_ingresa_tu_correo_electr_nico">Por favor, ingresa tu correo electrónico</string>
+    <string name="UseCase_por_favor_ingresa_tu_correo_electr_nico_y_contrase_a">Por favor, ingresa tu correo electrónico y contraseña.</string>
 
     <!-- Modulos -->
-    <string name="IP_KTOR">http://172.16.219.14:8080/facturas</string>
-    <string name="linkIberdrola">https://www.iberdrola.es</string>
-    <string name="linkretrofit">https://viewnextandroid4.wiremockapi.cloud/</string>
+    <string name="Modulos_IP_KTOR">http://172.16.219.14:8080/facturas</string>
+    <string name="Modulos_linkIberdrola">https://www.iberdrola.es</string>
+    <string name="Modulos_linkretrofit">https://viewnextandroid4.wiremockapi.cloud/</string>
 
     <!-- Core -->
-    <string name="remoteconfig">remoteConfig</string>
-    <string name="fecha_filtro">dd/MM/yyyy</string>
+    <string name="Core_remoteconfig">remoteConfig</string>
+    <string name="Core_fecha_filtro">dd/MM/yyyy</string>
 
 </resources>

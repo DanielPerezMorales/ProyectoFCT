@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TV_mi_instalación"
+        android:text="@string/FGInst_TV_mi_instalación"
         android:textSize="16sp" />
 
     <LinearLayout
@@ -22,14 +22,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/autoconsumo"
+            android:text="@string/FGInst_autoconsumo"
             android:textColor="@color/gris"
             android:textSize="14sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/porcentaje_autoconsumo"
+            android:text="@string/FGInst_porcentaje_autoconsumo"
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold" />

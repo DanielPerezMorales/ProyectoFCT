@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import com.example.proyectofct.R
 import com.example.proyectofct.core.Alert
 import com.example.proyectofct.databinding.ActivityForgotPasswordBinding
@@ -52,7 +51,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
             } else {
                 alert.showAlert(
                     getString(R.string.error),
-                    errorMessage ?: getString(R.string.fgError),
+                    errorMessage ?: getString(R.string.FG_Error),
                     this
                 )
             }

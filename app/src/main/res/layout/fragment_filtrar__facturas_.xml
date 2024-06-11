@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
-            android:text="@string/filtrar_facturas"
+            android:text="@string/Filtrado_filtrar_facturas"
             android:textColor="@color/black"
             android:textSize="37sp"
             android:textStyle="bold" />
@@ -56,7 +56,7 @@
             android:id="@+id/TVconFecha"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/fecha_emision"
+            android:text="@string/Filtrado_fecha_emision"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5sp"
                     android:layout_weight="1"
-                    android:text="@string/filtrado_facturas_desde"
+                    android:text="@string/Filtrado_facturas_desde"
                     android:textColor="@color/gris"
                     android:textSize="14sp" />
 
@@ -92,7 +92,7 @@
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:cornerRadius="13dp"
-                    android:text="@string/dia_mes_anio" />
+                    android:text="@string/Filtrado_dia_mes_anio" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5sp"
                     android:layout_weight="1"
-                    android:text="@string/filtrado_facturas_hasta"
+                    android:text="@string/Filtrado_facturas_hasta"
                     android:textColor="@color/gris"
                     android:textSize="14sp" />
 
@@ -120,7 +120,7 @@
                     android:textColor="@color/black"
                     android:textSize="15sp"
                     app:cornerRadius="13dp"
-                    android:text="@string/dia_mes_anio" />
+                    android:text="@string/Filtrado_dia_mes_anio" />
             </LinearLayout>
         </LinearLayout>
 
@@ -132,7 +132,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/por_un_importe"
+            android:text="@string/Filtrado_por_un_importe"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -166,7 +166,7 @@
                     android:padding="5sp"
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:text="@string/_0"
+                    android:text="@string/Filtrado_0"
                     android:textColor="@color/color_consumo"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -183,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5sp"
                     android:layout_weight="1"
-                    android:text="@string/valorTVMin"
+                    android:text="@string/Filtrado_valorTVMin"
                     android:textColor="@color/gris_boton"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -219,7 +219,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/por_estado"
+            android:text="@string/Filtrado_por_estado"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -229,35 +229,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/pagadas_check" />
+            android:text="@string/Filtrado_pagadas_check" />
 
         <CheckBox
             android:id="@+id/Chck_Anuladas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/anuladas_check" />
+            android:text="@string/Filtrado_anuladas_check" />
 
         <CheckBox
             android:id="@+id/Chck_CuotaFija"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/cuota_fija_check" />
+            android:text="@string/Filtrado_cuota_fija_check" />
 
         <CheckBox
             android:id="@+id/Chck_Pendientes_De_Pago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/pendientes_de_pago_check" />
+            android:text="@string/Filtrado_pendientes_de_pago_check" />
 
         <CheckBox
             android:id="@+id/Chck_PlanDePago"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@string/plan_de_pago_check" />
+            android:text="@string/Filtrado_plan_de_pago_check" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -276,7 +276,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="5sp"
                 app:cornerRadius="12dp"
-                android:text="@string/btn_filtrar" />
+                android:text="@string/Filtrado_btn_filtrar" />
             <Button
                 android:id="@+id/btnEliminarFiltro"
                 android:layout_marginTop="2sp"
@@ -289,7 +289,7 @@
                 android:backgroundTint="@color/gris_boton"
                 android:layout_marginStart="5sp"
                 android:layout_weight="1"
-                android:text="@string/eliminar" />
+                android:text="@string/Filtrado_eliminar" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

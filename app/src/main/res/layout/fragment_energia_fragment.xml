@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:layout_gravity="center"
-            android:text="@string/TV_Energia" />
+            android:text="@string/FGEnergia_TV_Energia" />
 
     </LinearLayout>
 </LinearLayout>

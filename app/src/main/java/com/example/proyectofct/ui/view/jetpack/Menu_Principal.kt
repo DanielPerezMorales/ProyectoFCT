@@ -228,7 +228,7 @@ private fun TextWithButtonSignOut(onClick: () -> Unit) {
                 .padding(start = 10.dp)
         ) {
             Text(
-                text = stringResource(id = R.string.cerrar_sesi_n),
+                text = stringResource(id = R.string.PaginaPrincipal_cerrar_sesi_n),
                 fontSize = 20.sp,
                 modifier = Modifier.padding(10.dp)
             )

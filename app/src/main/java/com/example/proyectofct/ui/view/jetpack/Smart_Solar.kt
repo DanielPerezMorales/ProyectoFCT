@@ -71,7 +71,7 @@ private fun ParteDeArriba(navController: NavController?) {
             )
         }
         Text(
-            text = stringResource(id = com.example.proyectofct.R.string.atras), fontSize = 20.sp,
+            text = stringResource(id = com.example.proyectofct.R.string.SS_atras), fontSize = 20.sp,
             color = colorResource(
                 id = com.example.proyectofct.R.color.color_consumo
             )
@@ -82,7 +82,7 @@ private fun ParteDeArriba(navController: NavController?) {
 @Composable
 private fun TextoGrande() {
     Text(
-        text = stringResource(id = com.example.proyectofct.R.string.smart_solar),
+        text = stringResource(id = com.example.proyectofct.R.string.SS_smart_solar),
         fontSize = 30.sp,
         fontWeight = FontWeight.Bold,
         modifier = Modifier.padding(start = 20.dp)

@@ -37,9 +37,9 @@ class PantallaPrincipalSmartSolar : AppCompatActivity() {
 
     private fun createTab() {
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragmentWithTab(MiInstalacionFragment(), getString(R.string.mi_instalaci_n))
-        adapter.addFragmentWithTab(EnergiaFragment(), getString(R.string.energ_a))
-        adapter.addFragmentWithTab(detallesfragment, getString(R.string.detalles))
+        adapter.addFragmentWithTab(MiInstalacionFragment(), getString(R.string.SS_mi_instalaci_n))
+        adapter.addFragmentWithTab(EnergiaFragment(), getString(R.string.SS_energ_a))
+        adapter.addFragmentWithTab(detallesfragment, getString(R.string.SS_detalles))
 
         binding.VP.adapter = adapter
         binding.tablayout.setupWithViewPager(binding.VP)

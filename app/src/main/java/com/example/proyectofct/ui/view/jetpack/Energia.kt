@@ -47,7 +47,7 @@ private fun Instalacion_Body() {
         ImagenInstalacion()
         Spacer(modifier = Modifier.height(30.dp))
         Text(
-            text = stringResource(id = com.example.proyectofct.R.string.TV_Energia),
+            text = stringResource(id = com.example.proyectofct.R.string.FGEnergia_TV_Energia),
             Modifier
                 .padding(horizontal = 16.dp)
                 .width(230.dp)
